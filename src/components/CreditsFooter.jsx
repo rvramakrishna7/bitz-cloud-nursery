@@ -13,7 +13,7 @@ export default function CreditsFooter({
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="space-y-2">
             <div className="font-display font-bold text-xl text-espresso">
-              Bitz<span className="text-pink-500">.sky</span> ·
+              Mochi<span className="text-pink-500">.sky</span> ·
               Celestial Cloud Sanctuary
             </div>
             <p className="text-xs sm:text-sm text-muted leading-relaxed">
@@ -21,7 +21,7 @@ export default function CreditsFooter({
               <strong>haX.baby — Baby&apos;s First Website (48-Hour Hackathon)</strong>.
               Track 2: Your Own Baby (100% Original 3D Plushie Character &amp; World).
             </p>
-            <div className="pt-1 text-xs font-mono text-pink-600 dark:text-pink-300 font-bold whitespace-nowrap">
+            <div className="pt-1 text-xs font-mono text-pink-600 dark:text-pink-300 font-bold">
               Registration Ref: {BITZ_CHARACTER_SHEET.registrationRef}
             </div>
           </div>
@@ -33,13 +33,13 @@ export default function CreditsFooter({
             </h4>
             <ul className="text-xs text-muted space-y-1.5 leading-relaxed">
               <li>
-                <strong>3D Plushie Character &amp; Studio Renders:</strong> 100% Original
-                Multi-Part Interactive 3D Plushie Rig &amp; Toy Renders created during the
+                <strong>3D Plushie Character &amp; Dress-Up Wardrobe:</strong> 100% Original
+                Multi-Part Interactive 3D Plushie Rig with 5 Baby Outfits created during the
                 17–19 Oct 2026 sprint.
               </li>
               <li>
-                <strong>1773 Symphony Lullaby Synth:</strong> 100% Procedural Web Audio API
-                Violin, Grand Piano, Flute, Celesta &amp; Harp synthesis (Mozart K.183 Public Domain).
+                <strong>1773 Symphony &amp; Nursery Lullaby Synth:</strong> 100% Procedural Web Audio API
+                Violin, Grand Piano, Indian Bansuri Flute &amp; Music Box synthesis.
               </li>
               <li>
                 <strong>Open-Source Libraries:</strong> Next.js, React, Tailwind CSS,
@@ -57,7 +57,7 @@ export default function CreditsFooter({
               <button
                 type="button"
                 onClick={onToggleSparkle}
-                className="px-3.5 py-1.5 rounded-full text-xs font-mono font-bold border-2 border-pink-300 bg-pink-50 hover:bg-pink-100 text-pink-900 dark:bg-slate-800 dark:text-pink-200 transition whitespace-nowrap"
+                className="px-3.5 py-1.5 rounded-full text-xs font-mono font-bold border-2 border-pink-300 bg-pink-50 hover:bg-pink-100 text-pink-900 dark:bg-slate-800 dark:text-pink-200 transition"
               >
                 {sparkleEnabled ? "✨ Sparkle Cursor Trail: ON" : "✨ Sparkle Cursor Trail: OFF"}
               </button>
@@ -66,11 +66,11 @@ export default function CreditsFooter({
             <div className="p-3 rounded-2xl bg-sky-50 dark:bg-slate-800 border-2 border-sky-200 dark:border-slate-700 text-xs font-mono">
               {easterEggUnlocked ? (
                 <span className="text-pink-600 dark:text-pink-300 font-bold">
-                  🏆 Secret Unlocked: Rainbow Aurora Star-Bell Master!
+                  🏆 Secret Unlocked: Rainbow Star-Bell Confetti Master!
                 </span>
               ) : (
                 <span className="text-muted">
-                  🥚 Secret Hint: Tap Bitz&apos;s golden star-bell 3 times!
+                  🥚 Secret Hint: Tap Mochi&apos;s golden star-bell 3 times!
                 </span>
               )}
             </div>

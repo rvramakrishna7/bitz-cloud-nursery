@@ -12,7 +12,7 @@ const INITIAL_DATA = {
       name: "Barnaby the Owl",
       mood: "🌟 Starlight Wish",
       message:
-        "Thank you Bitz for the silver cricket lullaby! The Clocktower Attic has never been cozier.",
+        "Thank you Mochi for the silver cricket lullaby! The Clocktower Attic has never been cozier.",
       createdAt: "2026-10-17T17:20:00+05:30",
     },
     {
@@ -28,7 +28,7 @@ const INITIAL_DATA = {
       name: "Sai & The Sky Builders",
       mood: "🌈 Rainbow Spark",
       message:
-        "Small ideas, brighter beginnings! Keep weaving those fluffy cumulus dreams, little Bitz!",
+        "Small ideas, brighter beginnings! Keep weaving those fluffy cumulus dreams, little Mochi!",
       createdAt: "2026-10-17T18:10:00+05:30",
     },
   ],

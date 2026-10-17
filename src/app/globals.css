@@ -325,3 +325,113 @@ body {
     animation: none !important;
   }
 }
+
+/* 10. Hanging Crib Mobile Sway & Bounce (Test 1 Mobile Charms) */
+@keyframes mobileSway {
+  0%, 100% {
+    transform: rotate(-3deg) translateY(0px);
+  }
+  50% {
+    transform: rotate(3deg) translateY(-6px);
+  }
+}
+
+@keyframes mobileSwayAlt {
+  0%, 100% {
+    transform: rotate(3deg) translateY(-5px);
+  }
+  50% {
+    transform: rotate(-3deg) translateY(2px);
+  }
+}
+
+.animate-mobile-sway {
+  transform-origin: top center;
+  animation: mobileSway 3.6s ease-in-out infinite;
+}
+
+.animate-mobile-sway-alt {
+  transform-origin: top center;
+  animation: mobileSwayAlt 4.1s ease-in-out infinite;
+}
+
+/* 11. Living Sky Atmosphere: Drifting Clouds & Shooting Stars (Test 4) */
+@keyframes cloudDriftAcross {
+  0% {
+    transform: translateX(-12vw) translateY(0px);
+  }
+  50% {
+    transform: translateX(50vw) translateY(-10px);
+  }
+  100% {
+    transform: translateX(112vw) translateY(0px);
+  }
+}
+
+.animate-cloud-drift-1 {
+  animation: cloudDriftAcross 38s linear infinite;
+}
+
+.animate-cloud-drift-2 {
+  animation: cloudDriftAcross 52s linear -18s infinite;
+}
+
+@keyframes shootingStarStreak {
+  0% {
+    transform: translateX(0px) translateY(0px) rotate(-35deg) scale(0);
+    opacity: 0;
+  }
+  10% {
+    transform: translateX(-60px) translateY(40px) rotate(-35deg) scale(1);
+    opacity: 1;
+  }
+  35% {
+    transform: translateX(-340px) translateY(220px) rotate(-35deg) scale(0.4);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(-340px) translateY(220px) rotate(-35deg) scale(0);
+    opacity: 0;
+  }
+}
+
+.animate-shooting-star-1 {
+  animation: shootingStarStreak 5.5s ease-out infinite;
+}
+
+.animate-shooting-star-2 {
+  animation: shootingStarStreak 7.2s ease-out 2.6s infinite;
+}
+
+/* 12. Jelly Bounce & Spinning Lollipop Wand & Wish Lantern Sway */
+@keyframes jellyBounce {
+  0% {
+    transform: scale(0.8, 1.2) translateY(-12px);
+  }
+  40% {
+    transform: scale(1.12, 0.88) translateY(0px);
+  }
+  70% {
+    transform: scale(0.96, 1.04) translateY(-3px);
+  }
+  100% {
+    transform: scale(1, 1) translateY(0px);
+  }
+}
+
+.animate-jelly-bounce {
+  animation: jellyBounce 0.55s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@keyframes spinSlow {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spinSlow 9s linear infinite;
+}

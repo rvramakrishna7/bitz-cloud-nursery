@@ -27,9 +27,9 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata = {
-  title: "Meet Bitz · The Baby Cloud-Sprite | Interactive Sky Sanctuary",
+  title: "Meet Mochi · The Baby Cloud-Sprite | Interactive Sky Sanctuary",
   description:
-    "Interactive 3D-plushie character portfolio of Bitz, Junior Weather Weaver at the Sky-Loft Sanctuary.",
+    "Interactive 3D-plushie character portfolio of Mochi, Junior Weather Weaver at the Sky-Loft Sanctuary.",
 };
 
 export default function RootLayout({ children }) {
