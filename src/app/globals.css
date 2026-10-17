@@ -3,33 +3,31 @@
 @tailwind utilities;
 
 :root {
-  /* Sunlit Sky Sanctuary (Day Theme — Zero hax.baby pink/brown copy!) */
-  --bg-cream: #edf5ff;
-  --bg-card: rgba(255, 255, 255, 0.86);
-  --text-espresso: #0f172a;
+  /* Light Sky Blue & Baby Pink Theme (Solid, Crisp, Zero Harsh Gradients) */
+  --bg-cream: #eef8ff;
+  --bg-card: #ffffff;
+  --text-espresso: #1e293b;
   --text-muted: #475569;
-  --accent-berry: #4f46e5;
-  --accent-pink: #e0e7ff;
+  --accent-berry: #ec4899;
+  --accent-pink: #ffe4ef;
   --accent-gold: #f59e0b;
-  --accent-sky: #06b6d4;
-  --border-chunky: #312e81;
-  --hero-gradient: radial-gradient(circle at 18% 18%, #ffffff 0%, #e0f2fe 45%, #ede9fe 100%);
-  --card-shadow: 0 20px 50px -12px rgba(79, 70, 229, 0.14), 0 0 0 1px rgba(99, 102, 241, 0.16);
+  --accent-sky: #0284c7;
+  --border-chunky: #f472b6;
+  --card-shadow: 0 12px 32px -8px rgba(56, 189, 248, 0.18), 0 0 0 2px #fce7f3;
 }
 
 [data-theme="night"] {
-  /* Aurora Starlight Observatory (Night Theme — Crisp, magical, 100% readable) */
-  --bg-cream: #070b19;
-  --bg-card: rgba(17, 25, 48, 0.84);
+  /* Soft Pastel Twilight Sky & Baby Pink Night Mode (100% Readable, Zero Muddy Gradients) */
+  --bg-cream: #0f172a;
+  --bg-card: #1e293b;
   --text-espresso: #f8fafc;
-  --text-muted: #94a3b8;
-  --accent-berry: #38bdf8;
-  --accent-pink: #1e293b;
+  --text-muted: #cbd5e1;
+  --accent-berry: #f472b6;
+  --accent-pink: #334155;
   --accent-gold: #fbbf24;
-  --accent-sky: #34d399;
+  --accent-sky: #38bdf8;
   --border-chunky: #38bdf8;
-  --hero-gradient: radial-gradient(circle at 20% 15%, #1e1b4b 0%, #0f172a 52%, #050814 100%);
-  --card-shadow: 0 24px 60px -15px rgba(56, 189, 248, 0.18), 0 0 0 1px rgba(56, 189, 248, 0.24);
+  --card-shadow: 0 14px 36px -8px rgba(15, 23, 42, 0.6), 0 0 0 2px rgba(244, 114, 182, 0.3);
 }
 
 html {
@@ -37,42 +35,119 @@ html {
 }
 
 body {
-  background: var(--hero-gradient);
   background-color: var(--bg-cream);
-  background-attachment: fixed;
   color: var(--text-espresso);
   font-family: var(--font-plus-jakarta), system-ui, -apple-system, sans-serif;
-  transition: background-color 0.4s ease, color 0.4s ease;
+  transition: background-color 0.35s ease, color 0.35s ease;
   overflow-x: hidden;
 }
 
 .glass-panel {
-  background: var(--bg-card);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background-color: var(--bg-card);
   box-shadow: var(--card-shadow);
 }
 
-/* Clean, Playful 90s Toybox Mode (+5 pts Side Quest — NO ugly dots or unreadable borders!) */
+/* Clean, Playful 90s Toybox Mode (+5 pts Side Quest) */
 [data-chaos="true"] .glass-panel,
-[data-chaos="true"] article,
-[data-chaos="true"] section > div {
+[data-chaos="true"] article {
   border: 3px solid var(--border-chunky) !important;
-  box-shadow: 6px 6px 0px var(--accent-gold) !important;
-  border-radius: 20px !important;
+  box-shadow: 6px 6px 0px #7dd3fc !important;
+  border-radius: 24px !important;
 }
 
 @keyframes floatSlow {
   0%, 100% {
-    transform: translateY(0px) rotate(0deg);
+    transform: translateY(0px);
   }
   50% {
-    transform: translateY(-10px) rotate(1.2deg);
+    transform: translateY(-10px);
   }
 }
 
 .animate-float {
-  animation: floatSlow 5s ease-in-out infinite;
+  animation: floatSlow 4.2s ease-in-out infinite;
+}
+
+@keyframes bellyTickleSquish {
+  0% {
+    transform: scale(1, 1) rotate(0deg);
+  }
+  20% {
+    transform: scale(1.13, 0.88) translateY(8px) rotate(-4deg);
+  }
+  45% {
+    transform: scale(0.92, 1.12) translateY(-14px) rotate(4deg);
+  }
+  70% {
+    transform: scale(1.08, 0.93) translateY(4px) rotate(-3deg);
+  }
+  85% {
+    transform: scale(0.97, 1.04) translateY(-4px) rotate(2deg);
+  }
+  100% {
+    transform: scale(1, 1) rotate(0deg);
+  }
+}
+
+.animate-belly-tickle {
+  animation: bellyTickleSquish 0.75s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+}
+
+@keyframes waveArmRight {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-28deg) translateY(-6px);
+  }
+}
+
+.animate-wave-arm {
+  transform-origin: 295px 255px;
+  animation: waveArmRight 1.6s ease-in-out infinite;
+}
+
+.animate-wave-arm-fast {
+  transform-origin: 295px 255px;
+  animation: waveArmRight 0.28s ease-in-out infinite;
+}
+
+@keyframes swingBell {
+  0%, 100% {
+    transform: rotate(-7deg);
+  }
+  50% {
+    transform: rotate(9deg);
+  }
+}
+
+.animate-swing-bell {
+  transform-origin: 342px 158px;
+  animation: swingBell 2.4s ease-in-out infinite;
+}
+
+.animate-swing-bell-fast {
+  transform-origin: 342px 158px;
+  animation: swingBell 0.25s ease-in-out infinite;
+}
+
+@keyframes floatHeartUp {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.6);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-10px) scale(1.15);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-48px) scale(0.9);
+  }
+}
+
+.animate-heart-pop {
+  animation: floatHeartUp 0.95s ease-out forwards;
 }
 
 @keyframes marquee {
@@ -92,6 +167,9 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee,
   .animate-float,
+  .animate-belly-tickle,
+  .animate-wave-arm,
+  .animate-swing-bell,
   .animate-bounce,
   .animate-pulse,
   .animate-ping {

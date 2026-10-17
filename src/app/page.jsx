@@ -97,18 +97,18 @@ export default function HomePage() {
         {/* SECTION 01 & 05.1: HERO INTRO ("MEET THE BABY") */}
         <section
           aria-labelledby="hero-title"
-          className="pt-8 pb-12 sm:py-16 px-4 max-w-6xl mx-auto"
+          className="pt-8 pb-12 sm:py-14 px-4 max-w-6xl mx-auto"
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* Left Column: Editorial Intro & Pillars */}
             <div className="lg:col-span-7 space-y-5 text-center lg:text-left">
               <div className="inline-flex flex-wrap items-center justify-center lg:justify-start gap-2">
-                <span className="px-3.5 py-1 rounded-full text-xs font-mono uppercase tracking-wider bg-gradient-to-r from-indigo-600 to-sky-500 text-white font-bold shadow-sm">
+                <span className="px-3.5 py-1 rounded-full text-xs font-mono uppercase tracking-wider bg-pink-500 text-white font-bold shadow-sm">
                   Track 2 · Your Own Baby
                 </span>
-                <span className="px-3.5 py-1 rounded-full text-xs font-mono bg-indigo-500/10 text-indigo-700 dark:text-sky-300 border border-indigo-500/20 font-semibold">
-                  <Sparkles className="w-3 h-3 inline mr-1 text-amber-500" />
-                  3D Plushie + Live WebGL Stage
+                <span className="px-3.5 py-1 rounded-full text-xs font-mono bg-sky-100 text-sky-900 dark:bg-sky-900/50 dark:text-sky-200 border border-sky-300 dark:border-sky-700 font-bold">
+                  <Sparkles className="w-3 h-3 inline mr-1 text-pink-500" />
+                  Interactive 3D Plushie Character
                 </span>
               </div>
 
@@ -117,13 +117,13 @@ export default function HomePage() {
                 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-espresso font-display leading-[1.08] tracking-tight"
               >
                 Meet{" "}
-                <span className="bg-gradient-to-r from-indigo-600 via-sky-500 to-amber-500 bg-clip-text text-transparent">
+                <span className="text-pink-500 underline decoration-sky-400 decoration-wavy underline-offset-8">
                   Bitz
                 </span>
                 , The Baby Cloud-Sprite.
               </h1>
 
-              <p className="font-serif italic text-lg sm:text-xl text-indigo-600 dark:text-sky-300 font-semibold">
+              <p className="font-serif italic text-lg sm:text-xl text-sky-700 dark:text-sky-300 font-semibold">
                 {BITZ_CHARACTER_SHEET.tagline}
               </p>
 
@@ -134,11 +134,11 @@ export default function HomePage() {
                 and origami dream boats.
               </p>
 
-              {/* Quick Action Buttons */}
+              {/* Quick Action Buttons (Solid Baby Pink & Light Sky Blue — Zero Gradients) */}
               <div className="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-3">
                 <a
                   href="#projects-showcase"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold bg-gradient-to-r from-indigo-600 to-sky-500 text-white shadow-lg hover:opacity-95 transition"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold bg-pink-500 hover:bg-pink-600 text-white border-2 border-pink-600 shadow-sm transition"
                 >
                   <Compass className="w-4 h-4" />
                   Play With Bitz&apos;s 4 Creations
@@ -146,33 +146,33 @@ export default function HomePage() {
 
                 <a
                   href="#origin-story"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-sm font-semibold border border-indigo-500/30 glass-panel text-espresso hover:border-indigo-500 transition"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-sm font-bold bg-sky-100 hover:bg-sky-200 text-sky-950 border-2 border-sky-300 transition"
                 >
-                  <BookOpen className="w-4 h-4 text-indigo-500" />
+                  <BookOpen className="w-4 h-4 text-sky-700" />
                   Read Bedtime Origin Story
                 </a>
               </div>
 
               {/* 3 Core Challenge Pillars Summary Bar */}
               <div className="pt-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-left">
-                <div className="p-4 rounded-2xl glass-panel">
-                  <div className="text-[11px] font-mono uppercase text-indigo-600 dark:text-sky-300 font-bold">
+                <div className="p-4 rounded-2xl bg-white dark:bg-slate-800 border-2 border-pink-200 dark:border-pink-500/30 shadow-sm">
+                  <div className="text-[11px] font-mono uppercase text-pink-600 dark:text-pink-300 font-bold">
                     01 · What Bitz Is
                   </div>
                   <div className="text-xs font-semibold text-espresso mt-1">
                     0.4-Marshmallow Cumulus Sprite with Star-Bell Cap
                   </div>
                 </div>
-                <div className="p-4 rounded-2xl glass-panel">
-                  <div className="text-[11px] font-mono uppercase text-indigo-600 dark:text-sky-300 font-bold">
+                <div className="p-4 rounded-2xl bg-white dark:bg-slate-800 border-2 border-sky-200 dark:border-sky-500/30 shadow-sm">
+                  <div className="text-[11px] font-mono uppercase text-sky-700 dark:text-sky-300 font-bold">
                     02 · What Bitz Does
                   </div>
                   <div className="text-xs font-semibold text-espresso mt-1">
                     Weaves Raindrop Lullabies & Bottled Auroras
                   </div>
                 </div>
-                <div className="p-4 rounded-2xl glass-panel">
-                  <div className="text-[11px] font-mono uppercase text-indigo-600 dark:text-sky-300 font-bold">
+                <div className="p-4 rounded-2xl bg-white dark:bg-slate-800 border-2 border-pink-200 dark:border-pink-500/30 shadow-sm">
+                  <div className="text-[11px] font-mono uppercase text-pink-600 dark:text-pink-300 font-bold">
                     03 · Bitz&apos;s Story
                   </div>
                   <div className="text-xs font-semibold text-espresso mt-1">
@@ -182,16 +182,14 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Right Column: Interactive Living 3D Plushie + WebGL Character Stage */}
-            <div className="lg:col-span-5">
-              <div className="rounded-3xl glass-panel p-4 sm:p-6">
-                <BitzCharacter
-                  theme={theme}
-                  onToggleTheme={handleToggleTheme}
-                  onEasterEggTriggered={handleEasterEggUnlocked}
-                  easterEggUnlocked={easterEggUnlocked}
-                />
-              </div>
+            {/* Right Column: FREE-FLOATING 3D PLUSHIE CHARACTER (NO CARD WRAPPER!) */}
+            <div className="lg:col-span-5 flex items-center justify-center">
+              <BitzCharacter
+                theme={theme}
+                onToggleTheme={handleToggleTheme}
+                onEasterEggTriggered={handleEasterEggUnlocked}
+                easterEggUnlocked={easterEggUnlocked}
+              />
             </div>
           </div>
         </section>
