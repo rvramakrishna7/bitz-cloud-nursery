@@ -91,19 +91,36 @@ export default function BitzCharacter({
     }, 2500);
   };
 
-  // Action 3: Cozy Cradle Sway & Cloud Lullaby
+  // Action 3: Cozy Cradle Sway & Iconic Titan Watch Lullaby (3 Sweet Variations!)
   const handleSingLullaby = (e) => {
     if (e) e.stopPropagation();
-    soundEngine.playNote(523.25, 0.3, "sine");
-    setTimeout(() => soundEngine.playNote(659.25, 0.3, "sine"), 220);
-    setTimeout(() => soundEngine.playNote(783.99, 0.45, "triangle"), 440);
+    if (moodReaction === "lullaby" && soundEngine.isPlayingLullaby) {
+      soundEngine.stopLullaby();
+      setMoodReaction("happy");
+      setSpeechBubble("✨ Lullaby paused! Tap anytime to hear the sweet Titan Watch melody again!");
+      return;
+    }
     setMoodReaction("lullaby");
     setSpeechBubble(
-      "♪ Hush little raincloud, sway in the sky... rocking gently on my sky-blue cushion! 🎶☁️"
+      "🎶 Playing Classic Titan Watch Lullaby (Mozart K.183 Sweet Music Box, Flute & Santoor Variations)... ☁️✨"
     );
-    setTimeout(() => {
-      setMoodReaction((curr) => (curr === "lullaby" ? "happy" : curr));
-    }, 2800);
+    soundEngine.playTitanLullaby(
+      "full",
+      (ev) => {
+        if (ev.label === "Flute Bb4") {
+          setSpeechBubble(
+            "🎶 Variation 2: Sweet Bansuri Flute & Santoor Arpeggio ('The Joy of Gifting' Melody)... 🌸✨"
+          );
+        } else if (ev.label === "Star G5") {
+          setSpeechBubble(
+            "🎶 Variation 3: Celestial Starlight Music-Box Finale... swaying gently on my cloud cushion! 🌙🎶"
+          );
+        }
+      },
+      () => {
+        setMoodReaction((curr) => (curr === "lullaby" ? "happy" : curr));
+      }
+    );
   };
 
   // Action 4: Ring Golden Star-Bell (3x Unlocks Overhead Rainbow Bridge!)
@@ -1024,10 +1041,10 @@ export default function BitzCharacter({
         </svg>
       </div>
 
-      {/* LIVE BABY DRESS-UP ACCESSORY SWITCHER (Instant Judge Wow Factor!) */}
-      <div className="mt-1 mb-2 flex flex-wrap items-center justify-center gap-1.5 bg-white/90 dark:bg-slate-800 px-3 py-1.5 rounded-full border-2 border-pink-200 dark:border-sky-700 shadow-sm">
-        <span className="text-[11px] font-mono font-bold text-pink-600 dark:text-pink-300 px-1.5">
-          Dress Up Bitz:
+      {/* LIVE BABY DRESS-UP ACCESSORY SWITCHER (Single-line pills, zero wrapping!) */}
+      <div className="mt-1 mb-2.5 flex items-center justify-center gap-1.5 bg-white/95 dark:bg-slate-800 px-3.5 py-1.5 rounded-full border-2 border-pink-200 dark:border-sky-700 shadow-sm overflow-x-auto max-w-full">
+        <span className="text-xs font-mono font-bold text-pink-600 dark:text-pink-300 px-1.5 whitespace-nowrap">
+          ✨ Dress Up:
         </span>
         {[
           { id: "bow", label: "🎀 Pink Bow" },
@@ -1039,11 +1056,11 @@ export default function BitzCharacter({
             key={item.id}
             type="button"
             onClick={() => {
-              soundEngine.playNote(783.99, 0.2, "sine");
+              soundEngine.playNote(783.99, 0.22, "celesta");
               setAccessory(item.id);
               setSpeechBubble(`Yay! You dressed me up with my cute ${item.label}! 💖✨`);
             }}
-            className={`px-2.5 py-1 rounded-full text-[11px] font-bold transition ${
+            className={`px-3 py-1 rounded-full text-xs font-bold transition whitespace-nowrap shrink-0 ${
               accessory === item.id
                 ? "bg-pink-500 text-white shadow-sm"
                 : "bg-pink-50 dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-pink-100"
@@ -1054,42 +1071,46 @@ export default function BitzCharacter({
         ))}
       </div>
 
-      {/* CLEAN SOFT PASTEL ACTION BUTTONS (Exact style from 37ae0b0 that user loved!) */}
-      <div className="mt-1 flex flex-wrap items-center justify-center gap-2">
+      {/* CLEAN SINGLE-LINE SOFT PASTEL ACTION BUTTONS (Zero 2-line text wrapping!) */}
+      <div className="mt-1 grid grid-cols-2 sm:flex sm:flex-nowrap items-center justify-center gap-2.5 w-full max-w-2xl px-2">
         <button
           type="button"
           onClick={handlePokeBelly}
-          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold bg-pink-500 hover:bg-pink-600 text-white border-2 border-pink-600 active:translate-y-0.5 transition shadow-sm"
+          className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full text-xs font-bold bg-pink-500 hover:bg-pink-600 text-white border-2 border-pink-600 active:translate-y-0.5 transition shadow-sm whitespace-nowrap shrink-0"
         >
-          <Heart className="w-3.5 h-3.5 fill-current text-pink-100" />
-          Tickle Belly (Jump &amp; Cheer)
+          <Heart className="w-3.5 h-3.5 fill-current text-pink-100 shrink-0" />
+          <span>Tickle Belly</span>
         </button>
 
         <button
           type="button"
           onClick={handleWaveMoon}
-          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold bg-sky-100 hover:bg-sky-200 text-sky-950 border-2 border-sky-300 active:translate-y-0.5 transition shadow-sm"
+          className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full text-xs font-bold bg-sky-100 hover:bg-sky-200 text-sky-950 border-2 border-sky-300 active:translate-y-0.5 transition shadow-sm whitespace-nowrap shrink-0"
         >
-          <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-          Wave Moon Lantern
+          <Sparkles className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+          <span>Wave Moon Lantern</span>
         </button>
 
         <button
           type="button"
           onClick={handleSingLullaby}
-          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold bg-pink-100 hover:bg-pink-200 text-pink-950 border-2 border-pink-300 active:translate-y-0.5 transition shadow-sm"
+          className={`inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full text-xs font-bold border-2 active:translate-y-0.5 transition shadow-sm whitespace-nowrap shrink-0 ${
+            isLullaby
+              ? "bg-amber-300 border-amber-500 text-slate-950"
+              : "bg-pink-100 hover:bg-pink-200 text-pink-950 border-pink-300"
+          }`}
         >
-          <Music className="w-3.5 h-3.5 text-pink-600" />
-          Sing Cloud Lullaby
+          <Music className="w-3.5 h-3.5 text-pink-600 shrink-0" />
+          <span>{isLullaby ? "⏸ Playing Titan Lullaby..." : "🎶 Titan Lullaby"}</span>
         </button>
 
         <button
           type="button"
           onClick={handleAntennaClick}
-          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold bg-sky-500 hover:bg-sky-600 text-white border-2 border-sky-600 active:translate-y-0.5 transition shadow-sm"
+          className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full text-xs font-bold bg-sky-500 hover:bg-sky-600 text-white border-2 border-sky-600 active:translate-y-0.5 transition shadow-sm whitespace-nowrap shrink-0"
         >
-          <Zap className="w-3.5 h-3.5 text-amber-200 fill-current" />
-          Ring Star-Bell ({antennaClicks}/3)
+          <Zap className="w-3.5 h-3.5 text-amber-200 fill-current shrink-0" />
+          <span>Ring Star-Bell ({antennaClicks}/3)</span>
         </button>
       </div>
     </div>
