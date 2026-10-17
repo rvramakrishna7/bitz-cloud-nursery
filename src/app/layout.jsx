@@ -27,18 +27,22 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata = {
-  title: "Meet Bitz · The Baby Cloud-Sprite | Baby's First Website (haX.baby)",
+  title: "Meet Bitz · The Baby Cloud-Sprite | Interactive Sky Sanctuary",
   description:
-    "Interactive 90s-soul character portfolio of Bitz, Junior Weather Weaver at the Sky-Loft Nursery. Built for the haX.baby 48-Hour Hackathon (Track 2: Your Own Baby).",
+    "Interactive 3D-plushie character portfolio of Bitz, Junior Weather Weaver at the Sky-Loft Sanctuary.",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${fredoka.variable} ${fraunces.variable} ${plusJakarta.variable} ${spaceMono.variable}`}
     >
-      <body className="min-h-screen antialiased selection:bg-[#a34063] selection:text-[#fff8f1]">
+      <body
+        suppressHydrationWarning
+        className="min-h-screen antialiased selection:bg-pink-400 selection:text-white"
+      >
         {children}
       </body>
     </html>

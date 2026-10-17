@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { Zap, Heart, Music, Sparkles, Sun, Moon } from "lucide-react";
+import { Zap, Heart, Music, Sparkles } from "lucide-react";
 import confetti from "canvas-confetti";
 import { calculatePupilOffset, soundEngine } from "@/lib/soundEngine";
 
@@ -17,9 +17,10 @@ export default function BitzCharacter({
   const [antennaClicks, setAntennaClicks] = useState(0);
   // Mood states: "happy" | "giggle" | "wave" | "lullaby" | "bell" | "rainbow"
   const [moodReaction, setMoodReaction] = useState("happy");
+  const [accessory, setAccessory] = useState("bow"); // "bow" | "crown" | "headphones" | "pacifier"
   const [isBlinking, setIsBlinking] = useState(false);
   const [speechBubble, setSpeechBubble] = useState(
-    "Hiya! Move your mouse—my eyes follow you! Toggle Day/Night Sky to see my floating Sun, Moon & Rainbow change! ✨"
+    "Hiya! Move your mouse—my eyes follow you! Try my 4 actions or dress me up with cute accessories below! ✨"
   );
 
   // Real-time cursor & touch tracking (maxOffset = 5.2px so eyeballs stay 100% inside sockets)
@@ -33,7 +34,7 @@ export default function BitzCharacter({
       };
       const offset = calculatePupilOffset(center, { x: clientX, y: clientY }, 5.2);
       setPupilOffset(offset);
-      const tilt = Math.max(-6, Math.min(6, (clientX - center.x) / 38));
+      const tilt = Math.max(-7, Math.min(7, (clientX - center.x) / 36));
       setHeadTilt(Number(tilt.toFixed(2)));
     };
 
@@ -61,14 +62,14 @@ export default function BitzCharacter({
     return () => clearInterval(blinkInterval);
   }, []);
 
-  // Action 1: Tickle Pajama Belly (Joyful Jump, Feet Kick & Heart Bubbles)
+  // Action 1: Joyful Jump, Cheer & Heart-Bubble Laugh (Belly Tickle)
   const handlePokeBelly = () => {
     soundEngine.playGiggle();
     setMoodReaction("giggle");
     const messages = [
-      "Hehehe! Tickling my cloud-onesie makes my little booties kick with joy! 💖☁️",
-      "Wheee! Look at my Star-Lantern and Music Box bounce! 🌸✨",
-      "Giggle-puff! You shook loose floating baby-pink hearts! 💕",
+      "Wheee! Tickling my belly makes me float up and cheer! 💖☁️",
+      "Hehehe! Look at my rosy cheeks and happy heart bubbles! 🌸✨",
+      "Boing-puff! That tickles right through my marshmallow fluff! 💕",
     ];
     setSpeechBubble(messages[Math.floor(Math.random() * messages.length)]);
     setTimeout(() => {
@@ -76,14 +77,14 @@ export default function BitzCharacter({
     }, 2400);
   };
 
-  // Action 2: Shine Star-Lantern & Wave Music Box (Wink + Starlight)
+  // Action 2: Friendly Wave & Moon Lantern Lift (Wink + Starlight)
   const handleWaveMoon = (e) => {
     if (e) e.stopPropagation();
     soundEngine.playNote(587.33, 0.25, "sine");
     setTimeout(() => soundEngine.playNote(880, 0.3, "triangle"), 140);
     setMoodReaction("wave");
     setSpeechBubble(
-      "*Winks & lifts Star-Lantern!* Look at my golden lantern and rainbow music box glow! 🏮🎶"
+      "*Winks and waves!* I'm lifting my Golden Crescent Moon & Star-Lantern to light up your sky! 🌙😉"
     );
     setTimeout(() => {
       setMoodReaction((curr) => (curr === "wave" ? "happy" : curr));
@@ -98,14 +99,14 @@ export default function BitzCharacter({
     setTimeout(() => soundEngine.playNote(783.99, 0.45, "triangle"), 440);
     setMoodReaction("lullaby");
     setSpeechBubble(
-      "♪ Rock-a-bye Bitz on the cloud top... winding my little rainbow music box! 🎶☁️"
+      "♪ Hush little raincloud, sway in the sky... rocking gently on my sky-blue cushion! 🎶☁️"
     );
     setTimeout(() => {
       setMoodReaction((curr) => (curr === "lullaby" ? "happy" : curr));
     }, 2800);
   };
 
-  // Action 4: Ring Golden Star-Bell on Cap Tip (3x Unlocks Rainbow Overdrive!)
+  // Action 4: Ring Golden Star-Bell (3x Unlocks Overhead Rainbow Bridge!)
   const handleAntennaClick = (e) => {
     if (e) e.stopPropagation();
     const nextCount = antennaClicks + 1;
@@ -115,7 +116,7 @@ export default function BitzCharacter({
       soundEngine.playSecretLullaby();
       setMoodReaction("rainbow");
       setSpeechBubble(
-        "🎉 SECRET EASTER EGG UNLOCKED! Rainbow Aurora Overdrive! Look at the moving rainbow shimmer! 🌈✨"
+        "🎉 SECRET EASTER EGG UNLOCKED! Look at the Pastel Rainbow Bridge shimmering above my head! 🌈✨"
       );
       if (typeof window !== "undefined") {
         try {
@@ -133,9 +134,9 @@ export default function BitzCharacter({
       soundEngine.playNote(659.25 + nextCount * 120, 0.28, "triangle");
       setMoodReaction("bell");
       setSpeechBubble(
-        `🔔 *Ting-a-ling!* Nightcap Star-Bell chimed (${nextCount}/3)... ring ${
+        `🔔 *Ting-a-ling!* Golden Star-Bell chimed (${nextCount}/3)... ring ${
           3 - nextCount
-        } more time${3 - nextCount === 1 ? "" : "s"} for a secret surprise!`
+        } more time${3 - nextCount === 1 ? "" : "s"} to weave a Rainbow Bridge!`
       );
       setTimeout(() => {
         setMoodReaction((curr) => (curr === "bell" ? "happy" : curr));
@@ -162,17 +163,17 @@ export default function BitzCharacter({
       className="relative flex flex-col items-center justify-center select-none py-1"
       data-testid="bitz-character-stage"
     >
-      {/* 90s Toy-Bubble Speech Box Above Bitz */}
+      {/* Clean Soft Pastel Speech Pill Above Bitz (Restored from 37ae0b0!) */}
       <div
         aria-live="polite"
-        className="mb-2 px-4 py-2 rounded-2xl bg-white dark:bg-slate-800 border-2 border-slate-900 dark:border-sky-300 shadow-[4px_4px_0px_#f472b6] text-center max-w-md relative"
+        className="mb-2 px-5 py-2.5 rounded-full bg-white dark:bg-slate-800 border-2 border-pink-300 dark:border-sky-400 shadow-sm text-center max-w-md relative"
       >
-        <p className="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-100 leading-snug">
+        <p className="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-100 leading-snug">
           {speechBubble}
         </p>
       </div>
 
-      {/* FREE-FLOATING 3D PLUSHIE BABY CHARACTER + FLOATING DAY/NIGHT CELESTIAL WORLD */}
+      {/* FREE-FLOATING SEAMLESS 3D PLUSHIE CHARACTER STAGE + FLOATING SKY WORLD */}
       <div
         onClick={handlePokeBelly}
         role="button"
@@ -185,92 +186,92 @@ export default function BitzCharacter({
           }
         }}
         style={{
-          transform: `perspective(950px) rotateY(${pupilOffset.x * 1.25}deg) rotateX(${-pupilOffset.y * 1.05}deg) rotateZ(${headTilt * 0.4}deg)`,
+          transform: `perspective(950px) rotateY(${pupilOffset.x * 1.3}deg) rotateX(${-pupilOffset.y * 1.1}deg) rotateZ(${headTilt * 0.45}deg)`,
           transition: "transform 0.16s ease-out",
         }}
         className="relative cursor-pointer focus:outline-none animate-float"
       >
-        {/* Choreographed Floating Reaction Bubbles (Hearts / Stars / Musical Notes) */}
+        {/* Choreographed Floating Bubbles (Hearts / Stars / Musical Notes) */}
         {(isGiggling || isWaving || isLullaby) && (
           <div className="pointer-events-none absolute inset-0 z-30 overflow-visible">
-            <span className="animate-bubble-1 absolute top-14 left-12 text-2xl">
+            <span className="animate-bubble-1 absolute top-14 left-10 text-2xl">
               {isGiggling ? "💖" : isWaving ? "✨" : "♪"}
             </span>
-            <span className="animate-bubble-2 absolute top-8 right-14 text-2xl">
+            <span className="animate-bubble-2 absolute top-8 right-12 text-2xl">
               {isGiggling ? "💕" : isWaving ? "🌟" : "♫"}
             </span>
-            <span className="animate-bubble-3 absolute top-28 left-8 text-xl">
+            <span className="animate-bubble-3 absolute top-24 left-6 text-xl">
               {isGiggling ? "🌸" : isWaving ? "💫" : "☁️"}
             </span>
           </div>
         )}
 
         <svg
-          viewBox="0 0 480 450"
-          className="w-[330px] h-[315px] sm:w-[430px] sm:h-[405px] overflow-visible drop-shadow-[0_16px_24px_rgba(56,189,248,0.22)]"
-          aria-label="Bitz, an adorable 3D plushie baby cloud-sprite with pajama onesie, chubby arms holding a star lantern and music box, chubby seated legs, and floating sun, moon, stars, and moving rainbow"
+          viewBox="0 0 440 425"
+          className="w-[320px] h-[310px] sm:w-[400px] sm:h-[385px] overflow-visible drop-shadow-[0_18px_26px_rgba(56,189,248,0.22)]"
+          aria-label="Bitz, a sculpted 3D plushie cloud-sprite wearing a periwinkle knit nightcap with a golden star-bell and holding a crescent moon lantern and music box"
         >
           <defs>
-            {/* Strict Eye Socket Clip Path so eyeballs NEVER poke outside the eye socket */}
+            {/* Strict Eye Socket Clip Path so eyeballs NEVER poke outside the eye socket! */}
             <clipPath id="eyeSocketClip">
-              <ellipse cx="0" cy="0" rx="20" ry="22" />
+              <ellipse cx="0" cy="0" rx="20" ry="23" />
             </clipPath>
 
-            {/* 3D Baby Cloud Head & Face Shader (Warm Marshmallow Cream with Soft Baby-Pink Rim) */}
-            <radialGradient id="babyHead3D" cx="46%" cy="35%" r="62%">
+            {/* Unified 3D Subsurface Plushie Cloud Body Shader (From 37ae0b0 that user loved!) */}
+            <radialGradient id="sculptedCloudBody3D" cx="46%" cy="32%" r="64%">
               <stop offset="0%" stopColor="#ffffff" />
-              <stop offset="58%" stopColor="#fffaf5" />
-              <stop offset="85%" stopColor="#fce7f3" />
-              <stop offset="100%" stopColor="#fbcfe8" />
-            </radialGradient>
-
-            {/* 3D Cozy Baby Onesie / Pajama Shader (Pastel Baby Pink & Cream) */}
-            <radialGradient id="babyOnesie3D" cx="45%" cy="30%" r="68%">
-              <stop offset="0%" stopColor="#fff1f2" />
-              <stop offset="55%" stopColor="#ffe4e6" />
-              <stop offset="88%" stopColor="#fbcfe8" />
+              <stop offset="52%" stopColor="#ffffff" />
+              <stop offset="78%" stopColor="#fdf2f8" />
+              <stop offset="93%" stopColor="#fce7f3" />
               <stop offset="100%" stopColor="#f9a8d4" />
             </radialGradient>
 
-            {/* 3D Bootie / Shoe Sole Shader (Soft Periwinkle / Sky Blue) */}
-            <radialGradient id="babyBootie3D" cx="45%" cy="35%" r="65%">
-              <stop offset="0%" stopColor="#e0f2fe" />
-              <stop offset="60%" stopColor="#bae6fd" />
+            {/* 3D Chubby Hand & Foot Shader */}
+            <radialGradient id="plushLimb3D" cx="40%" cy="32%" r="65%">
+              <stop offset="0%" stopColor="#ffffff" />
+              <stop offset="68%" stopColor="#fdf2f8" />
+              <stop offset="100%" stopColor="#fbcfe8" />
+            </radialGradient>
+
+            {/* 3D Sky-Blue Cushion Cloud Base Shader */}
+            <radialGradient id="skyCushionBase3D" cx="50%" cy="28%" r="68%">
+              <stop offset="0%" stopColor="#f0f9ff" />
+              <stop offset="48%" stopColor="#e0f2fe" />
+              <stop offset="80%" stopColor="#bae6fd" />
               <stop offset="100%" stopColor="#7dd3fc" />
             </radialGradient>
 
-            {/* 3D Fluffy Cushion Cloud Base Shader */}
-            <radialGradient id="cloudCushion3D" cx="50%" cy="30%" r="68%">
-              <stop offset="0%" stopColor="#ffffff" />
-              <stop offset="52%" stopColor="#f0f9ff" />
-              <stop offset="82%" stopColor="#e0f2fe" />
-              <stop offset="100%" stopColor="#bae6fd" />
-            </radialGradient>
-
-            {/* 3D Star-Patterned Sleeping Cap Shader (Sky Blue & Periwinkle) */}
-            <linearGradient id="nightCap3D" x1="10%" y1="10%" x2="90%" y2="90%">
-              <stop offset="0%" stopColor="#e0f2fe" />
-              <stop offset="45%" stopColor="#bae6fd" />
-              <stop offset="82%" stopColor="#7dd3fc" />
-              <stop offset="100%" stopColor="#38bdf8" />
+            {/* 3D Periwinkle / Sky-Blue Knit Nightcap Shader (From 37ae0b0!) */}
+            <linearGradient id="knitCapSculpt3D" x1="15%" y1="10%" x2="85%" y2="90%">
+              <stop offset="0%" stopColor="#93c5fd" />
+              <stop offset="45%" stopColor="#818cf8" />
+              <stop offset="82%" stopColor="#6366f1" />
+              <stop offset="100%" stopColor="#4f46e5" />
             </linearGradient>
 
-            {/* 3D Cute Pink Ribbon Bow Shader */}
+            {/* Soft Baby-Pink & Sky-Blue Knit Brim Shader */}
+            <linearGradient id="knitBrimSculpt3D" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#e0f2fe" />
+              <stop offset="50%" stopColor="#bae6fd" />
+              <stop offset="100%" stopColor="#93c5fd" />
+            </linearGradient>
+
+            {/* 3D Golden Moon Lantern, Sun & Star-Bell Shader */}
+            <radialGradient id="goldSculpt3D" cx="35%" cy="28%" r="68%">
+              <stop offset="0%" stopColor="#fef9c3" />
+              <stop offset="42%" stopColor="#fde047" />
+              <stop offset="78%" stopColor="#f59e0b" />
+              <stop offset="100%" stopColor="#d97706" />
+            </radialGradient>
+
+            {/* 3D Pastel Pink Bow Shader */}
             <radialGradient id="pinkBow3D" cx="40%" cy="35%" r="65%">
               <stop offset="0%" stopColor="#fbcfe8" />
               <stop offset="55%" stopColor="#f472b6" />
               <stop offset="100%" stopColor="#db2777" />
             </radialGradient>
 
-            {/* 3D Golden Sun, Moon, Stars & Lantern Shader */}
-            <radialGradient id="gold3D" cx="35%" cy="30%" r="68%">
-              <stop offset="0%" stopColor="#fef9c3" />
-              <stop offset="45%" stopColor="#fde047" />
-              <stop offset="80%" stopColor="#f59e0b" />
-              <stop offset="100%" stopColor="#d97706" />
-            </radialGradient>
-
-            {/* 3D Pastel Lavender Star Shader */}
+            {/* 3D Lavender Star Shader */}
             <radialGradient id="lavenderStar3D" cx="38%" cy="32%" r="65%">
               <stop offset="0%" stopColor="#f3e8ff" />
               <stop offset="55%" stopColor="#d8b4fe" />
@@ -278,7 +279,7 @@ export default function BitzCharacter({
             </radialGradient>
 
             {/* 3D Kawaii Glossy Eye Iris Shader */}
-            <radialGradient id="kawaiiEye3D" cx="50%" cy="68%" r="58%">
+            <radialGradient id="kawaiiEyeSculpt3D" cx="50%" cy="68%" r="58%">
               <stop offset="0%" stopColor="#b45309" />
               <stop offset="35%" stopColor="#451a03" />
               <stop offset="80%" stopColor="#1c0a00" />
@@ -286,61 +287,49 @@ export default function BitzCharacter({
             </radialGradient>
 
             {/* 3D Rosy Baby-Pink Cheek Blush */}
-            <radialGradient id="rosyCheek3D" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#f472b6" stopOpacity="0.85" />
-              <stop offset="58%" stopColor="#fb7185" stopOpacity="0.42" />
+            <radialGradient id="rosyCheekSculpt3D" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#f472b6" stopOpacity="0.82" />
+              <stop offset="58%" stopColor="#fb7185" stopOpacity="0.4" />
               <stop offset="100%" stopColor="#fb7185" stopOpacity="0" />
             </radialGradient>
           </defs>
 
-          {/* ===================================================================== */}
-          {/* LAYER 0: MOVING & SHIMMERING RAINBOW ARCH (Reacts to Day vs Night!)   */}
-          {/* ===================================================================== */}
+          {/* MOVING & SHIMMERING OVERHEAD RAINBOW BRIDGE (Reacts to Day/Night & 3-Click Easter Egg!) */}
           <g className="animate-rainbow-sway">
-            {/* Outer Baby-Pink Band */}
             <path
-              d="M 68 230 A 172 172 0 0 1 412 230"
+              d="M 54 195 A 166 166 0 0 1 386 195"
               fill="none"
-              stroke={isNight ? "#ec4899" : "#f9a8d4"}
-              strokeWidth={isRainbow ? "16" : "12"}
-              strokeLinecap="round"
-              opacity={isRainbow ? "1" : "0.85"}
-            />
-            {/* Middle Golden / Lavender Band */}
-            <path
-              d="M 80 230 A 160 160 0 0 1 400 230"
-              fill="none"
-              stroke={isNight ? "#fbbf24" : "#fde047"}
+              stroke={isNight ? "#f472b6" : "#f9a8d4"}
               strokeWidth={isRainbow ? "14" : "11"}
               strokeLinecap="round"
-              opacity={isRainbow ? "1" : "0.85"}
             />
-            {/* Inner Sky-Blue Band */}
             <path
-              d="M 92 230 A 148 148 0 0 1 388 230"
+              d="M 66 195 A 154 154 0 0 1 374 195"
+              fill="none"
+              stroke="#fde047"
+              strokeWidth={isRainbow ? "13" : "10"}
+              strokeLinecap="round"
+            />
+            <path
+              d="M 78 195 A 142 142 0 0 1 362 195"
               fill="none"
               stroke={isNight ? "#38bdf8" : "#7dd3fc"}
-              strokeWidth={isRainbow ? "14" : "11"}
+              strokeWidth={isRainbow ? "13" : "10"}
               strokeLinecap="round"
-              opacity={isRainbow ? "1" : "0.85"}
             />
-            {/* Animated Moving Starlight/Sunbeam Shimmer Along the Rainbow */}
             <path
-              d="M 80 230 A 160 160 0 0 1 400 230"
+              d="M 66 195 A 154 154 0 0 1 374 195"
               fill="none"
               stroke="#ffffff"
-              strokeWidth="4"
+              strokeWidth="3.5"
               strokeLinecap="round"
-              strokeDasharray="14 26"
+              strokeDasharray="12 24"
               className="animate-rainbow-shimmer"
-              opacity="0.85"
+              opacity="0.8"
             />
           </g>
 
-          {/* ===================================================================== */}
-          {/* LAYER 1: FLOATING CELESTIAL SKY OBJECTS IN THE AIR (DAY VS NIGHT!)    */}
-          {/* ===================================================================== */}
-          {/* Top-Right Main Celestial Buddy: Cutie Smiling Sun (Day) OR Sleeping Crescent Moon (Night)! */}
+          {/* FLOATING CELESTIAL SKY BUDDIES IN THE AIR (Cutie Sun in Day / Sleeping Moon in Night + Stars!) */}
           <g
             onClick={(e) => {
               e.stopPropagation();
@@ -351,44 +340,40 @@ export default function BitzCharacter({
           >
             {isNight ? (
               /* NIGHT SKY: Cutie Sleeping 3D Crescent Moon in Top-Right Air */
-              <g transform="translate(385, 78)">
+              <g transform="translate(378, 72)">
                 <path
-                  d="M -12 -36 C 24 -36, 38 6, 10 30 C -8 44, -32 38, -40 24 C -16 26, 2 8, 0 -14 C -2 -26, -10 -32, -18 -35 C -16 -36, -14 -36, -12 -36 Z"
-                  fill="url(#gold3D)"
+                  d="M -10 -32 C 22 -32, 34 6, 8 28 C -8 40, -28 34, -36 22 C -14 24, 2 8, 0 -12 C -2 -24, -8 -28, -16 -31 Z"
+                  fill="url(#goldSculpt3D)"
                   stroke="#d97706"
-                  strokeWidth="1.5"
-                />
-                {/* Cute sleeping eye & smile on the Moon */}
-                <path
-                  d="M 4 -4 Q 9 1 14 -4"
-                  fill="none"
-                  stroke="#78350f"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
+                  strokeWidth="1.4"
                 />
                 <path
-                  d="M 0 6 Q 5 10 10 6"
+                  d="M 3 -4 Q 8 1 13 -4"
                   fill="none"
                   stroke="#78350f"
                   strokeWidth="2"
                   strokeLinecap="round"
                 />
-                <circle cx="15" cy="3" r="4.5" fill="#f472b6" opacity="0.55" />
-                {/* Little floating star next to the moon */}
-                <circle cx="-26" cy="-8" r="3" fill="#fde047" />
+                <path
+                  d="M 0 5 Q 4 9 9 5"
+                  fill="none"
+                  stroke="#78350f"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                />
+                <circle cx="13" cy="2" r="4" fill="#f472b6" opacity="0.55" />
               </g>
             ) : (
               /* DAY SKY: Cutie Smiling 3D Sun in Top-Right Air */
-              <g transform="translate(392, 82)">
-                {/* Cute Rounded Sunbeams */}
+              <g transform="translate(382, 74)">
                 {[0, 45, 90, 135, 180, 225, 270, 315].map((deg) => (
                   <rect
                     key={deg}
-                    x="-4"
-                    y="-38"
-                    width="8"
-                    height="12"
-                    rx="4"
+                    x="-3.5"
+                    y="-34"
+                    width="7"
+                    height="10"
+                    rx="3.5"
                     fill="#fbbf24"
                     transform={`rotate(${deg})`}
                   />
@@ -396,42 +381,38 @@ export default function BitzCharacter({
                 <circle
                   cx="0"
                   cy="0"
-                  r="24"
-                  fill="url(#gold3D)"
+                  r="21"
+                  fill="url(#goldSculpt3D)"
                   stroke="#f59e0b"
-                  strokeWidth="1.5"
+                  strokeWidth="1.4"
                 />
-                {/* Cute Kawaii Sun Face */}
-                <circle cx="-8" cy="-2" r="2.8" fill="#451a03" />
-                <circle cx="8" cy="-2" r="2.8" fill="#451a03" />
-                <circle cx="-12" cy="3" r="4" fill="#f472b6" opacity="0.6" />
-                <circle cx="12" cy="3" r="4" fill="#f472b6" opacity="0.6" />
+                <circle cx="-7" cy="-2" r="2.5" fill="#451a03" />
+                <circle cx="7" cy="-2" r="2.5" fill="#451a03" />
+                <circle cx="-11" cy="3" r="3.5" fill="#f472b6" opacity="0.6" />
+                <circle cx="11" cy="3" r="3.5" fill="#f472b6" opacity="0.6" />
                 <path
-                  d="M -5 4 Q 0 9 5 4"
+                  d="M -4 4 Q 0 8 4 4"
                   fill="none"
                   stroke="#451a03"
-                  strokeWidth="2.2"
+                  strokeWidth="2"
                   strokeLinecap="round"
                 />
               </g>
             )}
           </g>
 
-          {/* Left & Right Floating Plump 3D Stars & Mini Clouds in the Air */}
+          {/* Floating Plump 3D Stars & Mini Cotton Cloud around Bitz */}
           <g className="animate-celestial-b">
-            {/* Left Floating Golden Plump Star */}
-            <g transform="translate(64, 240) rotate(-12)">
+            <g transform="translate(52, 215) rotate(-14) scale(0.9)">
               <polygon
                 points="0,-16 5,-5 17,-3 8,5 10,17 0,11 -10,17 -8,5 -17,-3 -5,-5"
-                fill="url(#gold3D)"
+                fill="url(#goldSculpt3D)"
                 stroke="#d97706"
                 strokeWidth="1.2"
                 strokeLinejoin="round"
               />
             </g>
-
-            {/* Lower-Left Floating Lavender Star */}
-            <g transform="translate(52, 305) rotate(15) scale(0.78)">
+            <g transform="translate(46, 285) rotate(14) scale(0.72)">
               <polygon
                 points="0,-16 5,-5 17,-3 8,5 10,17 0,11 -10,17 -8,5 -17,-3 -5,-5"
                 fill="url(#lavenderStar3D)"
@@ -440,93 +421,59 @@ export default function BitzCharacter({
                 strokeLinejoin="round"
               />
             </g>
-
-            {/* Right Floating Golden Plump Star */}
-            <g transform="translate(418, 252) rotate(14)">
+            <g transform="translate(396, 265) rotate(12) scale(0.88)">
               <polygon
                 points="0,-16 5,-5 17,-3 8,5 10,17 0,11 -10,17 -8,5 -17,-3 -5,-5"
-                fill="url(#gold3D)"
+                fill="url(#goldSculpt3D)"
                 stroke="#d97706"
                 strokeWidth="1.2"
                 strokeLinejoin="round"
               />
             </g>
-
-            {/* Upper-Right Floating Lavender Star */}
-            <g transform="translate(405, 168) rotate(-18) scale(0.75)">
-              <polygon
-                points="0,-16 5,-5 17,-3 8,5 10,17 0,11 -10,17 -8,5 -17,-3 -5,-5"
-                fill="url(#lavenderStar3D)"
-                stroke="#9333ea"
-                strokeWidth="1.2"
-                strokeLinejoin="round"
+            <g transform="translate(64, 118)">
+              <path
+                d="M -20 6 C -28 6, -30 -4, -20 -8 C -16 -16, -2 -16, 4 -9 C 12 -12, 24 -5, 20 5 C 24 10, 14 14, 5 12 C -2 16, -12 14, -20 6 Z"
+                fill="#ffffff"
+                stroke="#bae6fd"
+                strokeWidth="1.5"
               />
+              <circle cx="-5" cy="1" r="2" fill="#f472b6" opacity="0.7" />
+              <circle cx="7" cy="1" r="2" fill="#38bdf8" opacity="0.7" />
             </g>
-
-            {/* Day-Mode Extra Mini Cotton-Candy Cloud Puff on Top-Left */}
-            {!isNight && (
-              <g transform="translate(76, 118)">
-                <path
-                  d="M -22 8 C -30 8, -32 -4, -22 -8 C -18 -18, -2 -18, 4 -10 C 14 -14, 26 -6, 22 6 C 26 12, 16 16, 6 14 C -2 18, -14 16, -22 8 Z"
-                  fill="#ffffff"
-                  stroke="#bae6fd"
-                  strokeWidth="1.5"
-                />
-                <circle cx="-6" cy="2" r="2" fill="#f472b6" opacity="0.7" />
-                <circle cx="8" cy="2" r="2" fill="#38bdf8" opacity="0.7" />
-              </g>
-            )}
-
-            {/* Twinkling 4-Point Sparkles Floating in the Air */}
-            <circle cx="88" cy="195" r="3" fill="#fbbf24" />
-            <circle cx="390" cy="215" r="3" fill="#f472b6" />
-            <circle cx="75" cy="276" r="2.5" fill="#38bdf8" />
-            <circle cx="400" cy="295" r="2.5" fill="#fbbf24" />
           </g>
 
-          {/* ===================================================================== */}
-          {/* LAYER 2: 3D FLUFFY CUSHION CLOUD BASE WITH "♥ Bitz ♥" EMBROIDERY     */}
-          {/* ===================================================================== */}
-          <g transform={`translate(${pupilOffset.x * -0.25}, 0)`}>
-            {/* Soft Sky Shadow Underneath Cloud */}
+          {/* LAYER 1: SEAMLESS 3D SKY-BLUE PLUSH CUSHION CLOUD BASE WITH "♥ Bitz ♥" */}
+          <g transform={`translate(${pupilOffset.x * -0.3}, 0)`}>
             <ellipse
-              cx="240"
-              cy="416"
-              rx="145"
+              cx="220"
+              cy="392"
+              rx="140"
               ry="18"
               fill="#38bdf8"
-              opacity="0.22"
+              opacity="0.2"
             />
-            {/* Multi-Puff 3D Plush Cushion Cloud */}
             <path
-              d="M 92 346 C 64 346, 56 376, 82 390 C 98 408, 138 412, 172 402 C 198 422, 282 422, 308 402 C 342 412, 382 408, 398 390 C 424 376, 416 346, 388 346 C 392 320, 362 304, 336 314 C 312 296, 168 296, 144 314 C 118 304, 88 320, 92 346 Z"
-              fill="url(#cloudCushion3D)"
+              d="M 88 344 C 66 344, 58 368, 80 380 C 102 394, 148 398, 180 392 C 206 402, 234 402, 260 392 C 292 398, 338 394, 360 380 C 382 368, 374 344, 352 344 C 342 320, 306 314, 284 326 C 258 308, 182 308, 156 326 C 134 314, 98 320, 88 344 Z"
+              fill="url(#skyCushionBase3D)"
               stroke="#bae6fd"
-              strokeWidth="2.2"
-              strokeLinejoin="round"
+              strokeWidth="2"
             />
-            {/* Soft 3D Inner Cloud Puff Contours */}
             <path
-              d="M 135 372 Q 170 390 205 376"
+              d="M 135 338 Q 220 322 305 338"
               fill="none"
-              stroke="#bae6fd"
-              strokeWidth="2.2"
+              stroke="#ffffff"
+              strokeWidth="3"
               strokeLinecap="round"
+              opacity="0.7"
             />
-            <path
-              d="M 275 376 Q 310 390 345 372"
-              fill="none"
-              stroke="#bae6fd"
-              strokeWidth="2.2"
-              strokeLinecap="round"
-            />
-            {/* Embroidered "♥ Bitz ♥" Front Label on the Cloud Cushion */}
+            <circle cx="128" cy="364" r="3.5" fill="#f472b6" opacity="0.85" />
+            <circle cx="312" cy="364" r="3.5" fill="#fbbf24" opacity="0.9" />
             <text
-              x="240"
-              y="394"
+              x="220"
+              y="382"
               textAnchor="middle"
               fill="#db2777"
-              fontSize="20"
+              fontSize="17"
               fontWeight="bold"
               fontFamily="var(--font-fredoka), sans-serif"
             >
@@ -534,617 +481,614 @@ export default function BitzCharacter({
             </text>
           </g>
 
-          {/* ===================================================================== */}
-          {/* LAYER 3: BITZ'S FULL BABY CHARACTER BODY (PAJAMA TORSO + LEGS + ARMS) */}
-          {/* ===================================================================== */}
+          {/* LAYER 2: BITZ'S CHOREOGRAPHED 3D BODY RIG (Exact Cute Proportions from 37ae0b0!) */}
           <g className={bodyChoreographyClass}>
-            {/* 3A: BABY ONESIE / PAJAMA TORSO (With cute pastel hearts & stars pattern!) */}
-            <g>
-              <path
-                d="M 176 238 C 162 256, 158 296, 168 324 C 184 342, 296 342, 312 324 C 322 296, 318 256, 304 238 Z"
-                fill="url(#babyOnesie3D)"
-                stroke="#f9a8d4"
-                strokeWidth="2"
-                strokeLinejoin="round"
-              />
-              {/* Cute Pastel Sky-Blue Scalloped Onesie Collar */}
-              <path
-                d="M 192 242 Q 216 256 240 246 Q 264 256 288 242"
-                fill="none"
-                stroke="#7dd3fc"
-                strokeWidth="4"
-                strokeLinecap="round"
-              />
-              {/* Cute Pattern Details on the Baby Onesie (Tiny Hearts & Stars) */}
-              <circle cx="222" cy="274" r="3" fill="#f472b6" opacity="0.65" />
-              <circle cx="258" cy="278" r="3" fill="#38bdf8" opacity="0.65" />
-              <circle cx="240" cy="296" r="3.5" fill="#fbbf24" opacity="0.75" />
-              <circle cx="212" cy="304" r="2.8" fill="#38bdf8" opacity="0.65" />
-              <circle cx="268" cy="302" r="2.8" fill="#f472b6" opacity="0.65" />
-            </g>
+            {/* SEAMLESS SCULPTED 3D PLUSHIE CLOUD BODY */}
+            <path
+              d="M 136 168 C 148 122, 188 106, 220 116 C 252 106, 292 122, 304 168 C 344 176, 360 220, 338 256 C 354 292, 326 332, 286 330 C 266 346, 238 346, 220 338 C 202 346, 174 346, 154 330 C 114 332, 86 292, 102 256 C 80 220, 96 176, 136 168 Z"
+              fill="url(#sculptedCloudBody3D)"
+              stroke="#fce7f3"
+              strokeWidth="2"
+              strokeLinejoin="round"
+            />
 
-            {/* 3B: CHUBBY SEATED BABY LEGS & PASTEL BOOTIES (Kick happily when tickled!) */}
-            <g className={isGiggling ? "animate-feet-kick" : ""}>
-              {/* Left Seated Baby Leg & Bootie */}
-              <g transform="translate(194, 326)">
-                <ellipse
-                  cx="0"
-                  cy="0"
-                  rx="28"
-                  ry="22"
-                  transform="rotate(-12)"
-                  fill="url(#babyOnesie3D)"
-                  stroke="#f9a8d4"
-                  strokeWidth="2"
-                />
-                {/* Cute Periwinkle/Sky-Blue Bootie Sole */}
-                <ellipse
-                  cx="-2"
-                  cy="4"
-                  rx="20"
-                  ry="15"
-                  transform="rotate(-10)"
-                  fill="url(#babyBootie3D)"
-                  stroke="#7dd3fc"
-                  strokeWidth="1.5"
-                />
-                {/* Cute Baby-Pink Toe Heart */}
-                <circle cx="-2" cy="4" r="5" fill="#f472b6" opacity="0.55" />
-              </g>
+            <path
+              d="M 110 245 C 94 218, 106 184, 140 174"
+              fill="none"
+              stroke="#ffffff"
+              strokeWidth="4.5"
+              strokeLinecap="round"
+              opacity="0.85"
+            />
 
-              {/* Right Seated Baby Leg & Bootie */}
-              <g transform="translate(286, 326)">
-                <ellipse
-                  cx="0"
-                  cy="0"
-                  rx="28"
-                  ry="22"
-                  transform="rotate(12)"
-                  fill="url(#babyOnesie3D)"
-                  stroke="#f9a8d4"
-                  strokeWidth="2"
-                />
-                {/* Cute Periwinkle/Sky-Blue Bootie Sole */}
-                <ellipse
-                  cx="2"
-                  cy="4"
-                  rx="20"
-                  ry="15"
-                  transform="rotate(10)"
-                  fill="url(#babyBootie3D)"
-                  stroke="#7dd3fc"
-                  strokeWidth="1.5"
-                />
-                <circle cx="2" cy="4" r="5" fill="#f472b6" opacity="0.55" />
-              </g>
-            </g>
+            {/* Warm Baby-Pink Plush Tummy Patch with Cute Embroidered Heart */}
+            <ellipse
+              cx="220"
+              cy="288"
+              rx="48"
+              ry="30"
+              fill="#fff1f2"
+              opacity="0.9"
+            />
+            <path
+              d="M 220 294 C 214 288, 208 282, 213 277 C 216 274, 220 277, 220 280 C 220 277, 224 274, 227 277 C 232 282, 226 288, 220 294 Z"
+              fill="#fbcfe8"
+            />
 
-            {/* 3C: BIG ADORABLE 3D PLUSHIE BABY CLOUD HEAD (100% Cute, Zero Scary!) */}
-            <g transform={`rotate(${headTilt * 0.35} 240 175)`}>
-              {/* Sculpted Chubby Baby Cloud Head Silhouette */}
-              <path
-                d="M 136 172 C 132 108, 180 78, 240 78 C 300 78, 348 108, 344 172 C 356 208, 332 248, 286 250 C 264 254, 216 254, 194 250 C 148 248, 124 208, 136 172 Z"
-                fill="url(#babyHead3D)"
+            {/* Chubby Seated Plushie Feet with Rosy Toe Pads */}
+            <g transform={isGiggling ? "translate(0, -8)" : "translate(0, 0)"}>
+              <ellipse
+                cx="172"
+                cy="334"
+                rx="26"
+                ry="18"
+                transform="rotate(-8 172 334)"
+                fill="url(#plushLimb3D)"
                 stroke="#fbcfe8"
-                strokeWidth="2"
-                strokeLinejoin="round"
+                strokeWidth="1.5"
+              />
+              <ellipse cx="172" cy="337" rx="11" ry="6.5" fill="#f9a8d4" />
+
+              <ellipse
+                cx="268"
+                cy="334"
+                rx="26"
+                ry="18"
+                transform="rotate(8 268 334)"
+                fill="url(#plushLimb3D)"
+                stroke="#fbcfe8"
+                strokeWidth="1.5"
+              />
+              <ellipse cx="268" cy="337" rx="11" ry="6.5" fill="#f9a8d4" />
+            </g>
+
+            {/* LAYER 3: SCULPTED 3D PERIWINKLE KNIT SLEEPING CAP + GOLDEN STAR-BELL + LIVE ACCESSORIES */}
+            <g transform={`rotate(${headTilt * 0.4} 220 135)`}>
+              <path
+                d="M 124 144 C 136 52, 240 28, 316 84 C 344 104, 356 134, 344 158 C 326 140, 298 128, 270 134 Z"
+                fill="url(#knitCapSculpt3D)"
+              />
+              <path
+                d="M 164 116 Q 212 66 278 82"
+                fill="none"
+                stroke="#e0f2fe"
+                strokeWidth="2.2"
+                strokeDasharray="6 6"
+                opacity="0.5"
+              />
+              <path
+                d="M 148 130 Q 208 82 296 100"
+                fill="none"
+                stroke="#e0f2fe"
+                strokeWidth="2.2"
+                strokeDasharray="6 6"
+                opacity="0.5"
               />
 
-              {/* STAR-PATTERNED SLEEPING CAP + CUTE PINK BOW + GOLDEN STAR-BELL */}
-              <g>
-                {/* Drooping Baby Nightcap Cone (Curves down on the left + Star-Bell on the right!) */}
-                <path
-                  d="M 132 154 C 126 76, 198 44, 266 56 C 324 66, 354 106, 348 154 C 318 128, 274 118, 238 118 C 194 118, 158 130, 132 154 Z"
-                  fill="url(#nightCap3D)"
-                  stroke="#7dd3fc"
-                  strokeWidth="2"
+              <path
+                d="M 116 148 Q 220 104 320 146 Q 330 166 308 172 Q 220 134 128 172 Q 106 166 116 148 Z"
+                fill="url(#knitBrimSculpt3D)"
+                stroke="#93c5fd"
+                strokeWidth="1.5"
+              />
+              {[140, 160, 180, 200, 220, 240, 260, 280, 300].map((rx, idx) => (
+                <line
+                  key={idx}
+                  x1={rx}
+                  y1={135 - Math.sin((idx / 8) * Math.PI) * 15}
+                  x2={rx}
+                  y2={155 - Math.sin((idx / 8) * Math.PI) * 15}
+                  stroke="#ffffff"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  opacity="0.65"
                 />
-                {/* Left Drooping Nightcap Tail & Fluffy Pom-Pom */}
-                <path
-                  d="M 134 128 C 102 138, 88 168, 96 196 C 112 188, 124 168, 134 152 Z"
-                  fill="url(#nightCap3D)"
-                  stroke="#7dd3fc"
-                  strokeWidth="1.8"
-                />
-                <circle
-                  cx="94"
-                  cy="202"
-                  r="18"
-                  fill="url(#babyHead3D)"
-                  stroke="#fbcfe8"
-                  strokeWidth="1.8"
-                />
+              ))}
 
-                {/* Cute Golden Star Pattern Printed on the Nightcap */}
-                <circle cx="205" cy="84" r="3.5" fill="#fde047" />
-                <circle cx="248" cy="78" r="4" fill="#fde047" />
-                <circle cx="288" cy="92" r="3.5" fill="#fde047" />
-                <circle cx="172" cy="102" r="3" fill="#f472b6" opacity="0.7" />
-                <circle cx="268" cy="102" r="3" fill="#f472b6" opacity="0.7" />
-
-                {/* Cozy Rolled Nightcap Brim */}
-                <path
-                  d="M 128 152 Q 240 110 352 152 Q 358 168 340 172 Q 240 132 140 172 Q 122 168 128 152 Z"
-                  fill="#fff8fb"
-                  stroke="#fbcfe8"
-                  strokeWidth="2"
-                />
-
-                {/* CUTE 3D BABY-PINK RIBBON BOW ON CAP BRIM (Like the cute bow in reference!) */}
-                <g transform="translate(166, 134) rotate(-18)">
-                  {/* Left Bow Loop */}
+              {/* LIVE DRESS-UP ACCESSORY ON BITZ! */}
+              {accessory === "bow" && (
+                <g transform="translate(154, 140) rotate(-16)">
                   <path
-                    d="M 0 0 C -18 -14, -26 6, -12 14 C -4 16, -2 6, 0 0 Z"
+                    d="M 0 0 C -17 -13, -24 6, -11 13 C -4 15, -2 6, 0 0 Z"
                     fill="url(#pinkBow3D)"
                     stroke="#db2777"
                     strokeWidth="1.4"
                   />
-                  {/* Right Bow Loop */}
                   <path
-                    d="M 0 0 C 18 -14, 26 6, 12 14 C 4 16, 2 6, 0 0 Z"
+                    d="M 0 0 C 17 -13, 24 6, 11 13 C 4 15, 2 6, 0 0 Z"
                     fill="url(#pinkBow3D)"
                     stroke="#db2777"
                     strokeWidth="1.4"
                   />
-                  {/* Center Bow Knot */}
                   <ellipse
                     cx="0"
-                    cy="3"
-                    rx="5.5"
-                    ry="6.5"
+                    cy="2.5"
+                    rx="5"
+                    ry="6"
                     fill="#f472b6"
                     stroke="#be185d"
                     strokeWidth="1.4"
                   />
                 </g>
+              )}
 
-                {/* INTERACTIVE GOLDEN STAR-BELL TASSEL ON RIGHT SIDE OF CAP (3 Clicks Easter Egg!) */}
-                <g
-                  onClick={handleAntennaClick}
-                  data-testid="bitz-antenna-trigger"
-                  role="button"
-                  tabIndex={0}
-                  aria-label="Tap Bitz's Golden Star-Bell 3 times for a secret surprise"
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      handleAntennaClick(e);
-                    }
-                  }}
-                  className="cursor-pointer"
-                >
-                  <circle cx="364" cy="186" r="32" fill="transparent" />
-                  {(isBellRinging || antennaClicks > 0) && (
-                    <circle
-                      cx="364"
-                      cy="190"
-                      r="18"
-                      fill="none"
-                      stroke="#fbbf24"
-                      strokeWidth="2.5"
-                      className="animate-bell-ripple"
-                    />
-                  )}
-                  <path
-                    d="M 350 156 Q 362 168 364 178"
-                    fill="none"
-                    stroke="#f59e0b"
-                    strokeWidth="3.2"
-                    strokeLinecap="round"
-                  />
+              {accessory === "crown" && (
+                <g transform="translate(220, 112)">
                   <polygon
-                    points="364,168 370,181 384,183 373,192 376,206 364,199 352,206 355,192 344,183 358,181"
-                    fill="url(#gold3D)"
-                    stroke="#b45309"
-                    strokeWidth="1.6"
+                    points="-26,14 -20,-10 -8,4 0,-16 8,4 20,-10 26,14"
+                    fill="url(#goldSculpt3D)"
+                    stroke="#d97706"
+                    strokeWidth="1.8"
                     strokeLinejoin="round"
                   />
-                  <circle cx="364" cy="189" r="2.8" fill="#92400e" />
+                  <circle cx="0" cy="-16" r="3.5" fill="#f472b6" />
+                  <circle cx="-20" cy="-10" r="3" fill="#38bdf8" />
+                  <circle cx="20" cy="-10" r="3" fill="#38bdf8" />
                 </g>
-              </g>
+              )}
 
-              {/* BABY FACE: ROSY CHEEKS + CLIPPED CURSOR-TRACKING KAWAII EYES + CUTE NOSE & SMILE */}
-              <g>
-                {/* Rosy Baby-Pink Cheeks */}
-                <ellipse
-                  cx="164"
-                  cy="218"
-                  rx={isGiggling ? "24" : "20"}
-                  ry={isGiggling ? "14" : "11"}
-                  fill="url(#rosyCheek3D)"
-                />
-                <ellipse
-                  cx="316"
-                  cy="218"
-                  rx={isGiggling ? "24" : "20"}
-                  ry={isGiggling ? "14" : "11"}
-                  fill="url(#rosyCheek3D)"
-                />
-
-                {/* LEFT EYE SOCKET (Strictly clipped so eyeballs NEVER leave the socket!) */}
-                <g transform="translate(196, 194)">
-                  <ellipse
-                    cx="0"
-                    cy="0"
-                    rx="20.5"
-                    ry="22.5"
-                    fill="#1c0a00"
-                    stroke="#31102f"
-                    strokeWidth="1.5"
-                  />
-                  <g clipPath="url(#eyeSocketClip)">
-                    <g
-                      data-testid="bitz-left-pupil"
-                      transform={`translate(${pupilOffset.x}, ${pupilOffset.y})`}
-                    >
-                      {isGiggling ? (
-                        <g>
-                          <ellipse cx="0" cy="0" rx="22" ry="24" fill="#fff8fb" />
-                          <path
-                            d="M -12 4 Q 0 -12 12 4"
-                            fill="none"
-                            stroke="#31102f"
-                            strokeWidth="4.8"
-                            strokeLinecap="round"
-                          />
-                        </g>
-                      ) : isLullaby ? (
-                        <g>
-                          <ellipse cx="0" cy="0" rx="22" ry="24" fill="#fff8fb" />
-                          <path
-                            d="M -12 -2 Q 0 11 12 -2"
-                            fill="none"
-                            stroke="#31102f"
-                            strokeWidth="4.2"
-                            strokeLinecap="round"
-                          />
-                        </g>
-                      ) : (
-                        <>
-                          <ellipse
-                            cx="0"
-                            cy="0"
-                            rx="18"
-                            ry="20"
-                            fill="url(#kawaiiEye3D)"
-                          />
-                          <path
-                            d="M -11 7 A 13 13 0 0 0 11 7 A 13 9 0 0 1 -11 7 Z"
-                            fill="#f59e0b"
-                            opacity="0.72"
-                          />
-                          <ellipse
-                            cx="-5.5"
-                            cy="-7"
-                            rx="5.5"
-                            ry="6.8"
-                            transform="rotate(-15 -5.5 -7)"
-                            fill="#ffffff"
-                          />
-                          <circle cx="6" cy="6" r="2.6" fill="#ffffff" />
-                          <circle cx="-6" cy="5" r="1.8" fill="#fde047" />
-                        </>
-                      )}
-                    </g>
-                  </g>
-                  {isBlinking && !isGiggling && !isLullaby && (
-                    <ellipse cx="0" cy="0" rx="21" ry="23" fill="#fff8fb" />
-                  )}
-                </g>
-
-                {/* RIGHT EYE SOCKET (Strictly clipped so eyeballs NEVER leave the socket!) */}
-                <g transform="translate(284, 194)">
-                  <ellipse
-                    cx="0"
-                    cy="0"
-                    rx="20.5"
-                    ry="22.5"
-                    fill="#1c0a00"
-                    stroke="#31102f"
-                    strokeWidth="1.5"
-                  />
-                  <g clipPath="url(#eyeSocketClip)">
-                    <g
-                      data-testid="bitz-right-pupil"
-                      transform={`translate(${pupilOffset.x}, ${pupilOffset.y})`}
-                    >
-                      {isGiggling ? (
-                        <g>
-                          <ellipse cx="0" cy="0" rx="22" ry="24" fill="#fff8fb" />
-                          <path
-                            d="M -12 4 Q 0 -12 12 4"
-                            fill="none"
-                            stroke="#31102f"
-                            strokeWidth="4.8"
-                            strokeLinecap="round"
-                          />
-                        </g>
-                      ) : isWaving ? (
-                        <g>
-                          <ellipse cx="0" cy="0" rx="22" ry="24" fill="#fff8fb" />
-                          <path
-                            d="M -12 2 Q 0 -11 12 2"
-                            fill="none"
-                            stroke="#31102f"
-                            strokeWidth="4.8"
-                            strokeLinecap="round"
-                          />
-                        </g>
-                      ) : isLullaby ? (
-                        <g>
-                          <ellipse cx="0" cy="0" rx="22" ry="24" fill="#fff8fb" />
-                          <path
-                            d="M -12 -2 Q 0 11 12 -2"
-                            fill="none"
-                            stroke="#31102f"
-                            strokeWidth="4.2"
-                            strokeLinecap="round"
-                          />
-                        </g>
-                      ) : (
-                        <>
-                          <ellipse
-                            cx="0"
-                            cy="0"
-                            rx="18"
-                            ry="20"
-                            fill="url(#kawaiiEye3D)"
-                          />
-                          <path
-                            d="M -11 7 A 13 13 0 0 0 11 7 A 13 9 0 0 1 -11 7 Z"
-                            fill="#f59e0b"
-                            opacity="0.72"
-                          />
-                          <ellipse
-                            cx="-5.5"
-                            cy="-7"
-                            rx="5.5"
-                            ry="6.8"
-                            transform="rotate(-15 -5.5 -7)"
-                            fill="#ffffff"
-                          />
-                          <circle cx="6" cy="6" r="2.6" fill="#ffffff" />
-                          <circle cx="-6" cy="5" r="1.8" fill="#fde047" />
-                        </>
-                      )}
-                    </g>
-                  </g>
-                  {isBlinking && !isGiggling && !isWaving && !isLullaby && (
-                    <ellipse cx="0" cy="0" rx="21" ry="23" fill="#fff8fb" />
-                  )}
-                </g>
-
-                {/* Cute Tiny Baby Button Nose (Soft Pink Oval — NOT a scary skull nose!) */}
-                <ellipse cx="240" cy="205" rx="4" ry="2.8" fill="#f472b6" />
-
-                {/* Cute Baby Smile */}
-                {isGiggling || isWaving ? (
-                  <g transform="translate(240, 216)">
-                    <path
-                      d="M -13 -2 Q 0 20 13 -2 Z"
-                      fill="#db2777"
-                      stroke="#4a044e"
-                      strokeWidth="2"
-                    />
-                    <path d="M -7 4 Q 0 13 7 4 Z" fill="#f9a8d4" />
-                  </g>
-                ) : isLullaby ? (
-                  <circle
-                    cx="240"
-                    cy="218"
-                    r="4"
-                    fill="#f472b6"
-                    stroke="#4a044e"
-                    strokeWidth="1.8"
-                  />
-                ) : (
+              {accessory === "headphones" && (
+                <g>
                   <path
-                    d="M 229 214 Q 240 224 251 214"
+                    d="M 104 210 A 116 105 0 0 1 336 210"
                     fill="none"
-                    stroke="#4a044e"
-                    strokeWidth="3.2"
+                    stroke="#f472b6"
+                    strokeWidth="8"
                     strokeLinecap="round"
                   />
+                  <ellipse
+                    cx="104"
+                    cy="214"
+                    rx="14"
+                    ry="22"
+                    fill="#bae6fd"
+                    stroke="#f472b6"
+                    strokeWidth="3"
+                  />
+                  <ellipse
+                    cx="336"
+                    cy="214"
+                    rx="14"
+                    ry="22"
+                    fill="#bae6fd"
+                    stroke="#f472b6"
+                    strokeWidth="3"
+                  />
+                </g>
+              )}
+
+              {/* INTERACTIVE GOLDEN STAR-BELL TASSEL */}
+              <g
+                onClick={handleAntennaClick}
+                data-testid="bitz-antenna-trigger"
+                role="button"
+                tabIndex={0}
+                aria-label="Tap Bitz's Golden Star-Bell 3 times for a secret surprise"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    handleAntennaClick(e);
+                  }
+                }}
+                className={`cursor-pointer ${
+                  isBellRinging || isGiggling
+                    ? "animate-swing-bell-ring"
+                    : "animate-swing-bell"
+                }`}
+              >
+                <circle cx="346" cy="196" r="36" fill="transparent" />
+
+                {(isBellRinging || antennaClicks > 0) && (
+                  <circle
+                    cx="346"
+                    cy="200"
+                    r="20"
+                    fill="none"
+                    stroke="#fbbf24"
+                    strokeWidth="2.5"
+                    className="animate-bell-ripple"
+                  />
                 )}
-              </g>
-            </g>
 
-            {/* 3D: LEFT SIDE SLEEVED BABY ARM HOLDING GLOWING STARLIGHT LANTERN */}
-            <g
-              onClick={handleWaveMoon}
-              className={isWaving || isGiggling ? "animate-lift-lantern" : ""}
-            >
-              {/* 3D Glowing Starlight Lantern (Like the cute lantern held in hand!) */}
-              <g transform="translate(158, 282)">
-                {/* Lantern Handle */}
                 <path
-                  d="M -12 -32 A 12 12 0 0 1 12 -32"
+                  d="M 344 154 Q 348 172 346 184"
                   fill="none"
-                  stroke="#d97706"
-                  strokeWidth="3"
-                />
-                {/* Lantern Top Cap */}
-                <path
-                  d="M -18 -22 L 18 -22 L 12 -32 L -12 -32 Z"
-                  fill="url(#gold3D)"
-                  stroke="#b45309"
-                  strokeWidth="1.5"
-                  strokeLinejoin="round"
-                />
-                {/* Lantern Glowing Glass Chamber */}
-                <rect
-                  x="-17"
-                  y="-22"
-                  width="34"
-                  height="38"
-                  rx="8"
-                  fill="#fef08a"
-                  stroke="#d97706"
-                  strokeWidth="2"
-                />
-                {/* Glowing Star Flame Inside Lantern */}
-                <polygon
-                  points="0,-15 4,-6 13,-4 6,2 8,11 0,6 -8,11 -6,2 -13,-4 -4,-6"
-                  fill="#f59e0b"
-                />
-                <circle cx="0" cy="-2" r="4" fill="#ffffff" />
-                {/* Lantern Base */}
-                <rect
-                  x="-20"
-                  y="14"
-                  width="40"
-                  height="8"
-                  rx="4"
-                  fill="url(#gold3D)"
-                  stroke="#b45309"
-                  strokeWidth="1.5"
-                />
-              </g>
-
-              {/* Chubby Sleeved Baby Arm & Hand Holding the Lantern */}
-              <path
-                d="M 166 246 C 142 252, 132 272, 146 286 C 156 294, 174 286, 178 272 Z"
-                fill="url(#babyOnesie3D)"
-                stroke="#f9a8d4"
-                strokeWidth="1.8"
-              />
-              {/* Cute Baby Hand */}
-              <ellipse
-                cx="162"
-                cy="264"
-                rx="13"
-                ry="11"
-                fill="url(#babyHead3D)"
-                stroke="#fbcfe8"
-                strokeWidth="1.5"
-              />
-            </g>
-
-            {/* 3E: RIGHT SIDE SLEEVED BABY ARM HOLDING CUTE WIND-UP CLOUD MUSIC BOX */}
-            <g
-              onClick={handleSingLullaby}
-              className={
-                isWaving || isGiggling || isLullaby ? "animate-wave-musicbox" : ""
-              }
-            >
-              {/* Cute Wind-Up Cloud Music Box with Mini Rainbow & Star Charm on Top! */}
-              <g transform="translate(314, 282)">
-                {/* Mini Rainbow & Star Figurine on top of Music Box */}
-                <path
-                  d="M -14 -14 A 14 14 0 0 1 14 -14"
-                  fill="none"
-                  stroke="#f472b6"
-                  strokeWidth="4"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M -10 -14 A 10 10 0 0 1 10 -14"
-                  fill="none"
-                  stroke="#38bdf8"
+                  stroke="#f59e0b"
                   strokeWidth="3.5"
                   strokeLinecap="round"
                 />
                 <polygon
-                  points="0,-32 3,-24 11,-23 5,-18 7,-10 0,-14 -7,-10 -5,-18 -11,-23 -3,-24"
-                  fill="url(#gold3D)"
-                  stroke="#d97706"
-                  strokeWidth="1"
-                />
-                {/* Cylindrical Pastel Drum Base of Music Box */}
-                <rect
-                  x="-20"
-                  y="-14"
-                  width="40"
-                  height="26"
-                  rx="8"
-                  fill="#bae6fd"
-                  stroke="#0284c7"
+                  points="346,176 353,191 370,193 357,204 361,220 346,212 331,220 335,204 322,193 339,191"
+                  fill="url(#goldSculpt3D)"
+                  stroke="#b45309"
                   strokeWidth="1.8"
+                  strokeLinejoin="round"
                 />
-                {/* Pink Decorative Stripe on Music Box */}
-                <rect
-                  x="-19"
-                  y="-4"
-                  width="38"
-                  height="7"
-                  fill="#f472b6"
-                />
-                {/* Golden Wind-Up Key on Side */}
-                <line
-                  x1="20"
-                  y1="0"
-                  x2="28"
-                  y2="0"
-                  stroke="#d97706"
-                  strokeWidth="2.5"
-                />
-                <circle
-                  cx="30"
+                <circle cx="346" cy="200" r="3" fill="#92400e" />
+              </g>
+            </g>
+
+            {/* LAYER 4: CLIPPED CURSOR-TRACKING 3D KAWAII EYES, CHEEKS & MOUTH */}
+            <g>
+              {/* Rosy Baby-Pink Cheeks */}
+              <ellipse
+                cx="148"
+                cy="242"
+                rx={isGiggling ? "25" : "21"}
+                ry={isGiggling ? "15" : "12"}
+                fill="url(#rosyCheekSculpt3D)"
+              />
+              <ellipse
+                cx="292"
+                cy="242"
+                rx={isGiggling ? "25" : "21"}
+                ry={isGiggling ? "15" : "12"}
+                fill="url(#rosyCheekSculpt3D)"
+              />
+
+              {/* LEFT EYE SOCKET (Strictly clipped inside eyeSocketClip!) */}
+              <g transform="translate(178, 216)">
+                <ellipse
+                  cx="0"
                   cy="0"
-                  r="4"
-                  fill="#fde047"
-                  stroke="#d97706"
+                  rx="20.5"
+                  ry="23.5"
+                  fill="#1c0a00"
+                  stroke="#31102f"
                   strokeWidth="1.5"
                 />
+
+                <g clipPath="url(#eyeSocketClip)">
+                  <g
+                    data-testid="bitz-left-pupil"
+                    transform={`translate(${pupilOffset.x}, ${pupilOffset.y})`}
+                  >
+                    {isGiggling ? (
+                      <g>
+                        <ellipse cx="0" cy="0" rx="22" ry="25" fill="#fff8fb" />
+                        <path
+                          d="M -13 4 Q 0 -13 13 4"
+                          fill="none"
+                          stroke="#31102f"
+                          strokeWidth="5"
+                          strokeLinecap="round"
+                        />
+                      </g>
+                    ) : isLullaby ? (
+                      <g>
+                        <ellipse cx="0" cy="0" rx="22" ry="25" fill="#fff8fb" />
+                        <path
+                          d="M -13 -2 Q 0 12 13 -2"
+                          fill="none"
+                          stroke="#31102f"
+                          strokeWidth="4.5"
+                          strokeLinecap="round"
+                        />
+                      </g>
+                    ) : (
+                      <>
+                        <ellipse
+                          cx="0"
+                          cy="0"
+                          rx="18"
+                          ry="21"
+                          fill="url(#kawaiiEyeSculpt3D)"
+                        />
+                        <path
+                          d="M -11 7 A 13 13 0 0 0 11 7 A 13 9 0 0 1 -11 7 Z"
+                          fill="#f59e0b"
+                          opacity="0.7"
+                        />
+                        <ellipse
+                          cx="-5.5"
+                          cy="-7.5"
+                          rx="5.5"
+                          ry="7"
+                          transform="rotate(-15 -5.5 -7.5)"
+                          fill="#ffffff"
+                        />
+                        <circle cx="6.5" cy="6.5" r="2.8" fill="#ffffff" />
+                        <circle cx="-6.5" cy="5.5" r="1.8" fill="#fde047" />
+                      </>
+                    )}
+                  </g>
+                </g>
+
+                {isBlinking && !isGiggling && !isLullaby && (
+                  <ellipse cx="0" cy="0" rx="21" ry="24" fill="#fff8fb" />
+                )}
               </g>
 
-              {/* Chubby Sleeved Baby Arm & Hand Hugging the Music Box */}
+              {/* RIGHT EYE SOCKET (Strictly clipped inside eyeSocketClip!) */}
+              <g transform="translate(262, 216)">
+                <ellipse
+                  cx="0"
+                  cy="0"
+                  rx="20.5"
+                  ry="23.5"
+                  fill="#1c0a00"
+                  stroke="#31102f"
+                  strokeWidth="1.5"
+                />
+
+                <g clipPath="url(#eyeSocketClip)">
+                  <g
+                    data-testid="bitz-right-pupil"
+                    transform={`translate(${pupilOffset.x}, ${pupilOffset.y})`}
+                  >
+                    {isGiggling ? (
+                      <g>
+                        <ellipse cx="0" cy="0" rx="22" ry="25" fill="#fff8fb" />
+                        <path
+                          d="M -13 4 Q 0 -13 13 4"
+                          fill="none"
+                          stroke="#31102f"
+                          strokeWidth="5"
+                          strokeLinecap="round"
+                        />
+                      </g>
+                    ) : isWaving ? (
+                      <g>
+                        <ellipse cx="0" cy="0" rx="22" ry="25" fill="#fff8fb" />
+                        <path
+                          d="M -13 2 Q 0 -11 13 2"
+                          fill="none"
+                          stroke="#31102f"
+                          strokeWidth="5"
+                          strokeLinecap="round"
+                        />
+                      </g>
+                    ) : isLullaby ? (
+                      <g>
+                        <ellipse cx="0" cy="0" rx="22" ry="25" fill="#fff8fb" />
+                        <path
+                          d="M -13 -2 Q 0 12 13 -2"
+                          fill="none"
+                          stroke="#31102f"
+                          strokeWidth="4.5"
+                          strokeLinecap="round"
+                        />
+                      </g>
+                    ) : (
+                      <>
+                        <ellipse
+                          cx="0"
+                          cy="0"
+                          rx="18"
+                          ry="21"
+                          fill="url(#kawaiiEyeSculpt3D)"
+                        />
+                        <path
+                          d="M -11 7 A 13 13 0 0 0 11 7 A 13 9 0 0 1 -11 7 Z"
+                          fill="#f59e0b"
+                          opacity="0.7"
+                        />
+                        <ellipse
+                          cx="-5.5"
+                          cy="-7.5"
+                          rx="5.5"
+                          ry="7"
+                          transform="rotate(-15 -5.5 -7.5)"
+                          fill="#ffffff"
+                        />
+                        <circle cx="6.5" cy="6.5" r="2.8" fill="#ffffff" />
+                        <circle cx="-6.5" cy="5.5" r="1.8" fill="#fde047" />
+                      </>
+                    )}
+                  </g>
+                </g>
+
+                {isBlinking && !isGiggling && !isWaving && !isLullaby && (
+                  <ellipse cx="0" cy="0" rx="21" ry="24" fill="#fff8fb" />
+                )}
+              </g>
+
+              {/* EXPRESSIVE KAWAII MOUTH OR STARLIGHT PACIFIER */}
+              {accessory === "pacifier" ? (
+                <g transform="translate(220, 240)">
+                  <ellipse
+                    cx="0"
+                    cy="0"
+                    rx="14"
+                    ry="10"
+                    fill="#f472b6"
+                    stroke="#db2777"
+                    strokeWidth="1.5"
+                  />
+                  <circle cx="0" cy="2" r="5" fill="#bae6fd" />
+                  <path
+                    d="M -7 4 A 7 7 0 0 0 7 4"
+                    fill="none"
+                    stroke="#ffffff"
+                    strokeWidth="2.2"
+                    strokeLinecap="round"
+                  />
+                </g>
+              ) : isGiggling || isWaving ? (
+                <g transform="translate(220, 238)">
+                  <path
+                    d="M -14 -2 Q 0 22 14 -2 Z"
+                    fill="#db2777"
+                    stroke="#4a044e"
+                    strokeWidth="2.2"
+                  />
+                  <path d="M -8 5 Q 0 15 8 5 Z" fill="#f9a8d4" />
+                </g>
+              ) : isLullaby ? (
+                <circle
+                  cx="220"
+                  cy="240"
+                  r="4.5"
+                  fill="#f472b6"
+                  stroke="#4a044e"
+                  strokeWidth="2"
+                />
+              ) : (
+                <path
+                  d="M 208 236 Q 220 247 232 236"
+                  fill="none"
+                  stroke="#4a044e"
+                  strokeWidth="3.8"
+                  strokeLinecap="round"
+                />
+              )}
+            </g>
+
+            {/* LAYER 5: LEFT CHUBBY CLOUD ARM HOLDING PLUMP 3D GOLDEN CRESCENT MOON LANTERN */}
+            <g
+              onClick={handleWaveMoon}
+              className={isWaving || isGiggling ? "animate-lift-moon" : ""}
+            >
               <path
-                d="M 314 246 C 338 252, 348 272, 334 286 C 324 294, 306 286, 302 272 Z"
-                fill="url(#babyOnesie3D)"
-                stroke="#f9a8d4"
+                d="M 108 188 C 68 194, 58 244, 92 270 C 108 282, 128 278, 138 268 C 112 266, 94 246, 96 220 C 98 202, 110 192, 122 190 C 116 188, 112 187, 108 188 Z"
+                fill="url(#goldSculpt3D)"
+                stroke="#d97706"
+                strokeWidth="1.8"
+                strokeLinejoin="round"
+              />
+              <line
+                x1="118"
+                y1="190"
+                x2="118"
+                y2="205"
+                stroke="#f59e0b"
+                strokeWidth="2"
+              />
+              <circle
+                cx="118"
+                cy="209"
+                r="4"
+                fill="#fde047"
+                stroke="#d97706"
+                strokeWidth="1"
+              />
+
+              <ellipse
+                cx="120"
+                cy="252"
+                rx="23"
+                ry="18"
+                transform="rotate(16 120 252)"
+                fill="url(#plushLimb3D)"
+                stroke="#fbcfe8"
                 strokeWidth="1.8"
               />
-              {/* Cute Baby Hand */}
+            </g>
+
+            {/* LAYER 6: RIGHT CHUBBY CLOUD ARM HOLDING CUTE MINI RAINBOW MUSIC BOX */}
+            <g
+              onClick={handleWaveMoon}
+              className={
+                isGiggling
+                  ? "animate-right-arm-cheer"
+                  : isWaving
+                  ? "animate-friendly-wave"
+                  : ""
+              }
+            >
+              {/* Cute Mini Wind-Up Music Box in Right Hand */}
+              <g transform="translate(332, 265) rotate(12)">
+                <path
+                  d="M -11 -10 A 11 11 0 0 1 11 -10"
+                  fill="none"
+                  stroke="#f472b6"
+                  strokeWidth="3.5"
+                  strokeLinecap="round"
+                />
+                <rect
+                  x="-15"
+                  y="-10"
+                  width="30"
+                  height="20"
+                  rx="6"
+                  fill="#bae6fd"
+                  stroke="#38bdf8"
+                  strokeWidth="1.6"
+                />
+                <rect x="-14" y="-2" width="28" height="5" fill="#f9a8d4" />
+              </g>
+
               <ellipse
-                cx="318"
-                cy="268"
-                rx="13"
-                ry="11"
-                fill="url(#babyHead3D)"
+                cx="320"
+                cy="242"
+                rx="24"
+                ry="18"
+                transform="rotate(-24 320 242)"
+                fill="url(#plushLimb3D)"
                 stroke="#fbcfe8"
-                strokeWidth="1.5"
+                strokeWidth="1.8"
               />
+              <circle cx="325" cy="238" r="6.5" fill="#f9a8d4" opacity="0.85" />
             </g>
           </g>
         </svg>
       </div>
 
-      {/* TACTILE 3D 90S TOY PUSH-BUTTONS (Not hax.baby's flat rounded pills!) */}
-      <div className="mt-2 flex flex-wrap items-center justify-center gap-2.5">
+      {/* LIVE BABY DRESS-UP ACCESSORY SWITCHER (Instant Judge Wow Factor!) */}
+      <div className="mt-1 mb-2 flex flex-wrap items-center justify-center gap-1.5 bg-white/90 dark:bg-slate-800 px-3 py-1.5 rounded-full border-2 border-pink-200 dark:border-sky-700 shadow-sm">
+        <span className="text-[11px] font-mono font-bold text-pink-600 dark:text-pink-300 px-1.5">
+          Dress Up Bitz:
+        </span>
+        {[
+          { id: "bow", label: "🎀 Pink Bow" },
+          { id: "crown", label: "👑 Star Crown" },
+          { id: "headphones", label: "🎧 Headphones" },
+          { id: "pacifier", label: "🍼 Pacifier" },
+        ].map((item) => (
+          <button
+            key={item.id}
+            type="button"
+            onClick={() => {
+              soundEngine.playNote(783.99, 0.2, "sine");
+              setAccessory(item.id);
+              setSpeechBubble(`Yay! You dressed me up with my cute ${item.label}! 💖✨`);
+            }}
+            className={`px-2.5 py-1 rounded-full text-[11px] font-bold transition ${
+              accessory === item.id
+                ? "bg-pink-500 text-white shadow-sm"
+                : "bg-pink-50 dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-pink-100"
+            }`}
+          >
+            {item.label}
+          </button>
+        ))}
+      </div>
+
+      {/* CLEAN SOFT PASTEL ACTION BUTTONS (Exact style from 37ae0b0 that user loved!) */}
+      <div className="mt-1 flex flex-wrap items-center justify-center gap-2">
         <button
           type="button"
           onClick={handlePokeBelly}
-          className="retro-btn-pink inline-flex items-center gap-1.5 px-4 py-2 text-xs"
+          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold bg-pink-500 hover:bg-pink-600 text-white border-2 border-pink-600 active:translate-y-0.5 transition shadow-sm"
         >
-          <Heart className="w-3.5 h-3.5 fill-current text-white" />
-          Tickle Belly (Jump & Kick)
+          <Heart className="w-3.5 h-3.5 fill-current text-pink-100" />
+          Tickle Belly (Jump &amp; Cheer)
         </button>
 
         <button
           type="button"
           onClick={handleWaveMoon}
-          className="retro-btn-sky inline-flex items-center gap-1.5 px-4 py-2 text-xs"
+          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold bg-sky-100 hover:bg-sky-200 text-sky-950 border-2 border-sky-300 active:translate-y-0.5 transition shadow-sm"
         >
-          <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-          Shine Star-Lantern
+          <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+          Wave Moon Lantern
         </button>
 
         <button
           type="button"
           onClick={handleSingLullaby}
-          className="retro-btn-cream inline-flex items-center gap-1.5 px-4 py-2 text-xs"
+          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold bg-pink-100 hover:bg-pink-200 text-pink-950 border-2 border-pink-300 active:translate-y-0.5 transition shadow-sm"
         >
           <Music className="w-3.5 h-3.5 text-pink-600" />
-          Wind Music Box
+          Sing Cloud Lullaby
         </button>
 
         <button
           type="button"
           onClick={handleAntennaClick}
-          className="retro-btn-sky inline-flex items-center gap-1.5 px-4 py-2 text-xs"
+          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold bg-sky-500 hover:bg-sky-600 text-white border-2 border-sky-600 active:translate-y-0.5 transition shadow-sm"
         >
-          <Zap className="w-3.5 h-3.5 text-amber-500 fill-current" />
+          <Zap className="w-3.5 h-3.5 text-amber-200 fill-current" />
           Ring Star-Bell ({antennaClicks}/3)
         </button>
       </div>
