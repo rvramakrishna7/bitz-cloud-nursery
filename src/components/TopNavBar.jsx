@@ -53,7 +53,7 @@ export default function TopNavBar({
         <div className="max-w-4xl mx-auto mt-2 px-4">
           <div className="rounded-full bg-pink-500 text-white py-1 px-4 text-xs font-mono font-bold overflow-hidden whitespace-nowrap border-2 border-pink-300 shadow-sm">
             <div className="animate-marquee inline-block">
-              ★ WELCOME TO BITZ&apos;S CLOUD-LOFT SANCTUARY ★ LISTEN TO THE SWEET TITAN WATCH LULLABY ★ RING THE GOLDEN STAR-BELL 3 TIMES FOR A RAINBOW BRIDGE ★
+              ★ WELCOME TO BITZ&apos;S CLOUD-LOFT SANCTUARY ★ LISTEN TO THE SWEET CELESTIAL CLOUD LULLABY ★ RING THE GOLDEN STAR-BELL 3 TIMES FOR A RAINBOW BRIDGE ★
             </div>
           </div>
         </div>

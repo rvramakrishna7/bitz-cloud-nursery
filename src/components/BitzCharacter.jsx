@@ -77,39 +77,38 @@ export default function BitzCharacter({
     }, 2400);
   };
 
-  // Action 2: Friendly Wave & Moon Lantern Lift (Wink + Starlight)
+  // Action 2: Friendly Wave & Moon Lantern Lift (Wink + Starlight Melody)
   const handleWaveMoon = (e) => {
     if (e) e.stopPropagation();
-    soundEngine.playNote(587.33, 0.25, "sine");
-    setTimeout(() => soundEngine.playNote(880, 0.3, "triangle"), 140);
+    soundEngine.playMoonWaveMelody();
     setMoodReaction("wave");
     setSpeechBubble(
-      "*Winks and waves!* I'm lifting my Golden Crescent Moon & Star-Lantern to light up your sky! 🌙😉"
+      "*Winks and waves!* I'm lifting my Golden Crescent Moon & Star-Lantern with a twinkling melody! 🌙😉"
     );
     setTimeout(() => {
       setMoodReaction((curr) => (curr === "wave" ? "happy" : curr));
     }, 2500);
   };
 
-  // Action 3: Cozy Cradle Sway & Iconic Titan Watch Lullaby (3 Sweet Variations!)
+  // Action 3: Cozy Cradle Sway & Celestial Cloud Lullaby (3 Sweet Variations!)
   const handleSingLullaby = (e) => {
     if (e) e.stopPropagation();
     if (moodReaction === "lullaby" && soundEngine.isPlayingLullaby) {
       soundEngine.stopLullaby();
       setMoodReaction("happy");
-      setSpeechBubble("✨ Lullaby paused! Tap anytime to hear the sweet Titan Watch melody again!");
+      setSpeechBubble("✨ Lullaby paused! Tap anytime to hear my sweet Celestial Cloud Lullaby again!");
       return;
     }
     setMoodReaction("lullaby");
     setSpeechBubble(
-      "🎶 Playing Classic Titan Watch Lullaby (Mozart K.183 Sweet Music Box, Flute & Santoor Variations)... ☁️✨"
+      "🎶 Playing Celestial Cloud Lullaby (Crystal Music Box, Sweet Bansuri Flute & Santoor Variations)... ☁️✨"
     );
-    soundEngine.playTitanLullaby(
+    soundEngine.playCloudLullaby(
       "full",
       (ev) => {
         if (ev.label === "Flute Bb4") {
           setSpeechBubble(
-            "🎶 Variation 2: Sweet Bansuri Flute & Santoor Arpeggio ('The Joy of Gifting' Melody)... 🌸✨"
+            "🎶 Variation 2: Sweet Bansuri Flute & Santoor Arpeggio floating across the clouds... 🌸✨"
           );
         } else if (ev.label === "Star G5") {
           setSpeechBubble(
@@ -148,10 +147,10 @@ export default function BitzCharacter({
       onEasterEggTriggered?.();
       setAntennaClicks(0);
     } else {
-      soundEngine.playNote(659.25 + nextCount * 120, 0.28, "triangle");
+      soundEngine.playStarBellMelody(nextCount);
       setMoodReaction("bell");
       setSpeechBubble(
-        `🔔 *Ting-a-ling!* Golden Star-Bell chimed (${nextCount}/3)... ring ${
+        `🔔 *Ting-a-ling!* Golden Star-Bell chimed a sweet melody (${nextCount}/3)... ring ${
           3 - nextCount
         } more time${3 - nextCount === 1 ? "" : "s"} to weave a Rainbow Bridge!`
       );
@@ -1056,7 +1055,7 @@ export default function BitzCharacter({
             key={item.id}
             type="button"
             onClick={() => {
-              soundEngine.playNote(783.99, 0.22, "celesta");
+              soundEngine.playAccessoryMelody(item.id);
               setAccessory(item.id);
               setSpeechBubble(`Yay! You dressed me up with my cute ${item.label}! 💖✨`);
             }}
@@ -1101,7 +1100,7 @@ export default function BitzCharacter({
           }`}
         >
           <Music className="w-3.5 h-3.5 text-pink-600 shrink-0" />
-          <span>{isLullaby ? "⏸ Playing Titan Lullaby..." : "🎶 Titan Lullaby"}</span>
+          <span>{isLullaby ? "⏸ Playing Lullaby..." : "🎶 Cloud Lullaby"}</span>
         </button>
 
         <button

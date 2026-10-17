@@ -20,7 +20,7 @@ export default function ProjectsShowcase() {
   const [activeNote, setActiveNote] = useState(null);
   const [isPlayingMelody, setIsPlayingMelody] = useState(false);
   const [selectedVariation, setSelectedVariation] = useState("full");
-  const [melodyLog, setMelodyLog] = useState(["Titan G4", "Sweet Bb4", "Chime D5"]);
+  const [melodyLog, setMelodyLog] = useState(["Chime G4", "Sweet Bb4", "Bell D5"]);
 
   const [selectedLantern, setSelectedLantern] = useState(
     SHOWCASE_PROJECTS[1].lanterns[0]
@@ -194,10 +194,10 @@ export default function ProjectsShowcase() {
                 );
               })}
             </div>
-            {/* Titan Watch Theme Variation Selector Pills */}
+            {/* Celestial Cloud Lullaby Variation Selector Pills */}
             <div className="mt-4 flex flex-wrap items-center gap-1.5">
               <span className="text-[11px] font-mono font-bold text-pink-600 dark:text-pink-300 mr-1 whitespace-nowrap">
-                🎶 Titan Variations:
+                🎶 Lullaby Variations:
               </span>
               {[
                 { id: "full", label: "✨ Full Suite (All 3)" },
@@ -230,12 +230,12 @@ export default function ProjectsShowcase() {
               {isPlayingMelody ? (
                 <>
                   <Square className="w-3.5 h-3.5 fill-current shrink-0" />
-                  <span>Stop Titan Lullaby</span>
+                  <span>Stop Cloud Lullaby</span>
                 </>
               ) : (
                 <>
                   <Play className="w-3.5 h-3.5 fill-current shrink-0" />
-                  <span>Play Titan Watch Lullaby</span>
+                  <span>Play Celestial Lullaby</span>
                 </>
               )}
             </button>
