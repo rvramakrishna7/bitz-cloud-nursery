@@ -31,7 +31,7 @@ export default function BitzCharacter({
         x: rect.left + rect.width / 2,
         y: rect.top + rect.height / 2,
       };
-      const offset = calculatePupilOffset(center, { x: clientX, y: clientY }, 10);
+      const offset = calculatePupilOffset(center, { x: clientX, y: clientY }, 5.5);
       setPupilOffset(offset);
       const tilt = Math.max(-7, Math.min(7, (clientX - center.x) / 36));
       setHeadTilt(Number(tilt.toFixed(2)));
@@ -185,7 +185,7 @@ export default function BitzCharacter({
           }
         }}
         style={{
-          transform: `perspective(950px) rotateY(${pupilOffset.x * 1.15}deg) rotateX(${-pupilOffset.y * 0.95}deg) rotateZ(${headTilt * 0.45}deg)`,
+          transform: `perspective(950px) rotateY(${pupilOffset.x * 1.3}deg) rotateX(${-pupilOffset.y * 1.1}deg) rotateZ(${headTilt * 0.45}deg)`,
           transition: "transform 0.16s ease-out",
         }}
         className="relative cursor-pointer focus:outline-none animate-float"
@@ -211,6 +211,11 @@ export default function BitzCharacter({
           aria-label="Bitz, a sculpted 3D plushie cloud-sprite wearing a periwinkle knit nightcap with a golden star-bell and holding a crescent moon lantern"
         >
           <defs>
+            {/* Strict Eye Socket Clip Path so eyeballs NEVER poke outside the eye socket! */}
+            <clipPath id="eyeSocketClip">
+              <ellipse cx="0" cy="0" rx="20" ry="23" />
+            </clipPath>
+
             {/* Unified 3D Subsurface Plushie Cloud Body Shader (Zero internal circle seams!) */}
             <radialGradient id="sculptedCloudBody3D" cx="46%" cy="32%" r="64%">
               <stop offset="0%" stopColor="#ffffff" />
@@ -303,7 +308,6 @@ export default function BitzCharacter({
 
           {/* LAYER 1: SEAMLESS 3D SKY-BLUE PLUSH CUSHION CLOUD BASE */}
           <g transform={`translate(${pupilOffset.x * -0.3}, 0)`}>
-            {/* Soft Sky-Blue Ground Shadow */}
             <ellipse
               cx="220"
               cy="386"
@@ -312,14 +316,12 @@ export default function BitzCharacter({
               fill="#38bdf8"
               opacity="0.2"
             />
-            {/* Unified Scalloped Cushion Cloud Silhouette (Zero overlapping seams!) */}
             <path
               d="M 88 344 C 66 344, 58 368, 80 380 C 102 392, 148 394, 180 388 C 206 396, 234 396, 260 388 C 292 394, 338 392, 360 380 C 382 368, 374 344, 352 344 C 342 320, 306 314, 284 326 C 258 308, 182 308, 156 326 C 134 314, 98 320, 88 344 Z"
               fill="url(#skyCushionBase3D)"
               stroke="#bae6fd"
               strokeWidth="2"
             />
-            {/* Subtle 3D top cushion crease highlight */}
             <path
               d="M 135 338 Q 220 322 305 338"
               fill="none"
@@ -328,7 +330,6 @@ export default function BitzCharacter({
               strokeLinecap="round"
               opacity="0.7"
             />
-            {/* Cute pastel star & heart sprinkles on the cushion */}
             <circle cx="128" cy="362" r="3.5" fill="#f472b6" opacity="0.85" />
             <circle cx="312" cy="360" r="3.5" fill="#fbbf24" opacity="0.9" />
             <circle cx="220" cy="374" r="3" fill="#f472b6" opacity="0.75" />
@@ -336,7 +337,7 @@ export default function BitzCharacter({
 
           {/* LAYER 2: BITZ'S CHOREOGRAPHED 3D BODY RIG */}
           <g className={bodyChoreographyClass}>
-            {/* SEAMLESS SCULPTED 3D PLUSHIE CLOUD BODY (Single unified scalloped path — NO circle seams!) */}
+            {/* SEAMLESS SCULPTED 3D PLUSHIE CLOUD BODY */}
             <path
               d="M 136 168 C 148 122, 188 106, 220 116 C 252 106, 292 122, 304 168 C 344 176, 360 220, 338 256 C 354 292, 326 332, 286 330 C 266 346, 238 346, 220 338 C 202 346, 174 346, 154 330 C 114 332, 86 292, 102 256 C 80 220, 96 176, 136 168 Z"
               fill="url(#sculptedCloudBody3D)"
@@ -345,7 +346,6 @@ export default function BitzCharacter({
               strokeLinejoin="round"
             />
 
-            {/* Soft 3D Inner Rim Specular Highlight along Top-Left Cloud Puffs */}
             <path
               d="M 110 245 C 94 218, 106 184, 140 174"
               fill="none"
@@ -366,11 +366,7 @@ export default function BitzCharacter({
             />
 
             {/* Chubby Plushie Feet with Rosy Toe Pads */}
-            <g
-              transform={
-                isGiggling ? "translate(0, -6)" : "translate(0, 0)"
-              }
-            >
+            <g transform={isGiggling ? "translate(0, -6)" : "translate(0, 0)"}>
               <ellipse
                 cx="172"
                 cy="334"
@@ -398,12 +394,10 @@ export default function BitzCharacter({
 
             {/* LAYER 3: SCULPTED 3D PERIWINKLE KNIT SLEEPING CAP + GOLDEN STAR-BELL */}
             <g transform={`rotate(${headTilt * 0.4} 220 135)`}>
-              {/* Smooth 3D Sleeping Cap Dome & Drooping Tip */}
               <path
                 d="M 124 144 C 136 52, 240 28, 316 84 C 344 104, 356 134, 344 158 C 326 140, 298 128, 270 134 Z"
                 fill="url(#knitCapSculpt3D)"
               />
-              {/* Soft Knit Stitch Curves */}
               <path
                 d="M 164 116 Q 212 66 278 82"
                 fill="none"
@@ -421,7 +415,6 @@ export default function BitzCharacter({
                 opacity="0.5"
               />
 
-              {/* Fluffy Sky-Blue Ribbed Cuff Brim */}
               <path
                 d="M 116 148 Q 220 104 320 146 Q 330 166 308 172 Q 220 134 128 172 Q 106 166 116 148 Z"
                 fill="url(#knitBrimSculpt3D)"
@@ -442,7 +435,7 @@ export default function BitzCharacter({
                 />
               ))}
 
-              {/* INTERACTIVE GOLDEN STAR-BELL TASSEL (Click 3x for Rainbow Bridge!) */}
+              {/* INTERACTIVE GOLDEN STAR-BELL TASSEL */}
               <g
                 onClick={handleAntennaClick}
                 data-testid="bitz-antenna-trigger"
@@ -461,10 +454,8 @@ export default function BitzCharacter({
                     : "animate-swing-bell"
                 }`}
               >
-                {/* Invisible hit target */}
                 <circle cx="346" cy="196" r="36" fill="transparent" />
 
-                {/* Expanding Soundwave Ring when Bell is Rung */}
                 {(isBellRinging || antennaClicks > 0) && (
                   <circle
                     cx="346"
@@ -477,7 +468,6 @@ export default function BitzCharacter({
                   />
                 )}
 
-                {/* Golden Cord */}
                 <path
                   d="M 344 154 Q 348 172 346 184"
                   fill="none"
@@ -485,7 +475,6 @@ export default function BitzCharacter({
                   strokeWidth="3.5"
                   strokeLinecap="round"
                 />
-                {/* 3D Golden Star-Bell */}
                 <polygon
                   points="346,176 353,191 370,193 357,204 361,220 346,212 331,220 335,204 322,193 339,191"
                   fill="url(#goldSculpt3D)"
@@ -497,7 +486,7 @@ export default function BitzCharacter({
               </g>
             </g>
 
-            {/* LAYER 4: EXPRESSIVE CURSOR-TRACKING 3D KAWAII EYES, CHEEKS & MOUTH */}
+            {/* LAYER 4: CLIPPED CURSOR-TRACKING 3D KAWAII EYES, CHEEKS & MOUTH */}
             <g>
               {/* Rosy Baby-Pink Cheeks */}
               <ellipse
@@ -515,145 +504,162 @@ export default function BitzCharacter({
                 fill="url(#rosyCheekSculpt3D)"
               />
 
-              {/* LEFT EYE SOCKET */}
+              {/* LEFT EYE SOCKET (Strictly clipped inside eyeSocketClip!) */}
               <g transform="translate(178, 216)">
-                <ellipse cx="0" cy="0" rx="21" ry="24" fill="#1e1b4b" />
+                {/* Dark Plushie Eye Socket Base */}
+                <ellipse
+                  cx="0"
+                  cy="0"
+                  rx="20.5"
+                  ry="23.5"
+                  fill="#1c0a00"
+                  stroke="#31102f"
+                  strokeWidth="1.5"
+                />
 
-                <g
-                  data-testid="bitz-left-pupil"
-                  transform={`translate(${pupilOffset.x}, ${pupilOffset.y})`}
-                >
-                  {isGiggling ? (
-                    /* Joyful Laughing Arc (^ ^) */
-                    <g>
-                      <ellipse cx="0" cy="0" rx="22" ry="25" fill="#ffffff" />
-                      <path
-                        d="M -13 4 Q 0 -13 13 4"
-                        fill="none"
-                        stroke="#31102f"
-                        strokeWidth="5"
-                        strokeLinecap="round"
-                      />
-                    </g>
-                  ) : isLullaby ? (
-                    /* Peaceful Sleeping Lullaby Curve (∪) */
-                    <g>
-                      <ellipse cx="0" cy="0" rx="22" ry="25" fill="#ffffff" />
-                      <path
-                        d="M -13 -2 Q 0 12 13 -2"
-                        fill="none"
-                        stroke="#31102f"
-                        strokeWidth="4.5"
-                        strokeLinecap="round"
-                      />
-                    </g>
-                  ) : (
-                    <>
-                      <ellipse
-                        cx="0"
-                        cy="0"
-                        rx="18.5"
-                        ry="21.5"
-                        fill="url(#kawaiiEyeSculpt3D)"
-                      />
-                      <path
-                        d="M -12 8 A 14 14 0 0 0 12 8 A 14 10 0 0 1 -12 8 Z"
-                        fill="#f59e0b"
-                        opacity="0.65"
-                      />
-                      <ellipse
-                        cx="-6"
-                        cy="-8"
-                        rx="6"
-                        ry="7.5"
-                        transform="rotate(-15 -6 -8)"
-                        fill="#ffffff"
-                      />
-                      <circle cx="7" cy="7" r="3" fill="#ffffff" />
-                      <circle cx="-7" cy="6" r="2" fill="#fde047" />
-                    </>
-                  )}
+                {/* Clipped Interior so moving iris/pupil NEVER leaves the eye socket */}
+                <g clipPath="url(#eyeSocketClip)">
+                  <g
+                    data-testid="bitz-left-pupil"
+                    transform={`translate(${pupilOffset.x}, ${pupilOffset.y})`}
+                  >
+                    {isGiggling ? (
+                      <g>
+                        <ellipse cx="0" cy="0" rx="22" ry="25" fill="#fff8fb" />
+                        <path
+                          d="M -13 4 Q 0 -13 13 4"
+                          fill="none"
+                          stroke="#31102f"
+                          strokeWidth="5"
+                          strokeLinecap="round"
+                        />
+                      </g>
+                    ) : isLullaby ? (
+                      <g>
+                        <ellipse cx="0" cy="0" rx="22" ry="25" fill="#fff8fb" />
+                        <path
+                          d="M -13 -2 Q 0 12 13 -2"
+                          fill="none"
+                          stroke="#31102f"
+                          strokeWidth="4.5"
+                          strokeLinecap="round"
+                        />
+                      </g>
+                    ) : (
+                      <>
+                        <ellipse
+                          cx="0"
+                          cy="0"
+                          rx="18"
+                          ry="21"
+                          fill="url(#kawaiiEyeSculpt3D)"
+                        />
+                        <path
+                          d="M -11 7 A 13 13 0 0 0 11 7 A 13 9 0 0 1 -11 7 Z"
+                          fill="#f59e0b"
+                          opacity="0.7"
+                        />
+                        <ellipse
+                          cx="-5.5"
+                          cy="-7.5"
+                          rx="5.5"
+                          ry="7"
+                          transform="rotate(-15 -5.5 -7.5)"
+                          fill="#ffffff"
+                        />
+                        <circle cx="6.5" cy="6.5" r="2.8" fill="#ffffff" />
+                        <circle cx="-6.5" cy="5.5" r="1.8" fill="#fde047" />
+                      </>
+                    )}
+                  </g>
                 </g>
 
                 {isBlinking && !isGiggling && !isLullaby && (
-                  <ellipse cx="0" cy="0" rx="22" ry="25" fill="#fff8fb" />
+                  <ellipse cx="0" cy="0" rx="21" ry="24" fill="#fff8fb" />
                 )}
               </g>
 
-              {/* RIGHT EYE SOCKET */}
+              {/* RIGHT EYE SOCKET (Strictly clipped inside eyeSocketClip!) */}
               <g transform="translate(262, 216)">
-                <ellipse cx="0" cy="0" rx="21" ry="24" fill="#1e1b4b" />
+                <ellipse
+                  cx="0"
+                  cy="0"
+                  rx="20.5"
+                  ry="23.5"
+                  fill="#1c0a00"
+                  stroke="#31102f"
+                  strokeWidth="1.5"
+                />
 
-                <g
-                  data-testid="bitz-right-pupil"
-                  transform={`translate(${pupilOffset.x}, ${pupilOffset.y})`}
-                >
-                  {isGiggling ? (
-                    /* Joyful Laughing Arc (^ ^) */
-                    <g>
-                      <ellipse cx="0" cy="0" rx="22" ry="25" fill="#ffffff" />
-                      <path
-                        d="M -13 4 Q 0 -13 13 4"
-                        fill="none"
-                        stroke="#31102f"
-                        strokeWidth="5"
-                        strokeLinecap="round"
-                      />
-                    </g>
-                  ) : isWaving ? (
-                    /* Playful Friendly Wink (😉) when Waving Moon Lantern */
-                    <g>
-                      <ellipse cx="0" cy="0" rx="22" ry="25" fill="#ffffff" />
-                      <path
-                        d="M -13 2 Q 0 -11 13 2"
-                        fill="none"
-                        stroke="#31102f"
-                        strokeWidth="5"
-                        strokeLinecap="round"
-                      />
-                    </g>
-                  ) : isLullaby ? (
-                    /* Peaceful Sleeping Lullaby Curve (∪) */
-                    <g>
-                      <ellipse cx="0" cy="0" rx="22" ry="25" fill="#ffffff" />
-                      <path
-                        d="M -13 -2 Q 0 12 13 -2"
-                        fill="none"
-                        stroke="#31102f"
-                        strokeWidth="4.5"
-                        strokeLinecap="round"
-                      />
-                    </g>
-                  ) : (
-                    <>
-                      <ellipse
-                        cx="0"
-                        cy="0"
-                        rx="18.5"
-                        ry="21.5"
-                        fill="url(#kawaiiEyeSculpt3D)"
-                      />
-                      <path
-                        d="M -12 8 A 14 14 0 0 0 12 8 A 14 10 0 0 1 -12 8 Z"
-                        fill="#f59e0b"
-                        opacity="0.65"
-                      />
-                      <ellipse
-                        cx="-6"
-                        cy="-8"
-                        rx="6"
-                        ry="7.5"
-                        transform="rotate(-15 -6 -8)"
-                        fill="#ffffff"
-                      />
-                      <circle cx="7" cy="7" r="3" fill="#ffffff" />
-                      <circle cx="-7" cy="6" r="2" fill="#fde047" />
-                    </>
-                  )}
+                <g clipPath="url(#eyeSocketClip)">
+                  <g
+                    data-testid="bitz-right-pupil"
+                    transform={`translate(${pupilOffset.x}, ${pupilOffset.y})`}
+                  >
+                    {isGiggling ? (
+                      <g>
+                        <ellipse cx="0" cy="0" rx="22" ry="25" fill="#fff8fb" />
+                        <path
+                          d="M -13 4 Q 0 -13 13 4"
+                          fill="none"
+                          stroke="#31102f"
+                          strokeWidth="5"
+                          strokeLinecap="round"
+                        />
+                      </g>
+                    ) : isWaving ? (
+                      <g>
+                        <ellipse cx="0" cy="0" rx="22" ry="25" fill="#fff8fb" />
+                        <path
+                          d="M -13 2 Q 0 -11 13 2"
+                          fill="none"
+                          stroke="#31102f"
+                          strokeWidth="5"
+                          strokeLinecap="round"
+                        />
+                      </g>
+                    ) : isLullaby ? (
+                      <g>
+                        <ellipse cx="0" cy="0" rx="22" ry="25" fill="#fff8fb" />
+                        <path
+                          d="M -13 -2 Q 0 12 13 -2"
+                          fill="none"
+                          stroke="#31102f"
+                          strokeWidth="4.5"
+                          strokeLinecap="round"
+                        />
+                      </g>
+                    ) : (
+                      <>
+                        <ellipse
+                          cx="0"
+                          cy="0"
+                          rx="18"
+                          ry="21"
+                          fill="url(#kawaiiEyeSculpt3D)"
+                        />
+                        <path
+                          d="M -11 7 A 13 13 0 0 0 11 7 A 13 9 0 0 1 -11 7 Z"
+                          fill="#f59e0b"
+                          opacity="0.7"
+                        />
+                        <ellipse
+                          cx="-5.5"
+                          cy="-7.5"
+                          rx="5.5"
+                          ry="7"
+                          transform="rotate(-15 -5.5 -7.5)"
+                          fill="#ffffff"
+                        />
+                        <circle cx="6.5" cy="6.5" r="2.8" fill="#ffffff" />
+                        <circle cx="-6.5" cy="5.5" r="1.8" fill="#fde047" />
+                      </>
+                    )}
+                  </g>
                 </g>
 
                 {isBlinking && !isGiggling && !isWaving && !isLullaby && (
-                  <ellipse cx="0" cy="0" rx="22" ry="25" fill="#fff8fb" />
+                  <ellipse cx="0" cy="0" rx="21" ry="24" fill="#fff8fb" />
                 )}
               </g>
 
@@ -688,30 +694,36 @@ export default function BitzCharacter({
               )}
             </g>
 
-            {/* LAYER 5: LEFT CHUBBY CLOUD ARM HOLDING CRISP 3D GOLDEN CRESCENT MOON LANTERN */}
+            {/* LAYER 5: LEFT CHUBBY CLOUD ARM HOLDING PLUMP 3D GOLDEN CRESCENT MOON LANTERN */}
             <g
               onClick={handleWaveMoon}
-              className={
-                isWaving || isGiggling ? "animate-lift-moon" : ""
-              }
+              className={isWaving || isGiggling ? "animate-lift-moon" : ""}
             >
-              {/* Crisp 3D Golden Crescent Moon (Zero washed-out overlay!) */}
+              {/* Plump, Solid 3D Golden Crescent Moon */}
               <path
-                d="M 94 196 A 36 36 0 1 0 122 268 A 26 26 0 1 1 94 196 Z"
+                d="M 108 188 C 68 194, 58 244, 92 270 C 108 282, 128 278, 138 268 C 112 266, 94 246, 96 220 C 98 202, 110 192, 122 190 C 116 188, 112 187, 108 188 Z"
                 fill="url(#goldSculpt3D)"
                 stroke="#d97706"
                 strokeWidth="1.8"
+                strokeLinejoin="round"
               />
               {/* Little hanging star charm from the top tip of the crescent moon */}
               <line
-                x1="94"
-                y1="196"
-                x2="94"
-                y2="210"
+                x1="118"
+                y1="190"
+                x2="118"
+                y2="205"
                 stroke="#f59e0b"
                 strokeWidth="2"
               />
-              <circle cx="94" cy="214" r="4" fill="#fde047" stroke="#d97706" strokeWidth="1" />
+              <circle
+                cx="118"
+                cy="209"
+                r="4"
+                fill="#fde047"
+                stroke="#d97706"
+                strokeWidth="1"
+              />
 
               {/* Bitz's Chubby Left Cloud Hand Hugging the Moon */}
               <ellipse
