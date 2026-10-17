@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-cream: #fff8f1;
+  --bg-card: #fffdf9;
+  --text-espresso: #5c4033;
+  --text-muted: #8a6456;
+  --accent-berry: #a34063;
+  --accent-pink: #ffccd8;
+  --accent-gold: #f4b942;
+  --accent-sky: #7bd3ae;
+  --border-chunky: #5c4033;
+}
+
+[data-theme="night"] {
+  --bg-cream: #120d16;
+  --bg-card: #1d1524;
+  --text-espresso: #fdf4ed;
+  --text-muted: #c7b2c2;
+  --accent-berry: #ff7aa2;
+  --accent-pink: #3d2235;
+  --accent-gold: #f4b942;
+  --accent-sky: #5eead4;
+  --border-chunky: #ff7aa2;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-cream);
+  color: var(--text-espresso);
+  font-family: var(--font-plus-jakarta), system-ui, -apple-system, sans-serif;
+  transition: background-color 0.35s ease, color 0.35s ease;
+  overflow-x: hidden;
+}
+
+/* Responsive Chaos Mode (+5 pts Side Quest) */
+[data-chaos="true"] {
+  background-image: radial-gradient(var(--accent-berry) 1px, transparent 1px),
+    radial-gradient(var(--accent-gold) 1px, var(--bg-cream) 1px);
+  background-size: 28px 28px;
+  background-position: 0 0, 14px 14px;
+}
+
+[data-chaos="true"] section > div {
+  border-width: 3px !important;
+  border-style: dashed !important;
+  box-shadow: 6px 6px 0px var(--accent-berry) !important;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: inline-block;
+  animation: marquee 18s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-bounce,
+  .animate-pulse,
+  .animate-ping {
+    animation: none !important;
+  }
+}
