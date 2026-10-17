@@ -3,21 +3,21 @@
 @tailwind utilities;
 
 :root {
-  /* Soft Baby Pink & Light Sky Blue Palette — Clean, Solid, Zero Harsh Gradients */
-  --bg-cream: #f0f9ff;
+  /* Solid Baby Pink & Light Sky Blue Palette (Zero Gradients!) */
+  --bg-cream: #e8f6ff;
   --bg-card: #ffffff;
   --text-espresso: #1e293b;
   --text-muted: #475569;
   --accent-berry: #ec4899;
-  --accent-pink: #ffe4ef;
+  --accent-pink: #ffd6e8;
   --accent-gold: #f59e0b;
   --accent-sky: #0284c7;
-  --border-chunky: #f472b6;
-  --card-shadow: 0 14px 34px -10px rgba(56, 189, 248, 0.16), 0 0 0 2px #fce7f3;
+  --border-chunky: #1e293b;
+  --window-shadow: 6px 6px 0px #7dd3fc;
 }
 
 [data-theme="night"] {
-  /* Starlight Twilight Sky & Baby Pink Night Mode */
+  /* Night Sky Mode — Deep Starlight Blue with Solid Baby Pink & Sky Blue Accents */
   --bg-cream: #0f172a;
   --bg-card: #1e293b;
   --text-espresso: #f8fafc;
@@ -26,8 +26,8 @@
   --accent-pink: #334155;
   --accent-gold: #fbbf24;
   --accent-sky: #38bdf8;
-  --border-chunky: #38bdf8;
-  --card-shadow: 0 16px 40px -10px rgba(2, 6, 23, 0.65), 0 0 0 2px rgba(244, 114, 182, 0.32);
+  --border-chunky: #7dd3fc;
+  --window-shadow: 6px 6px 0px #f472b6;
 }
 
 html {
@@ -36,23 +36,95 @@ html {
 
 body {
   background-color: var(--bg-cream);
+  /* Subtle 90s graph-grid notebook texture using pure 1px lines (zero color gradients) */
+  background-image:
+    linear-gradient(to right, rgba(244, 114, 182, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(56, 189, 248, 0.08) 1px, transparent 1px);
+  background-size: 28px 28px;
   color: var(--text-espresso);
   font-family: var(--font-plus-jakarta), system-ui, -apple-system, sans-serif;
   transition: background-color 0.35s ease, color 0.35s ease;
   overflow-x: hidden;
 }
 
-.glass-panel {
+/* 90s Pastel Cloud-OS Window Frame (100% Distinct From hax.baby's borderless/thin-border cards!) */
+.glass-panel,
+.retro-window {
   background-color: var(--bg-card);
-  box-shadow: var(--card-shadow);
+  border: 2.5px solid #1e293b;
+  box-shadow: var(--window-shadow);
+  border-radius: 20px;
 }
 
-/* 90s Toybox Mode */
+[data-theme="night"] .glass-panel,
+[data-theme="night"] .retro-window {
+  border-color: #7dd3fc;
+}
+
+/* Tactile 3D Toybox Push-Buttons (Not hax.baby's flat rounded-full pills!) */
+.retro-btn-pink {
+  background-color: #f472b6;
+  color: #1e293b;
+  border: 2px solid #1e293b;
+  box-shadow: 0 4px 0 #1e293b;
+  border-radius: 14px;
+  font-weight: 800;
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.15s ease;
+}
+.retro-btn-pink:hover {
+  background-color: #fb7185;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 0 #1e293b;
+}
+.retro-btn-pink:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #1e293b;
+}
+
+.retro-btn-sky {
+  background-color: #bae6fd;
+  color: #0f172a;
+  border: 2px solid #1e293b;
+  box-shadow: 0 4px 0 #1e293b;
+  border-radius: 14px;
+  font-weight: 800;
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.15s ease;
+}
+.retro-btn-sky:hover {
+  background-color: #7dd3fc;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 0 #1e293b;
+}
+.retro-btn-sky:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #1e293b;
+}
+
+.retro-btn-cream {
+  background-color: #fff0f6;
+  color: #1e293b;
+  border: 2px solid #1e293b;
+  box-shadow: 0 4px 0 #1e293b;
+  border-radius: 14px;
+  font-weight: 800;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+.retro-btn-cream:hover {
+  background-color: #ffe4ef;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 0 #1e293b;
+}
+.retro-btn-cream:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #1e293b;
+}
+
+/* 90s Toybox Overdrive Mode */
 [data-chaos="true"] .glass-panel,
+[data-chaos="true"] .retro-window,
 [data-chaos="true"] article {
-  border: 3px solid var(--border-chunky) !important;
-  box-shadow: 6px 6px 0px #7dd3fc !important;
-  border-radius: 26px !important;
+  border: 3.5px solid #ec4899 !important;
+  box-shadow: 8px 8px 0px #38bdf8 !important;
 }
 
 /* 1. Weightless Cloud Breathing & Floating (Idle) */
@@ -61,7 +133,7 @@ body {
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-9px);
+    transform: translateY(-8px);
   }
 }
 
@@ -69,19 +141,74 @@ body {
   animation: floatSlow 4.5s ease-in-out infinite;
 }
 
-/* 2. Choreographed Joyful Jump & Float (Belly Tickle — Smooth Arc, Zero Shaking!) */
+/* Floating Celestial Objects in the Air (Sun, Moon, Stars, Mini Clouds) */
+@keyframes floatCelestialA {
+  0%, 100% {
+    transform: translateY(0px) rotate(-4deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(5deg);
+  }
+}
+
+@keyframes floatCelestialB {
+  0%, 100% {
+    transform: translateY(0px) rotate(5deg) scale(1);
+  }
+  50% {
+    transform: translateY(10px) rotate(-5deg) scale(1.06);
+  }
+}
+
+.animate-celestial-a {
+  animation: floatCelestialA 4s ease-in-out infinite;
+}
+
+.animate-celestial-b {
+  animation: floatCelestialB 3.4s ease-in-out infinite;
+}
+
+/* Moving & Breathing Overhead Rainbow Arc */
+@keyframes rainbowSway {
+  0%, 100% {
+    transform: translateY(0px) rotate(-1.5deg) scale(1);
+  }
+  50% {
+    transform: translateY(-7px) rotate(1.5deg) scale(1.02);
+  }
+}
+
+.animate-rainbow-sway {
+  transform-origin: 240px 210px;
+  animation: rainbowSway 3.8s ease-in-out infinite;
+}
+
+@keyframes rainbowDashMove {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -120;
+  }
+}
+
+.animate-rainbow-shimmer {
+  animation: rainbowDashMove 3.5s linear infinite;
+}
+
+/* 2. Choreographed Joyful Jump & Cheer (Belly Tickle) */
 @keyframes bitzJoyfulJump {
   0% {
     transform: translateY(0px) scale(1, 1);
   }
   18% {
-    transform: translateY(8px) scale(1.05, 0.94);
+    transform: translateY(7px) scale(1.04, 0.95);
   }
   48% {
-    transform: translateY(-24px) scale(0.97, 1.04);
+    transform: translateY(-22px) scale(0.98, 1.03);
   }
   72% {
-    transform: translateY(-18px) scale(1.01, 1);
+    transform: translateY(-15px) scale(1.01, 1);
   }
   100% {
     transform: translateY(0px) scale(1, 1);
@@ -89,80 +216,73 @@ body {
 }
 
 .animate-joyful-jump {
-  transform-origin: 220px 310px;
+  transform-origin: 240px 330px;
   animation: bitzJoyfulJump 1.25s cubic-bezier(0.22, 1, 0.36, 1) infinite;
 }
 
-/* 3. Smooth Happy Arm Cheer (Right Arm) */
-@keyframes bitzRightArmCheer {
+/* 3. Left & Right Sleeved Arms Animations */
+@keyframes bitzRightArmLift {
   0%, 100% {
     transform: rotate(0deg) translateY(0px);
   }
-  35% {
-    transform: rotate(-38deg) translateY(-12px);
-  }
-  65% {
-    transform: rotate(-18deg) translateY(-6px);
+  50% {
+    transform: rotate(22deg) translateY(-12px);
   }
 }
 
-.animate-right-arm-cheer {
-  transform-origin: 298px 250px;
-  animation: bitzRightArmCheer 0.7s ease-in-out infinite;
+.animate-lift-lantern {
+  transform-origin: 165px 255px;
+  animation: bitzRightArmLift 1.1s ease-in-out infinite;
 }
 
-/* 4. Smooth Friendly Hand Wave (Idle / Wave Action) */
-@keyframes bitzFriendlyWave {
+@keyframes bitzLeftArmWave {
   0%, 100% {
     transform: rotate(0deg);
   }
-  25% {
-    transform: rotate(-32deg) translateY(-6px);
+  30% {
+    transform: rotate(-26deg) translateY(-8px);
   }
-  50% {
+  65% {
     transform: rotate(-8deg) translateY(-2px);
   }
-  75% {
-    transform: rotate(-32deg) translateY(-6px);
-  }
 }
 
-.animate-friendly-wave {
-  transform-origin: 298px 250px;
-  animation: bitzFriendlyWave 1.3s ease-in-out infinite;
+.animate-wave-musicbox {
+  transform-origin: 315px 255px;
+  animation: bitzLeftArmWave 1.1s ease-in-out infinite;
 }
 
-/* 5. Left Arm Lifting the Moon Lantern */
-@keyframes bitzLiftMoon {
+/* 4. Seated Baby Legs Happy Kick */
+@keyframes bitzFeetKick {
   0%, 100% {
     transform: translateY(0px) rotate(0deg);
   }
   50% {
-    transform: translateY(-16px) rotate(14deg);
+    transform: translateY(-7px) rotate(-6deg);
   }
 }
 
-.animate-lift-moon {
-  transform-origin: 140px 250px;
-  animation: bitzLiftMoon 1.2s ease-in-out infinite;
+.animate-feet-kick {
+  transform-origin: 240px 320px;
+  animation: bitzFeetKick 0.6s ease-in-out infinite;
 }
 
-/* 6. Cozy Cradle Sway (Lullaby Mode) */
+/* 5. Cozy Cradle Sway (Lullaby Mode) */
 @keyframes bitzCradleSway {
   0%, 100% {
-    transform: rotate(-4deg) translateY(2px);
+    transform: rotate(-3.5deg) translateY(2px);
   }
   50% {
-    transform: rotate(4deg) translateY(-4px);
+    transform: rotate(3.5deg) translateY(-4px);
   }
 }
 
 .animate-cradle-sway {
-  transform-origin: 220px 320px;
+  transform-origin: 240px 330px;
   animation: bitzCradleSway 2.4s ease-in-out infinite;
 }
 
-/* 7. Graceful Star-Bell Pendulum Swing */
+/* 6. Star-Bell Pendulum Swing */
 @keyframes swingBell {
   0%, 100% {
     transform: rotate(-6deg);
@@ -173,7 +293,7 @@ body {
 }
 
 .animate-swing-bell {
-  transform-origin: 344px 154px;
+  transform-origin: 112px 172px;
   animation: swingBell 2.8s ease-in-out infinite;
 }
 
@@ -182,7 +302,7 @@ body {
     transform: rotate(0deg);
   }
   25% {
-    transform: rotate(-24deg);
+    transform: rotate(-22deg);
   }
   50% {
     transform: rotate(22deg);
@@ -193,11 +313,11 @@ body {
 }
 
 .animate-swing-bell-ring {
-  transform-origin: 344px 154px;
-  animation: swingBellRing 0.9s ease-in-out infinite;
+  transform-origin: 112px 172px;
+  animation: swingBellRing 0.85s ease-in-out infinite;
 }
 
-/* 8. Floating Hearts & Music Notes Stream */
+/* 7. Floating Hearts & Music Notes Stream */
 @keyframes floatBubbleUp {
   0% {
     opacity: 0;
@@ -223,14 +343,14 @@ body {
   animation: floatBubbleUp 1.3s ease-out 0.5s infinite;
 }
 
-/* 9. Soundwave Ring Expansion from Star-Bell */
+/* 8. Soundwave Ring Expansion from Star-Bell */
 @keyframes bellRipple {
   0% {
     r: 14px;
     opacity: 0.85;
   }
   100% {
-    r: 52px;
+    r: 48px;
     opacity: 0;
   }
 }
@@ -256,10 +376,13 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee,
   .animate-float,
+  .animate-celestial-a,
+  .animate-celestial-b,
+  .animate-rainbow-sway,
   .animate-joyful-jump,
-  .animate-right-arm-cheer,
-  .animate-friendly-wave,
-  .animate-lift-moon,
+  .animate-lift-lantern,
+  .animate-wave-musicbox,
+  .animate-feet-kick,
   .animate-cradle-sway,
   .animate-swing-bell,
   .animate-swing-bell-ring {

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Compass, BookOpen, Sparkles, CloudRain, Sun, Music, Stars } from "lucide-react";
+import { Compass, BookOpen, Sparkles, CloudRain, Music, Stars, Sun, Moon } from "lucide-react";
 import TopNavBar from "@/components/TopNavBar";
 import BitzCharacter from "@/components/BitzCharacter";
 import CharacterSheet from "@/components/CharacterSheet";
@@ -77,6 +77,8 @@ export default function HomePage() {
     } catch (e) {}
   };
 
+  const isNight = theme === "night";
+
   return (
     <div id="top" className="min-h-screen flex flex-col relative">
       <SparkleTrail enabled={sparkleEnabled} />
@@ -92,16 +94,16 @@ export default function HomePage() {
       />
 
       <main className="flex-1">
-        {/* CENTERED INTERACTIVE SKY-SANCTUARY STAGE (100% Distinct From hax.baby!) */}
+        {/* CENTERED INTERACTIVE SKY-SANCTUARY STAGE + 90S CLOUD-OS WIDGETS */}
         <section
           aria-labelledby="hero-title"
           className="pt-8 pb-12 sm:py-12 px-4 max-w-6xl mx-auto"
         >
           {/* Top Centered Editorial Title */}
           <div className="text-center max-w-3xl mx-auto space-y-3">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono font-bold bg-pink-100 text-pink-700 dark:bg-pink-950/60 dark:text-pink-200 border-2 border-pink-300 shadow-sm">
-              <Sparkles className="w-3.5 h-3.5 text-pink-500" />
-              Cloud-Loft Weather Observatory · Altitude 4,200 Fluffs
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl text-xs font-mono font-extrabold bg-pink-200 text-slate-900 border-2 border-slate-900 shadow-[3px_3px_0px_#1e293b]">
+              <Sparkles className="w-3.5 h-3.5 text-pink-600" />
+              BITZ.OS v1.99 · 90s Cloud-Loft Weather Sanctuary
             </div>
 
             <h1
@@ -120,45 +122,52 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* 3-Column Symmetric Observatory Stage: Left Weather Telemetry | Center Free-Floating Bitz | Right Lore & Actions */}
+          {/* 3-Column Symmetric Stage: Left 90s OS Widget | Center Free-Floating Bitz | Right 90s OS Widget */}
           <div className="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-            {/* Left Floating Bento Widget: What Bitz Is & Live Sky Telemetry */}
+            {/* Left 90s Pastel Cloud-OS Mini Window */}
             <div className="lg:col-span-3 space-y-4 order-2 lg:order-1">
-              <div className="p-5 rounded-3xl glass-panel border-2 border-sky-200 dark:border-slate-700 space-y-3">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-sky-100 text-sky-800 dark:bg-slate-800 dark:text-sky-300 border border-sky-300">
-                  <CloudRain className="w-3.5 h-3.5 text-sky-600" />
-                  Cloud-Sprite Anatomy
+              <div className="retro-window overflow-hidden">
+                <div className="bg-sky-300 dark:bg-sky-900 border-b-2 border-slate-900 dark:border-sky-300 px-3 py-1.5 flex items-center justify-between">
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-white border border-slate-900" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-pink-300 border border-slate-900" />
+                    <span className="font-mono text-[10px] font-extrabold text-slate-900 dark:text-white ml-1">
+                      SPRITE_BIO.SYS
+                    </span>
+                  </div>
+                  <CloudRain className="w-3.5 h-3.5 text-slate-900 dark:text-sky-200" />
                 </div>
-                <h2 className="font-display font-bold text-lg text-espresso">
-                  0.4-Marshmallow Cumulus Hatchling
-                </h2>
-                <p className="text-xs text-muted leading-relaxed">
-                  {BITZ_CHARACTER_SHEET.whatTheyAre}
-                </p>
-                <div className="pt-2 border-t border-pink-100 dark:border-slate-700 flex items-center justify-between text-xs font-mono">
-                  <span className="text-muted">Favorite Chime:</span>
-                  <span className="font-bold text-pink-600 dark:text-pink-300">
-                    C-Major Raindrops
-                  </span>
+                <div className="p-4 space-y-2.5">
+                  <h2 className="font-display font-bold text-base text-espresso">
+                    0.4-Marshmallow Cumulus Baby
+                  </h2>
+                  <p className="text-xs text-muted leading-relaxed">
+                    {BITZ_CHARACTER_SHEET.whatTheyAre}
+                  </p>
+                  <div className="pt-2 border-t-2 border-pink-100 dark:border-slate-700 flex items-center justify-between text-xs font-mono">
+                    <span className="text-muted">Sky Mode:</span>
+                    <button
+                      type="button"
+                      onClick={handleToggleTheme}
+                      className="font-extrabold text-pink-600 dark:text-pink-300 underline cursor-pointer"
+                    >
+                      {isNight ? "🌙 Night Stars" : "☀️ Cutie Sun"}
+                    </button>
+                  </div>
                 </div>
               </div>
 
-              <div className="p-4 rounded-3xl bg-pink-50 dark:bg-slate-800 border-2 border-pink-200 dark:border-slate-700 flex items-center gap-3">
-                <span className="w-10 h-10 rounded-2xl bg-pink-500 text-white inline-flex items-center justify-center shrink-0 shadow-sm">
-                  <Music className="w-5 h-5" />
+              <div className="p-3.5 rounded-2xl bg-pink-100 dark:bg-slate-800 border-2 border-slate-900 dark:border-sky-300 shadow-[4px_4px_0px_#38bdf8] flex items-center gap-3">
+                <span className="w-9 h-9 rounded-xl bg-pink-400 text-slate-900 border-2 border-slate-900 inline-flex items-center justify-center shrink-0">
+                  <Music className="w-4 h-4" />
                 </span>
-                <div>
-                  <div className="text-xs font-mono font-bold text-pink-700 dark:text-pink-300">
-                    Interactive Rig
-                  </div>
-                  <div className="text-xs text-espresso font-semibold">
-                    Eyes track your cursor + 4 choreographed animations!
-                  </div>
+                <div className="text-xs font-bold text-slate-900 dark:text-slate-100 leading-snug">
+                  Click the floating Sun/Moon in the sky above Bitz to switch Day &amp; Night!
                 </div>
               </div>
             </div>
 
-            {/* Centerpiece: Free-Floating 3D Plushie Character Stage */}
+            {/* Centerpiece: Free-Floating 3D Plushie Baby Character + Floating Sky World */}
             <div className="lg:col-span-6 order-1 lg:order-2 flex items-center justify-center">
               <BitzCharacter
                 theme={theme}
@@ -168,37 +177,44 @@ export default function HomePage() {
               />
             </div>
 
-            {/* Right Floating Bento Widget: What Bitz Does & Quick Jumps */}
+            {/* Right 90s Pastel Cloud-OS Mini Window */}
             <div className="lg:col-span-3 space-y-4 order-3">
-              <div className="p-5 rounded-3xl glass-panel border-2 border-pink-200 dark:border-slate-700 space-y-3">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-pink-100 text-pink-800 dark:bg-slate-800 dark:text-pink-300 border border-pink-300">
-                  <Stars className="w-3.5 h-3.5 text-pink-500" />
-                  Nightly Craft
+              <div className="retro-window overflow-hidden">
+                <div className="bg-pink-300 dark:bg-pink-900 border-b-2 border-slate-900 dark:border-sky-300 px-3 py-1.5 flex items-center justify-between">
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-white border border-slate-900" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-sky-300 border border-slate-900" />
+                    <span className="font-mono text-[10px] font-extrabold text-slate-900 dark:text-white ml-1">
+                      CRAFT_MENU.EXE
+                    </span>
+                  </div>
+                  <Stars className="w-3.5 h-3.5 text-slate-900 dark:text-pink-200" />
                 </div>
-                <h2 className="font-display font-bold text-lg text-espresso">
-                  {BITZ_CHARACTER_SHEET.title}
-                </h2>
-                <p className="text-xs text-muted leading-relaxed">
-                  Born inside a rooftop weathervane at 04:17 AM, Bitz turns noisy
-                  thunder into soothing raindrop lullabies, aurora jars, and paper
-                  dream boats.
-                </p>
+                <div className="p-4 space-y-3">
+                  <h2 className="font-display font-bold text-base text-espresso">
+                    {BITZ_CHARACTER_SHEET.title}
+                  </h2>
+                  <p className="text-xs text-muted leading-relaxed">
+                    Holding a glowing <strong>Starlight Lantern</strong> in one hand and a{" "}
+                    <strong>Rainbow Music Box</strong> in the other, Bitz weaves cozy skies!
+                  </p>
 
-                <div className="pt-2 flex flex-col gap-2">
-                  <a
-                    href="#projects-showcase"
-                    className="w-full inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full text-xs font-bold bg-pink-500 hover:bg-pink-600 text-white border-2 border-pink-600 shadow-sm transition"
-                  >
-                    <Compass className="w-3.5 h-3.5" />
-                    Explore 4 Weather Creations
-                  </a>
-                  <a
-                    href="#origin-story"
-                    className="w-full inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full text-xs font-bold bg-sky-100 hover:bg-sky-200 text-sky-950 border-2 border-sky-300 transition"
-                  >
-                    <BookOpen className="w-3.5 h-3.5 text-sky-700" />
-                    Read 4-Scene Storybook
-                  </a>
+                  <div className="pt-1 flex flex-col gap-2.5">
+                    <a
+                      href="#projects-showcase"
+                      className="retro-btn-pink w-full inline-flex items-center justify-center gap-1.5 px-4 py-2 text-xs"
+                    >
+                      <Compass className="w-3.5 h-3.5" />
+                      Open Weather Lab (4)
+                    </a>
+                    <a
+                      href="#origin-story"
+                      className="retro-btn-sky w-full inline-flex items-center justify-center gap-1.5 px-4 py-2 text-xs"
+                    >
+                      <BookOpen className="w-3.5 h-3.5" />
+                      Read 4-Scene Storybook
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
