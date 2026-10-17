@@ -3,27 +3,33 @@
 @tailwind utilities;
 
 :root {
-  --bg-cream: #fff8f1;
-  --bg-card: #fffdf9;
-  --text-espresso: #5c4033;
-  --text-muted: #8a6456;
-  --accent-berry: #a34063;
-  --accent-pink: #ffccd8;
-  --accent-gold: #f4b942;
-  --accent-sky: #7bd3ae;
-  --border-chunky: #5c4033;
+  /* Sunlit Sky Sanctuary (Day Theme — Zero hax.baby pink/brown copy!) */
+  --bg-cream: #edf5ff;
+  --bg-card: rgba(255, 255, 255, 0.86);
+  --text-espresso: #0f172a;
+  --text-muted: #475569;
+  --accent-berry: #4f46e5;
+  --accent-pink: #e0e7ff;
+  --accent-gold: #f59e0b;
+  --accent-sky: #06b6d4;
+  --border-chunky: #312e81;
+  --hero-gradient: radial-gradient(circle at 18% 18%, #ffffff 0%, #e0f2fe 45%, #ede9fe 100%);
+  --card-shadow: 0 20px 50px -12px rgba(79, 70, 229, 0.14), 0 0 0 1px rgba(99, 102, 241, 0.16);
 }
 
 [data-theme="night"] {
-  --bg-cream: #120d16;
-  --bg-card: #1d1524;
-  --text-espresso: #fdf4ed;
-  --text-muted: #c7b2c2;
-  --accent-berry: #ff7aa2;
-  --accent-pink: #3d2235;
-  --accent-gold: #f4b942;
-  --accent-sky: #5eead4;
-  --border-chunky: #ff7aa2;
+  /* Aurora Starlight Observatory (Night Theme — Crisp, magical, 100% readable) */
+  --bg-cream: #070b19;
+  --bg-card: rgba(17, 25, 48, 0.84);
+  --text-espresso: #f8fafc;
+  --text-muted: #94a3b8;
+  --accent-berry: #38bdf8;
+  --accent-pink: #1e293b;
+  --accent-gold: #fbbf24;
+  --accent-sky: #34d399;
+  --border-chunky: #38bdf8;
+  --hero-gradient: radial-gradient(circle at 20% 15%, #1e1b4b 0%, #0f172a 52%, #050814 100%);
+  --card-shadow: 0 24px 60px -15px rgba(56, 189, 248, 0.18), 0 0 0 1px rgba(56, 189, 248, 0.24);
 }
 
 html {
@@ -31,25 +37,42 @@ html {
 }
 
 body {
+  background: var(--hero-gradient);
   background-color: var(--bg-cream);
+  background-attachment: fixed;
   color: var(--text-espresso);
   font-family: var(--font-plus-jakarta), system-ui, -apple-system, sans-serif;
-  transition: background-color 0.35s ease, color 0.35s ease;
+  transition: background-color 0.4s ease, color 0.4s ease;
   overflow-x: hidden;
 }
 
-/* Responsive Chaos Mode (+5 pts Side Quest) */
-[data-chaos="true"] {
-  background-image: radial-gradient(var(--accent-berry) 1px, transparent 1px),
-    radial-gradient(var(--accent-gold) 1px, var(--bg-cream) 1px);
-  background-size: 28px 28px;
-  background-position: 0 0, 14px 14px;
+.glass-panel {
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: var(--card-shadow);
 }
 
+/* Clean, Playful 90s Toybox Mode (+5 pts Side Quest — NO ugly dots or unreadable borders!) */
+[data-chaos="true"] .glass-panel,
+[data-chaos="true"] article,
 [data-chaos="true"] section > div {
-  border-width: 3px !important;
-  border-style: dashed !important;
-  box-shadow: 6px 6px 0px var(--accent-berry) !important;
+  border: 3px solid var(--border-chunky) !important;
+  box-shadow: 6px 6px 0px var(--accent-gold) !important;
+  border-radius: 20px !important;
+}
+
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(1.2deg);
+  }
+}
+
+.animate-float {
+  animation: floatSlow 5s ease-in-out infinite;
 }
 
 @keyframes marquee {
@@ -63,11 +86,12 @@ body {
 
 .animate-marquee {
   display: inline-block;
-  animation: marquee 18s linear infinite;
+  animation: marquee 22s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee,
+  .animate-float,
   .animate-bounce,
   .animate-pulse,
   .animate-ping {

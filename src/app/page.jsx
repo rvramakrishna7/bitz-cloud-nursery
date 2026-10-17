@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Sparkles, ArrowDown, Compass, BookOpen, Award } from "lucide-react";
+import { Compass, BookOpen, Sparkles } from "lucide-react";
 import TopNavBar from "@/components/TopNavBar";
 import BitzCharacter from "@/components/BitzCharacter";
 import CharacterSheet from "@/components/CharacterSheet";
@@ -21,7 +21,6 @@ export default function HomePage() {
   const [easterEggUnlocked, setEasterEggUnlocked] = useState(false);
   const [visitCount, setVisitCount] = useState(1);
 
-  // Initialize saved preferences, returning visitor memory (Tier 3), and global click chime (+3 pts)
   useEffect(() => {
     const initialMuted = soundEngine.loadSavedMuteState();
     setMuted(initialMuted);
@@ -34,9 +33,7 @@ export default function HomePage() {
 
       const savedEgg = window.localStorage.getItem("bitz_easter_egg") === "true";
       if (savedEgg) setEasterEggUnlocked(true);
-    } catch (e) {
-      // Ignore storage errors
-    }
+    } catch (e) {}
 
     const handleGlobalClick = (e) => {
       const target = e.target;
@@ -49,10 +46,14 @@ export default function HomePage() {
     return () => window.removeEventListener("click", handleGlobalClick);
   }, []);
 
-  // Sync theme and chaos attributes onto document root
   useEffect(() => {
     if (typeof document !== "undefined") {
       document.documentElement.setAttribute("data-theme", theme);
+      if (theme === "night") {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
       document.body.setAttribute("data-chaos", String(chaosMode));
     }
   }, [theme, chaosMode]);
@@ -81,7 +82,7 @@ export default function HomePage() {
       {/* Side Quest (+2 pts): Retro Sparkle Cursor Trail */}
       <SparkleTrail enabled={sparkleEnabled} />
 
-      {/* Sticky Accessible Top Bar with Mandatory Mute Toggle & Mood Controls */}
+      {/* Sticky Accessible Top Bar */}
       <TopNavBar
         muted={muted}
         onToggleMute={handleToggleMute}
@@ -102,11 +103,12 @@ export default function HomePage() {
             {/* Left Column: Editorial Intro & Pillars */}
             <div className="lg:col-span-7 space-y-5 text-center lg:text-left">
               <div className="inline-flex flex-wrap items-center justify-center lg:justify-start gap-2">
-                <span className="px-3 py-1 rounded-full text-xs font-mono uppercase tracking-wider bg-[#a34063] text-[#fff8f1] font-bold">
+                <span className="px-3.5 py-1 rounded-full text-xs font-mono uppercase tracking-wider bg-gradient-to-r from-indigo-600 to-sky-500 text-white font-bold shadow-sm">
                   Track 2 · Your Own Baby
                 </span>
-                <span className="px-3 py-1 rounded-full text-xs font-mono bg-[#a34063]/10 text-[#a34063] font-semibold">
-                  Sky-Loft Nursery #001
+                <span className="px-3.5 py-1 rounded-full text-xs font-mono bg-indigo-500/10 text-indigo-700 dark:text-sky-300 border border-indigo-500/20 font-semibold">
+                  <Sparkles className="w-3 h-3 inline mr-1 text-amber-500" />
+                  3D Plushie + Live WebGL Stage
                 </span>
               </div>
 
@@ -114,11 +116,14 @@ export default function HomePage() {
                 id="hero-title"
                 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-espresso font-display leading-[1.08] tracking-tight"
               >
-                Meet <span className="text-[#a34063]">Bitz</span>, The Baby
-                Cloud-Sprite.
+                Meet{" "}
+                <span className="bg-gradient-to-r from-indigo-600 via-sky-500 to-amber-500 bg-clip-text text-transparent">
+                  Bitz
+                </span>
+                , The Baby Cloud-Sprite.
               </h1>
 
-              <p className="font-serif italic text-lg sm:text-xl text-[#a34063] font-semibold">
+              <p className="font-serif italic text-lg sm:text-xl text-indigo-600 dark:text-sky-300 font-semibold">
                 {BITZ_CHARACTER_SHEET.tagline}
               </p>
 
@@ -133,7 +138,7 @@ export default function HomePage() {
               <div className="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-3">
                 <a
                   href="#projects-showcase"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold bg-[#a34063] text-[#fff8f1] shadow-cozy hover:opacity-95 transition"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold bg-gradient-to-r from-indigo-600 to-sky-500 text-white shadow-lg hover:opacity-95 transition"
                 >
                   <Compass className="w-4 h-4" />
                   Play With Bitz&apos;s 4 Creations
@@ -141,45 +146,45 @@ export default function HomePage() {
 
                 <a
                   href="#origin-story"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-sm font-semibold border-2 border-[#a34063]/30 bg-card text-espresso hover:border-[#a34063] transition"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-sm font-semibold border border-indigo-500/30 glass-panel text-espresso hover:border-indigo-500 transition"
                 >
-                  <BookOpen className="w-4 h-4 text-[#a34063]" />
+                  <BookOpen className="w-4 h-4 text-indigo-500" />
                   Read Bedtime Origin Story
                 </a>
               </div>
 
               {/* 3 Core Challenge Pillars Summary Bar */}
               <div className="pt-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-left">
-                <div className="p-3.5 rounded-2xl bg-card border border-[#a34063]/20">
-                  <div className="text-[11px] font-mono uppercase text-[#a34063] font-bold">
+                <div className="p-4 rounded-2xl glass-panel">
+                  <div className="text-[11px] font-mono uppercase text-indigo-600 dark:text-sky-300 font-bold">
                     01 · What Bitz Is
                   </div>
-                  <div className="text-xs font-semibold text-espresso mt-0.5">
-                    0.4-Marshmallow Cumulus Sprite with Brass Antenna
+                  <div className="text-xs font-semibold text-espresso mt-1">
+                    0.4-Marshmallow Cumulus Sprite with Star-Bell Cap
                   </div>
                 </div>
-                <div className="p-3.5 rounded-2xl bg-card border border-[#a34063]/20">
-                  <div className="text-[11px] font-mono uppercase text-[#a34063] font-bold">
+                <div className="p-4 rounded-2xl glass-panel">
+                  <div className="text-[11px] font-mono uppercase text-indigo-600 dark:text-sky-300 font-bold">
                     02 · What Bitz Does
                   </div>
-                  <div className="text-xs font-semibold text-espresso mt-0.5">
+                  <div className="text-xs font-semibold text-espresso mt-1">
                     Weaves Raindrop Lullabies & Bottled Auroras
                   </div>
                 </div>
-                <div className="p-3.5 rounded-2xl bg-card border border-[#a34063]/20">
-                  <div className="text-[11px] font-mono uppercase text-[#a34063] font-bold">
+                <div className="p-4 rounded-2xl glass-panel">
+                  <div className="text-[11px] font-mono uppercase text-indigo-600 dark:text-sky-300 font-bold">
                     03 · Bitz&apos;s Story
                   </div>
-                  <div className="text-xs font-semibold text-espresso mt-0.5">
+                  <div className="text-xs font-semibold text-espresso mt-1">
                     Born in a Copper Weathervane at 04:17 AM
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Right Column: Interactive Living Character Stage */}
+            {/* Right Column: Interactive Living 3D Plushie + WebGL Character Stage */}
             <div className="lg:col-span-5">
-              <div className="rounded-3xl border-2 border-[#a34063]/25 bg-card/80 p-4 sm:p-6 shadow-cozy">
+              <div className="rounded-3xl glass-panel p-4 sm:p-6">
                 <BitzCharacter
                   theme={theme}
                   onToggleTheme={handleToggleTheme}

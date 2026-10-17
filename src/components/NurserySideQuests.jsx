@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import {
   MessageCircle,
   Send,
-  Sparkles,
   BookHeart,
   Eye,
   CheckCircle2,
@@ -13,7 +12,6 @@ import { BITZ_CHAT_PRESETS } from "@/lib/characterData";
 import { soundEngine } from "@/lib/soundEngine";
 
 export default function NurserySideQuests() {
-  // Tier 3: Character Chat State
   const [chatHistory, setChatHistory] = useState([
     {
       sender: "bitz",
@@ -22,7 +20,6 @@ export default function NurserySideQuests() {
   ]);
   const [customChatInput, setCustomChatInput] = useState("");
 
-  // Side Quest 1 (+2 pts) & Side Quest 3 (+1 pt): Guestbook & Odometer State
   const [odometerCount, setOdometerCount] = useState(1208);
   const [entries, setEntries] = useState([]);
   const [guestName, setGuestName] = useState("");
@@ -33,7 +30,6 @@ export default function NurserySideQuests() {
 
   useEffect(() => {
     let mounted = true;
-    // Load cached local entries first for instant zero-latency display
     try {
       const cached = window.localStorage.getItem("bitz_guestbook_cache");
       if (cached) {
@@ -41,11 +37,8 @@ export default function NurserySideQuests() {
         if (parsed.entries) setEntries(parsed.entries);
         if (parsed.odometerCount) setOdometerCount(parsed.odometerCount);
       }
-    } catch (e) {
-      // Ignore storage errors
-    }
+    } catch (e) {}
 
-    // Fetch live server state and bump odometer once per mount
     fetch("/api/guestbook?bump=1")
       .then((res) => res.json())
       .then((data) => {
@@ -67,7 +60,6 @@ export default function NurserySideQuests() {
     };
   }, []);
 
-  // Handle preset or custom chat with Bitz (Tier 3)
   const handleAskPreset = (preset) => {
     soundEngine.playClick(1.15);
     setChatHistory((prev) => [
@@ -85,16 +77,16 @@ export default function NurserySideQuests() {
 
     const lower = trimmed.toLowerCase();
     let reply =
-      "*tilts brass antenna curiously* Bzzzt-ting! That sounds magical! I just wrapped your message inside a warm golden sunbeam!";
+      "*tilts golden star-bell curiously* Bzzzt-ting! That sounds magical! I just wrapped your message inside a warm golden sunbeam!";
     if (lower.includes("hello") || lower.includes("hi") || lower.includes("hey")) {
       reply =
-        "*bounces on a marshmallow cloud* Hiya friend! Welcome to the Sky-Loft Nursery! Have you tried playing my Raindrop Lullaby Lab yet?";
+        "*bounces on a marshmallow cloud* Hiya friend! Welcome to the Sky-Loft Sanctuary! Have you tried playing my Raindrop Lullaby Lab yet?";
     } else if (lower.includes("rain") || lower.includes("weather") || lower.includes("cloud")) {
       reply =
         "*puffs up proudly* Every storm cloud is just a sleepy baby waiting for a C-major lullaby! I tune raindrops into wind chimes!";
     } else if (lower.includes("win") || lower.includes("hackathon") || lower.includes("judge")) {
       reply =
-        "*scatters pastel confetti* We built this cozy corner with 100% early-web soul, zero console errors, and lots of love! Let's make the web kinder!";
+        "*scatters pastel confetti* We built this cozy corner with 100% original 3D art, WebGL, zero console errors, and lots of love!";
     }
 
     setChatHistory((prev) => [
@@ -105,7 +97,6 @@ export default function NurserySideQuests() {
     setCustomChatInput("");
   };
 
-  // Handle Guestbook Submission (+2 pts Side Quest)
   const handleGuestbookSubmit = async (e) => {
     e.preventDefault();
     if (!guestName.trim() || !guestMessage.trim()) {
@@ -170,26 +161,26 @@ export default function NurserySideQuests() {
       <section
         aria-label="Vintage Nursery Hit Counter Odometer"
         data-testid="hit-counter-odometer"
-        className="rounded-3xl border-2 border-[#a34063]/25 bg-card p-6 sm:p-8 shadow-cozy flex flex-col md:flex-row items-center justify-between gap-6"
+        className="rounded-3xl glass-panel p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6"
       >
         <div>
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono uppercase tracking-wider bg-[#a34063]/10 text-[#a34063] font-semibold">
-            <Eye className="w-3.5 h-3.5" />
-            Side Quest (+1 pt) · Vintage Visitor Odometer
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-mono uppercase tracking-wider bg-indigo-500/10 text-indigo-600 dark:text-sky-300 font-bold border border-indigo-500/20">
+            <Eye className="w-3.5 h-3.5 text-amber-500" />
+            Side Quest (+1 pt) · Celestial Visitor Odometer
           </span>
           <h3 className="mt-2 text-2xl font-bold text-espresso font-display">
             Weather Wishes & Dreams Delivered
           </h3>
           <p className="text-xs sm:text-sm text-muted mt-1">
-            Live counter tracking every curious builder and bedtime wish that visits Bitz&apos;s corner of the web.
+            Live counter tracking every curious builder and bedtime wish that visits Bitz&apos;s cloud sanctuary.
           </p>
         </div>
 
-        <div className="flex items-center gap-1.5 bg-[#1a111e] p-3 rounded-2xl border-2 border-[#a34063]">
+        <div className="flex items-center gap-1.5 bg-slate-950 p-3 rounded-2xl border-2 border-indigo-500/40 shadow-xl">
           {formattedOdometer.map((digit, index) => (
             <span
               key={index}
-              className="w-8 h-11 sm:w-10 sm:h-12 rounded-lg bg-[#2a1d30] border border-amber-300/30 text-amber-300 font-mono text-xl sm:text-2xl font-bold inline-flex items-center justify-center shadow-inner"
+              className="w-8 h-11 sm:w-10 sm:h-12 rounded-lg bg-slate-900 border border-sky-400/30 text-amber-300 font-mono text-xl sm:text-2xl font-bold inline-flex items-center justify-center shadow-inner"
             >
               {digit}
             </span>
@@ -197,17 +188,17 @@ export default function NurserySideQuests() {
         </div>
       </section>
 
-      {/* TIER 3: INTERACTIVE CHARACTER CHAT ("CHAT WITH BITZ") */}
+      {/* TIER 3: INTERACTIVE CHARACTER CHAT */}
       <section
         id="nursery-chat"
         aria-labelledby="chat-heading"
         data-testid="character-chat-section"
-        className="rounded-3xl border-2 border-[#a34063]/25 bg-card p-6 sm:p-8 shadow-cozy"
+        className="rounded-3xl glass-panel p-6 sm:p-8"
       >
-        <div className="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-[#a34063]/15">
+        <div className="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-indigo-500/15">
           <div>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono uppercase tracking-wider bg-[#a34063]/10 text-[#a34063] font-semibold">
-              <MessageCircle className="w-3.5 h-3.5" />
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-mono uppercase tracking-wider bg-indigo-500/10 text-indigo-600 dark:text-sky-300 font-bold border border-indigo-500/20">
+              <MessageCircle className="w-3.5 h-3.5 text-amber-500" />
               Tier 3 Boss Feature · Character Chats Back
             </span>
             <h3
@@ -217,13 +208,12 @@ export default function NurserySideQuests() {
               Whisper to Bitz on the Cloud-Phone
             </h3>
           </div>
-          <span className="text-xs font-mono text-emerald-600 font-bold">
+          <span className="text-xs font-mono text-emerald-500 font-bold">
             ● Bitz is Awake & Listening
           </span>
         </div>
 
-        {/* Chat Messages Window */}
-        <div className="mt-4 max-h-60 overflow-y-auto space-y-3 p-4 rounded-2xl bg-cream border border-[#a34063]/20">
+        <div className="mt-4 max-h-60 overflow-y-auto space-y-3 p-4 rounded-2xl bg-white/50 dark:bg-slate-900/60 border border-indigo-500/20">
           {chatHistory.map((item, idx) => (
             <div
               key={idx}
@@ -234,8 +224,8 @@ export default function NurserySideQuests() {
               <div
                 className={`max-w-md px-4 py-2.5 rounded-2xl text-xs sm:text-sm leading-relaxed ${
                   item.sender === "visitor"
-                    ? "bg-[#a34063] text-[#fff8f1] font-medium"
-                    : "bg-card border border-[#a34063]/25 text-espresso"
+                    ? "bg-gradient-to-r from-indigo-600 to-sky-500 text-white font-medium"
+                    : "bg-white/90 dark:bg-slate-800 border border-indigo-500/20 text-espresso"
                 }`}
               >
                 <span className="block text-[10px] font-mono uppercase opacity-75 mb-0.5">
@@ -247,21 +237,19 @@ export default function NurserySideQuests() {
           ))}
         </div>
 
-        {/* Quick Preset Questions */}
         <div className="mt-4 flex flex-wrap gap-2">
           {BITZ_CHAT_PRESETS.map((preset) => (
             <button
               key={preset.id}
               type="button"
               onClick={() => handleAskPreset(preset)}
-              className="px-3 py-1.5 rounded-full text-xs font-semibold bg-cream border border-[#a34063]/30 text-espresso hover:border-[#a34063] transition"
+              className="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white/60 dark:bg-slate-900/60 border border-indigo-500/25 text-espresso hover:border-indigo-500 transition"
             >
               {preset.question}
             </button>
           ))}
         </div>
 
-        {/* Custom Message Form */}
         <form onSubmit={handleCustomChatSubmit} className="mt-4 flex gap-2">
           <input
             type="text"
@@ -269,11 +257,11 @@ export default function NurserySideQuests() {
             onChange={(e) => setCustomChatInput(e.target.value)}
             placeholder="Say something cozy to Bitz..."
             aria-label="Message to Bitz"
-            className="flex-1 px-4 py-2.5 rounded-full text-xs sm:text-sm bg-cream border-2 border-[#a34063]/25 text-espresso focus:outline-none focus:border-[#a34063]"
+            className="flex-1 px-4 py-2.5 rounded-full text-xs sm:text-sm bg-white/70 dark:bg-slate-900/70 border border-indigo-500/25 text-espresso focus:outline-none focus:border-indigo-500"
           />
           <button
             type="submit"
-            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-xs font-bold bg-[#a34063] text-[#fff8f1] hover:opacity-95 transition"
+            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-xs font-bold bg-gradient-to-r from-indigo-600 to-sky-500 text-white hover:opacity-95 transition shadow-sm"
           >
             <Send className="w-3.5 h-3.5" />
             Send
@@ -286,11 +274,11 @@ export default function NurserySideQuests() {
         id="guestbook-wall"
         aria-labelledby="guestbook-heading"
         data-testid="live-guestbook-section"
-        className="rounded-3xl border-2 border-[#a34063]/25 bg-card p-6 sm:p-8 shadow-cozy"
+        className="rounded-3xl glass-panel p-6 sm:p-8"
       >
-        <div className="pb-6 border-b border-[#a34063]/15">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono uppercase tracking-wider bg-[#a34063]/10 text-[#a34063] font-semibold">
-            <BookHeart className="w-3.5 h-3.5" />
+        <div className="pb-6 border-b border-indigo-500/15">
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-mono uppercase tracking-wider bg-indigo-500/10 text-indigo-600 dark:text-sky-300 font-bold border border-indigo-500/20">
+            <BookHeart className="w-3.5 h-3.5 text-amber-500" />
             Side Quest (+2 pts) & Tier 3 · Live Persistent Guestbook Wall
           </span>
           <h3
@@ -301,15 +289,14 @@ export default function NurserySideQuests() {
           </h3>
           <p className="mt-1 text-xs sm:text-sm text-muted">
             Leave a message, bedtime wish, or 90s web hello for Bitz! Entries are saved
-            live to our persistent nursery wall.
+            live to our persistent sanctuary wall.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-6">
-          {/* Guestbook Submission Form */}
           <form
             onSubmit={handleGuestbookSubmit}
-            className="lg:col-span-5 space-y-4 bg-cream p-5 rounded-2xl border border-[#a34063]/20"
+            className="lg:col-span-5 space-y-4 bg-white/50 dark:bg-slate-900/55 p-5 rounded-2xl border border-indigo-500/20"
           >
             <div>
               <label
@@ -326,7 +313,7 @@ export default function NurserySideQuests() {
                 value={guestName}
                 onChange={(e) => setGuestName(e.target.value)}
                 placeholder="e.g., Captain Starlight"
-                className="w-full px-3.5 py-2 rounded-xl text-xs sm:text-sm bg-card border border-[#a34063]/30 text-espresso focus:outline-none focus:border-[#a34063]"
+                className="w-full px-3.5 py-2 rounded-xl text-xs sm:text-sm bg-white/80 dark:bg-slate-950 border border-indigo-500/30 text-espresso focus:outline-none focus:border-indigo-500"
               />
             </div>
 
@@ -341,7 +328,7 @@ export default function NurserySideQuests() {
                 id="guest-mood"
                 value={guestMood}
                 onChange={(e) => setGuestMood(e.target.value)}
-                className="w-full px-3.5 py-2 rounded-xl text-xs sm:text-sm bg-card border border-[#a34063]/30 text-espresso focus:outline-none focus:border-[#a34063]"
+                className="w-full px-3.5 py-2 rounded-xl text-xs sm:text-sm bg-white/80 dark:bg-slate-950 border border-indigo-500/30 text-espresso focus:outline-none focus:border-indigo-500"
               >
                 <option value="🌟 Starlight Wish">🌟 Starlight Wish</option>
                 <option value="🌧️ Cozy Raindrop">🌧️ Cozy Raindrop</option>
@@ -365,22 +352,22 @@ export default function NurserySideQuests() {
                 value={guestMessage}
                 onChange={(e) => setGuestMessage(e.target.value)}
                 placeholder="Leave a kind note for Bitz and fellow builders..."
-                className="w-full px-3.5 py-2 rounded-xl text-xs sm:text-sm bg-card border border-[#a34063]/30 text-espresso focus:outline-none focus:border-[#a34063]"
+                className="w-full px-3.5 py-2 rounded-xl text-xs sm:text-sm bg-white/80 dark:bg-slate-950 border border-indigo-500/30 text-espresso focus:outline-none focus:border-indigo-500"
               />
             </div>
 
             <button
               type="submit"
               disabled={submitting}
-              className="w-full py-2.5 px-4 rounded-full text-xs font-bold bg-[#a34063] text-[#fff8f1] hover:opacity-95 disabled:opacity-50 transition shadow-sm"
+              className="w-full py-2.5 px-4 rounded-full text-xs font-bold bg-gradient-to-r from-indigo-600 to-sky-500 text-white hover:opacity-95 disabled:opacity-50 transition shadow-md"
             >
-              {submitting ? "Pinning Wish..." : "Pin Wish to Nursery Wall ✨"}
+              {submitting ? "Pinning Wish..." : "Pin Wish to Sanctuary Wall ✨"}
             </button>
 
             {submitFeedback && (
               <p
                 role="status"
-                className="text-xs font-mono text-emerald-700 dark:text-emerald-300 flex items-center gap-1.5"
+                className="text-xs font-mono text-emerald-600 dark:text-emerald-300 flex items-center gap-1.5"
               >
                 <CheckCircle2 className="w-4 h-4 shrink-0" />
                 <span>{submitFeedback}</span>
@@ -388,18 +375,17 @@ export default function NurserySideQuests() {
             )}
           </form>
 
-          {/* Guestbook Entries Wall */}
           <div className="lg:col-span-7 space-y-3 max-h-[380px] overflow-y-auto pr-1">
             {entries.map((entry) => (
               <article
                 key={entry.id}
-                className="p-4 rounded-2xl bg-cream border border-[#a34063]/20 flex flex-col justify-between gap-2"
+                className="p-4 rounded-2xl bg-white/55 dark:bg-slate-900/55 border border-indigo-500/20 flex flex-col justify-between gap-2"
               >
                 <div className="flex items-center justify-between gap-2">
                   <strong className="text-sm font-display text-espresso">
                     {entry.name}
                   </strong>
-                  <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-[#a34063]/10 text-[#a34063] font-semibold">
+                  <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-600 dark:text-sky-300 font-semibold">
                     {entry.mood}
                   </span>
                 </div>
