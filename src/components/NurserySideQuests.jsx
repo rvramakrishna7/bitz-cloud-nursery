@@ -7,6 +7,7 @@ import {
   BookHeart,
   Eye,
   CheckCircle2,
+  Sparkles,
 } from "lucide-react";
 import { BITZ_CHAT_PRESETS } from "@/lib/characterData";
 import { soundEngine } from "@/lib/soundEngine";
@@ -60,8 +61,8 @@ export default function NurserySideQuests() {
     };
   }, []);
 
-  const handleAskPreset = (preset) => {
-    soundEngine.playClick(1.15);
+  const handleAskPreset = (preset, idx = 0) => {
+    soundEngine.playCardChord(idx);
     setChatHistory((prev) => [
       ...prev,
       { sender: "visitor", text: preset.question },
@@ -80,13 +81,13 @@ export default function NurserySideQuests() {
       "*tilts golden star-bell curiously* Bzzzt-ting! That sounds magical! I just wrapped your message inside a warm golden sunbeam!";
     if (lower.includes("hello") || lower.includes("hi") || lower.includes("hey")) {
       reply =
-        "*bounces on a marshmallow cloud* Hiya friend! Welcome to the Sky-Loft Sanctuary! Have you tried playing my Raindrop Lullaby Lab yet?";
+        "*bounces on a marshmallow cloud* Hiya friend! Welcome to the Sky-Loft Sanctuary! Have you tried playing my 1773 Violin & Grand Piano Lullaby Lab yet?";
     } else if (lower.includes("rain") || lower.includes("weather") || lower.includes("cloud")) {
       reply =
-        "*puffs up proudly* Every storm cloud is just a sleepy baby waiting for a C-major lullaby! I tune raindrops into wind chimes!";
+        "*puffs up proudly* Every storm cloud is just a sleepy baby waiting for a lullaby! I tune raindrops into violin & piano wind chimes!";
     } else if (lower.includes("win") || lower.includes("hackathon") || lower.includes("judge")) {
       reply =
-        "*scatters pastel confetti* We built this cozy corner with 100% original 3D plushie art, zero console errors, and lots of love!";
+        "*scatters pastel confetti* We built this cozy corner with 100% original 3D plushie art, live Violin & Piano Web Audio synthesis, and lots of love!";
     }
 
     setChatHistory((prev) => [
@@ -155,8 +156,26 @@ export default function NurserySideQuests() {
 
   const formattedOdometer = String(odometerCount).padStart(6, "0").split("");
 
+  const quickWishStickers = [
+    {
+      label: "💖 So Cute Bitz!",
+      mood: "🌟 Starlight Wish",
+      text: "Bitz is the cutest 3D cloud baby ever! Loved the dress-up accessories & eye tracking! 💖☁️",
+    },
+    {
+      label: "🎻 Love the Violin Lullaby!",
+      mood: "🌧️ Cozy Raindrop",
+      text: "The 1773 Violin & Grand Piano lullaby variations sound absolutely mesmerizing! 🎻🎹✨",
+    },
+    {
+      label: "🌈 Found the Rainbow!",
+      mood: "🌈 Rainbow Spark",
+      text: "Rang the golden star-bell 3 times and unlocked the shimmering pastel rainbow bridge! 🌈🔔",
+    },
+  ];
+
   return (
-    <div className="py-12 sm:py-16 px-4 max-w-6xl mx-auto space-y-12">
+    <div className="py-10 sm:py-14 px-4 max-w-6xl mx-auto space-y-10">
       {/* VINTAGE HIT COUNTER ODOMETER */}
       <section
         aria-label="Vintage Nursery Hit Counter Odometer"
@@ -164,19 +183,19 @@ export default function NurserySideQuests() {
         className="rounded-3xl glass-panel border-2 border-pink-200 dark:border-slate-700 p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6"
       >
         <div>
-          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-mono uppercase tracking-wider bg-sky-100 text-sky-800 dark:bg-sky-950/60 dark:text-sky-200 font-bold border border-sky-300">
-            <Eye className="w-3.5 h-3.5 text-pink-500" />
-            ✨ Live Sanctuary Telemetry · Visitor Odometer
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-mono uppercase tracking-wider bg-sky-100 text-sky-800 dark:bg-sky-950/60 dark:text-sky-200 font-bold border border-sky-300 whitespace-nowrap">
+            <Eye className="w-3.5 h-3.5 text-pink-500 shrink-0" />
+            <span>✨ Step 5B · Live Sanctuary Visitor Odometer</span>
           </span>
           <h3 className="mt-2 text-2xl font-bold text-espresso font-display">
             Weather Wishes &amp; Dreams Delivered
           </h3>
           <p className="text-xs sm:text-sm text-muted mt-1">
-            Live counter tracking every curious builder and bedtime wish that visits Bitz&apos;s cloud sanctuary.
+            Live 90s-inspired counter tracking every curious builder and bedtime wish that visits Bitz&apos;s cloud sanctuary.
           </p>
         </div>
 
-        <div className="flex items-center gap-1.5 bg-pink-50 dark:bg-slate-900 p-3 rounded-2xl border-2 border-pink-300 dark:border-sky-500 shadow-sm">
+        <div className="flex items-center gap-1.5 bg-pink-50 dark:bg-slate-900 p-3 rounded-2xl border-2 border-pink-300 dark:border-sky-500 shadow-sm shrink-0">
           {formattedOdometer.map((digit, index) => (
             <span
               key={index}
@@ -197,9 +216,9 @@ export default function NurserySideQuests() {
       >
         <div className="flex flex-wrap items-center justify-between gap-2 pb-4 border-b-2 border-pink-100 dark:border-slate-700">
           <div>
-            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-mono uppercase tracking-wider bg-pink-100 text-pink-700 dark:bg-pink-950/60 dark:text-pink-200 font-bold border border-pink-300">
-              <MessageCircle className="w-3.5 h-3.5 text-pink-500" />
-              ☁️ Direct Sky-Line · Interactive Cloud-Phone
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-mono uppercase tracking-wider bg-pink-100 text-pink-700 dark:bg-pink-950/60 dark:text-pink-200 font-bold border border-pink-300 whitespace-nowrap">
+              <MessageCircle className="w-3.5 h-3.5 text-pink-500 shrink-0" />
+              <span>☁️ Direct Sky-Line · Interactive Cloud-Phone</span>
             </span>
             <h3
               id="chat-heading"
@@ -208,7 +227,7 @@ export default function NurserySideQuests() {
               Whisper to Bitz on the Cloud-Phone
             </h3>
           </div>
-          <span className="text-xs font-mono text-emerald-600 dark:text-emerald-400 font-bold">
+          <span className="text-xs font-mono text-emerald-600 dark:text-emerald-400 font-bold whitespace-nowrap">
             ● Bitz is Awake &amp; Listening
           </span>
         </div>
@@ -229,7 +248,7 @@ export default function NurserySideQuests() {
                 }`}
               >
                 <span className="block text-[10px] font-mono uppercase opacity-80 mb-0.5 font-bold">
-                  {item.sender === "visitor" ? "You" : "Bitz ☁️"}
+                  {item.sender === "visitor" ? "You ✨" : "Bitz ☁️"}
                 </span>
                 {item.text}
               </div>
@@ -238,12 +257,12 @@ export default function NurserySideQuests() {
         </div>
 
         <div className="mt-4 flex flex-wrap gap-2">
-          {BITZ_CHAT_PRESETS.map((preset) => (
+          {BITZ_CHAT_PRESETS.map((preset, idx) => (
             <button
               key={preset.id}
               type="button"
-              onClick={() => handleAskPreset(preset)}
-              className="px-3.5 py-1.5 rounded-full text-xs font-bold bg-sky-100 hover:bg-sky-200 text-sky-950 border-2 border-sky-300 transition"
+              onClick={() => handleAskPreset(preset, idx)}
+              className="px-3.5 py-1.5 rounded-full text-xs font-bold bg-sky-100 hover:bg-sky-200 text-sky-950 border-2 border-sky-300 transition whitespace-nowrap"
             >
               {preset.question}
             </button>
@@ -261,10 +280,10 @@ export default function NurserySideQuests() {
           />
           <button
             type="submit"
-            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-xs font-bold bg-pink-500 hover:bg-pink-600 text-white border-2 border-pink-600 transition shadow-sm"
+            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-xs font-bold bg-pink-500 hover:bg-pink-600 text-white border-2 border-pink-600 transition shadow-sm whitespace-nowrap shrink-0"
           >
-            <Send className="w-3.5 h-3.5" />
-            Send
+            <Send className="w-3.5 h-3.5 shrink-0" />
+            <span>Send</span>
           </button>
         </form>
       </section>
@@ -276,21 +295,45 @@ export default function NurserySideQuests() {
         data-testid="live-guestbook-section"
         className="rounded-3xl glass-panel border-2 border-pink-200 dark:border-slate-700 p-6 sm:p-8"
       >
-        <div className="pb-6 border-b-2 border-pink-100 dark:border-slate-700">
-          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-mono uppercase tracking-wider bg-sky-100 text-sky-800 dark:bg-sky-950/60 dark:text-sky-200 font-bold border border-sky-300">
-            <BookHeart className="w-3.5 h-3.5 text-pink-500" />
-            💌 Community Sanctuary · Live Persistent Wish Wall
-          </span>
-          <h3
-            id="guestbook-heading"
-            className="mt-2 text-2xl sm:text-3xl font-bold text-espresso font-display"
-          >
-            Sign the Sky-Loft Dream Wall
-          </h3>
-          <p className="mt-1 text-xs sm:text-sm text-muted">
-            Leave a message, bedtime wish, or 90s web hello for Bitz! Entries are saved
-            live to our persistent sanctuary wall.
-          </p>
+        <div className="pb-6 border-b-2 border-pink-100 dark:border-slate-700 flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-mono uppercase tracking-wider bg-sky-100 text-sky-800 dark:bg-sky-950/60 dark:text-sky-200 font-bold border border-sky-300 whitespace-nowrap">
+              <BookHeart className="w-3.5 h-3.5 text-pink-500 shrink-0" />
+              <span>💌 Step 5C · Live Persistent Wish Wall</span>
+            </span>
+            <h3
+              id="guestbook-heading"
+              className="mt-2 text-2xl sm:text-3xl font-bold text-espresso font-display"
+            >
+              Sign the Sky-Loft Dream Wall
+            </h3>
+            <p className="mt-1 text-xs sm:text-sm text-muted">
+              Leave a message, bedtime wish, or 90s web hello for Bitz—or click a quick sticker below!
+            </p>
+          </div>
+
+          {/* 1-Click Quick-Fill Sticker Pills */}
+          <div className="flex flex-wrap items-center gap-1.5">
+            <span className="text-[11px] font-mono font-bold text-pink-600 dark:text-pink-300 whitespace-nowrap mr-1">
+              <Sparkles className="w-3 h-3 inline mr-1" />
+              Quick Sticker:
+            </span>
+            {quickWishStickers.map((s, idx) => (
+              <button
+                key={idx}
+                type="button"
+                onClick={() => {
+                  soundEngine.playCardChord(idx);
+                  if (!guestName) setGuestName("Starlight Friend ✨");
+                  setGuestMood(s.mood);
+                  setGuestMessage(s.text);
+                }}
+                className="px-3 py-1 rounded-full text-[11px] font-bold bg-pink-50 dark:bg-slate-800 hover:bg-pink-100 text-espresso border border-pink-300 dark:border-slate-700 transition whitespace-nowrap"
+              >
+                {s.label}
+              </button>
+            ))}
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-6">
@@ -359,7 +402,7 @@ export default function NurserySideQuests() {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full py-2.5 px-4 rounded-full text-xs font-bold bg-pink-500 hover:bg-pink-600 text-white border-2 border-pink-600 disabled:opacity-50 transition shadow-sm"
+              className="w-full py-2.5 px-4 rounded-full text-xs font-bold bg-pink-500 hover:bg-pink-600 text-white border-2 border-pink-600 disabled:opacity-50 transition shadow-sm whitespace-nowrap"
             >
               {submitting ? "Pinning Wish..." : "Pin Wish to Sanctuary Wall ✨"}
             </button>
@@ -385,7 +428,7 @@ export default function NurserySideQuests() {
                   <strong className="text-sm font-display text-espresso">
                     {entry.name}
                   </strong>
-                  <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-pink-100 text-pink-700 dark:bg-pink-950 dark:text-pink-200 border border-pink-300 font-bold">
+                  <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-pink-100 text-pink-700 dark:bg-pink-950 dark:text-pink-200 border border-pink-300 font-bold whitespace-nowrap">
                     {entry.mood}
                   </span>
                 </div>
