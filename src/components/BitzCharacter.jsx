@@ -90,29 +90,33 @@ export default function BitzCharacter({
     }, 2500);
   };
 
-  // Action 3: Cozy Cradle Sway & Celestial Cloud Lullaby (3 Sweet Variations!)
+  // Action 3: Cozy Cradle Sway & 1773 Classical Symphony Lullaby (Violin, Piano, Flute & Music Box!)
   const handleSingLullaby = (e) => {
     if (e) e.stopPropagation();
     if (moodReaction === "lullaby" && soundEngine.isPlayingLullaby) {
       soundEngine.stopLullaby();
       setMoodReaction("happy");
-      setSpeechBubble("✨ Lullaby paused! Tap anytime to hear my sweet Celestial Cloud Lullaby again!");
+      setSpeechBubble("✨ Lullaby paused! Tap anytime to hear my 1773 Violin & Grand Piano Lullaby again!");
       return;
     }
     setMoodReaction("lullaby");
     setSpeechBubble(
-      "🎶 Playing Celestial Cloud Lullaby (Crystal Music Box, Sweet Bansuri Flute & Santoor Variations)... ☁️✨"
+      "🎻🎹 Variation 1: Playing 1773 Classical Lullaby on Expressive Violin & Grand Piano Duet... ☁️✨"
     );
     soundEngine.playCloudLullaby(
       "full",
       (ev) => {
-        if (ev.label === "Flute Bb4") {
+        if (ev.label === "🎹 Piano Bb4") {
           setSpeechBubble(
-            "🎶 Variation 2: Sweet Bansuri Flute & Santoor Arpeggio floating across the clouds... 🌸✨"
+            "🎹🪈 Variation 2: Grand Piano & Sweet Bansuri Flute playing the lyrical melody... 🌸✨"
           );
-        } else if (ev.label === "Star G5") {
+        } else if (ev.label === "🔔 Chime Eb5") {
           setSpeechBubble(
-            "🎶 Variation 3: Celestial Starlight Music-Box Finale... swaying gently on my cloud cushion! 🌙🎶"
+            "🔔🪕 Variation 3: Crystal Music Box & Plucked Harp cascading through the clouds... ✨"
+          );
+        } else if (ev.label === "🎻 Violin G5") {
+          setSpeechBubble(
+            "🌟🎻 Variation 4: Full Symphony Finale (Violin + Piano + Flute + Chimes)! 🌙🎶"
           );
         }
       },
