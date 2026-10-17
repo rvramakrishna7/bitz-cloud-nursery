@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  /* Light Sky Blue & Baby Pink Theme (Solid, Crisp, Zero Harsh Gradients) */
-  --bg-cream: #eef8ff;
+  /* Soft Baby Pink & Light Sky Blue Palette — Clean, Solid, Zero Harsh Gradients */
+  --bg-cream: #f0f9ff;
   --bg-card: #ffffff;
   --text-espresso: #1e293b;
   --text-muted: #475569;
@@ -13,11 +13,11 @@
   --accent-gold: #f59e0b;
   --accent-sky: #0284c7;
   --border-chunky: #f472b6;
-  --card-shadow: 0 12px 32px -8px rgba(56, 189, 248, 0.18), 0 0 0 2px #fce7f3;
+  --card-shadow: 0 14px 34px -10px rgba(56, 189, 248, 0.16), 0 0 0 2px #fce7f3;
 }
 
 [data-theme="night"] {
-  /* Soft Pastel Twilight Sky & Baby Pink Night Mode (100% Readable, Zero Muddy Gradients) */
+  /* Starlight Twilight Sky & Baby Pink Night Mode */
   --bg-cream: #0f172a;
   --bg-card: #1e293b;
   --text-espresso: #f8fafc;
@@ -27,7 +27,7 @@
   --accent-gold: #fbbf24;
   --accent-sky: #38bdf8;
   --border-chunky: #38bdf8;
-  --card-shadow: 0 14px 36px -8px rgba(15, 23, 42, 0.6), 0 0 0 2px rgba(244, 114, 182, 0.3);
+  --card-shadow: 0 16px 40px -10px rgba(2, 6, 23, 0.65), 0 0 0 2px rgba(244, 114, 182, 0.32);
 }
 
 html {
@@ -47,107 +47,196 @@ body {
   box-shadow: var(--card-shadow);
 }
 
-/* Clean, Playful 90s Toybox Mode (+5 pts Side Quest) */
+/* 90s Toybox Mode */
 [data-chaos="true"] .glass-panel,
 [data-chaos="true"] article {
   border: 3px solid var(--border-chunky) !important;
   box-shadow: 6px 6px 0px #7dd3fc !important;
-  border-radius: 24px !important;
+  border-radius: 26px !important;
 }
 
+/* 1. Weightless Cloud Breathing & Floating (Idle) */
 @keyframes floatSlow {
   0%, 100% {
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-9px);
   }
 }
 
 .animate-float {
-  animation: floatSlow 4.2s ease-in-out infinite;
+  animation: floatSlow 4.5s ease-in-out infinite;
 }
 
-@keyframes bellyTickleSquish {
+/* 2. Choreographed Joyful Jump & Float (Belly Tickle — Smooth Arc, Zero Shaking!) */
+@keyframes bitzJoyfulJump {
   0% {
-    transform: scale(1, 1) rotate(0deg);
+    transform: translateY(0px) scale(1, 1);
   }
-  20% {
-    transform: scale(1.13, 0.88) translateY(8px) rotate(-4deg);
+  18% {
+    transform: translateY(8px) scale(1.05, 0.94);
   }
-  45% {
-    transform: scale(0.92, 1.12) translateY(-14px) rotate(4deg);
+  48% {
+    transform: translateY(-24px) scale(0.97, 1.04);
   }
-  70% {
-    transform: scale(1.08, 0.93) translateY(4px) rotate(-3deg);
-  }
-  85% {
-    transform: scale(0.97, 1.04) translateY(-4px) rotate(2deg);
+  72% {
+    transform: translateY(-18px) scale(1.01, 1);
   }
   100% {
-    transform: scale(1, 1) rotate(0deg);
+    transform: translateY(0px) scale(1, 1);
   }
 }
 
-.animate-belly-tickle {
-  animation: bellyTickleSquish 0.75s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+.animate-joyful-jump {
+  transform-origin: 220px 310px;
+  animation: bitzJoyfulJump 1.25s cubic-bezier(0.22, 1, 0.36, 1) infinite;
 }
 
-@keyframes waveArmRight {
+/* 3. Smooth Happy Arm Cheer (Right Arm) */
+@keyframes bitzRightArmCheer {
+  0%, 100% {
+    transform: rotate(0deg) translateY(0px);
+  }
+  35% {
+    transform: rotate(-38deg) translateY(-12px);
+  }
+  65% {
+    transform: rotate(-18deg) translateY(-6px);
+  }
+}
+
+.animate-right-arm-cheer {
+  transform-origin: 298px 250px;
+  animation: bitzRightArmCheer 0.7s ease-in-out infinite;
+}
+
+/* 4. Smooth Friendly Hand Wave (Idle / Wave Action) */
+@keyframes bitzFriendlyWave {
   0%, 100% {
     transform: rotate(0deg);
   }
+  25% {
+    transform: rotate(-32deg) translateY(-6px);
+  }
   50% {
-    transform: rotate(-28deg) translateY(-6px);
+    transform: rotate(-8deg) translateY(-2px);
+  }
+  75% {
+    transform: rotate(-32deg) translateY(-6px);
   }
 }
 
-.animate-wave-arm {
-  transform-origin: 295px 255px;
-  animation: waveArmRight 1.6s ease-in-out infinite;
+.animate-friendly-wave {
+  transform-origin: 298px 250px;
+  animation: bitzFriendlyWave 1.3s ease-in-out infinite;
 }
 
-.animate-wave-arm-fast {
-  transform-origin: 295px 255px;
-  animation: waveArmRight 0.28s ease-in-out infinite;
+/* 5. Left Arm Lifting the Moon Lantern */
+@keyframes bitzLiftMoon {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-16px) rotate(14deg);
+  }
 }
 
+.animate-lift-moon {
+  transform-origin: 140px 250px;
+  animation: bitzLiftMoon 1.2s ease-in-out infinite;
+}
+
+/* 6. Cozy Cradle Sway (Lullaby Mode) */
+@keyframes bitzCradleSway {
+  0%, 100% {
+    transform: rotate(-4deg) translateY(2px);
+  }
+  50% {
+    transform: rotate(4deg) translateY(-4px);
+  }
+}
+
+.animate-cradle-sway {
+  transform-origin: 220px 320px;
+  animation: bitzCradleSway 2.4s ease-in-out infinite;
+}
+
+/* 7. Graceful Star-Bell Pendulum Swing */
 @keyframes swingBell {
   0%, 100% {
-    transform: rotate(-7deg);
+    transform: rotate(-6deg);
   }
   50% {
-    transform: rotate(9deg);
+    transform: rotate(8deg);
   }
 }
 
 .animate-swing-bell {
-  transform-origin: 342px 158px;
-  animation: swingBell 2.4s ease-in-out infinite;
+  transform-origin: 344px 154px;
+  animation: swingBell 2.8s ease-in-out infinite;
 }
 
-.animate-swing-bell-fast {
-  transform-origin: 342px 158px;
-  animation: swingBell 0.25s ease-in-out infinite;
+@keyframes swingBellRing {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-24deg);
+  }
+  50% {
+    transform: rotate(22deg);
+  }
+  75% {
+    transform: rotate(-14deg);
+  }
 }
 
-@keyframes floatHeartUp {
+.animate-swing-bell-ring {
+  transform-origin: 344px 154px;
+  animation: swingBellRing 0.9s ease-in-out infinite;
+}
+
+/* 8. Floating Hearts & Music Notes Stream */
+@keyframes floatBubbleUp {
   0% {
     opacity: 0;
-    transform: translateY(10px) scale(0.6);
+    transform: translateY(8px) scale(0.7);
   }
-  30% {
+  25% {
     opacity: 1;
-    transform: translateY(-10px) scale(1.15);
+    transform: translateY(-12px) scale(1.05);
   }
   100% {
     opacity: 0;
-    transform: translateY(-48px) scale(0.9);
+    transform: translateY(-54px) scale(0.95);
   }
 }
 
-.animate-heart-pop {
-  animation: floatHeartUp 0.95s ease-out forwards;
+.animate-bubble-1 {
+  animation: floatBubbleUp 1.3s ease-out infinite;
+}
+.animate-bubble-2 {
+  animation: floatBubbleUp 1.3s ease-out 0.25s infinite;
+}
+.animate-bubble-3 {
+  animation: floatBubbleUp 1.3s ease-out 0.5s infinite;
+}
+
+/* 9. Soundwave Ring Expansion from Star-Bell */
+@keyframes bellRipple {
+  0% {
+    r: 14px;
+    opacity: 0.85;
+  }
+  100% {
+    r: 52px;
+    opacity: 0;
+  }
+}
+
+.animate-bell-ripple {
+  animation: bellRipple 1s ease-out infinite;
 }
 
 @keyframes marquee {
@@ -167,12 +256,13 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee,
   .animate-float,
-  .animate-belly-tickle,
-  .animate-wave-arm,
+  .animate-joyful-jump,
+  .animate-right-arm-cheer,
+  .animate-friendly-wave,
+  .animate-lift-moon,
+  .animate-cradle-sway,
   .animate-swing-bell,
-  .animate-bounce,
-  .animate-pulse,
-  .animate-ping {
+  .animate-swing-bell-ring {
     animation: none !important;
   }
 }

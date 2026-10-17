@@ -124,7 +124,7 @@ export default function ProjectsShowcase() {
       <div className="text-center max-w-2xl mx-auto mb-10">
         <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-mono uppercase tracking-wider bg-sky-100 text-sky-800 dark:bg-sky-950/60 dark:text-sky-200 font-bold border border-sky-300">
           <Sparkles className="w-3.5 h-3.5 text-pink-500" />
-          Section 05.2 & Tier 2 · What Bitz Does (4 Interactive Creations)
+          Interactive Weather Studio · 4 Live Creations
         </span>
         <h2
           id="projects-heading"

@@ -51,13 +51,13 @@ export default function CharacterSheet() {
           <div>
             <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-mono uppercase tracking-wider bg-pink-100 text-pink-700 dark:bg-pink-950/60 dark:text-pink-300 font-bold border border-pink-300">
               <Sparkles className="w-3.5 h-3.5 text-pink-500" />
-              Section 04 · Official Track 2 Character Sheet
+              Cloud-Loft Sanctuary · Official Character Dossier
             </span>
             <h2
               id="character-sheet-heading"
               className="mt-2.5 text-2xl sm:text-3xl font-bold text-espresso font-display"
             >
-              Celestial Cloud-Loft Identity Passport
+              Celestial Cloud-Sprite Identity Passport
             </h2>
           </div>
 

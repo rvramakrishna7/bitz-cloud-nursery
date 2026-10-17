@@ -166,7 +166,7 @@ export default function NurserySideQuests() {
         <div>
           <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-mono uppercase tracking-wider bg-sky-100 text-sky-800 dark:bg-sky-950/60 dark:text-sky-200 font-bold border border-sky-300">
             <Eye className="w-3.5 h-3.5 text-pink-500" />
-            Side Quest (+1 pt) · Celestial Visitor Odometer
+            Live Sanctuary Telemetry · Visitor Odometer
           </span>
           <h3 className="mt-2 text-2xl font-bold text-espresso font-display">
             Weather Wishes & Dreams Delivered
@@ -188,7 +188,7 @@ export default function NurserySideQuests() {
         </div>
       </section>
 
-      {/* TIER 3: INTERACTIVE CHARACTER CHAT */}
+      {/* INTERACTIVE CHARACTER CHAT */}
       <section
         id="nursery-chat"
         aria-labelledby="chat-heading"
@@ -199,7 +199,7 @@ export default function NurserySideQuests() {
           <div>
             <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-mono uppercase tracking-wider bg-pink-100 text-pink-700 dark:bg-pink-950/60 dark:text-pink-200 font-bold border border-pink-300">
               <MessageCircle className="w-3.5 h-3.5 text-pink-500" />
-              Tier 3 Boss Feature · Character Chats Back
+              Direct Sky-Line · Interactive Cloud-Phone
             </span>
             <h3
               id="chat-heading"
@@ -269,7 +269,7 @@ export default function NurserySideQuests() {
         </form>
       </section>
 
-      {/* SIDE QUEST 1 (+2 PTS) & TIER 3: LIVE DREAM GUESTBOOK WALL */}
+      {/* LIVE DREAM GUESTBOOK WALL */}
       <section
         id="guestbook-wall"
         aria-labelledby="guestbook-heading"
@@ -279,7 +279,7 @@ export default function NurserySideQuests() {
         <div className="pb-6 border-b-2 border-pink-100 dark:border-slate-700">
           <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-mono uppercase tracking-wider bg-sky-100 text-sky-800 dark:bg-sky-950/60 dark:text-sky-200 font-bold border border-sky-300">
             <BookHeart className="w-3.5 h-3.5 text-pink-500" />
-            Side Quest (+2 pts) & Tier 3 · Live Persistent Guestbook Wall
+            Community Sanctuary · Live Persistent Guestbook Wall
           </span>
           <h3
             id="guestbook-heading"

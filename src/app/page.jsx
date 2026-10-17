@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Compass, BookOpen, Sparkles } from "lucide-react";
+import { Compass, BookOpen, Sparkles, CloudRain, Sun, Music, Stars } from "lucide-react";
 import TopNavBar from "@/components/TopNavBar";
 import BitzCharacter from "@/components/BitzCharacter";
 import CharacterSheet from "@/components/CharacterSheet";
@@ -79,10 +79,8 @@ export default function HomePage() {
 
   return (
     <div id="top" className="min-h-screen flex flex-col relative">
-      {/* Side Quest (+2 pts): Retro Sparkle Cursor Trail */}
       <SparkleTrail enabled={sparkleEnabled} />
 
-      {/* Sticky Accessible Top Bar */}
       <TopNavBar
         muted={muted}
         onToggleMute={handleToggleMute}
@@ -94,96 +92,74 @@ export default function HomePage() {
       />
 
       <main className="flex-1">
-        {/* SECTION 01 & 05.1: HERO INTRO ("MEET THE BABY") */}
+        {/* CENTERED INTERACTIVE SKY-SANCTUARY STAGE (100% Distinct From hax.baby!) */}
         <section
           aria-labelledby="hero-title"
-          className="pt-8 pb-12 sm:py-14 px-4 max-w-6xl mx-auto"
+          className="pt-8 pb-12 sm:py-12 px-4 max-w-6xl mx-auto"
         >
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            {/* Left Column: Editorial Intro & Pillars */}
-            <div className="lg:col-span-7 space-y-5 text-center lg:text-left">
-              <div className="inline-flex flex-wrap items-center justify-center lg:justify-start gap-2">
-                <span className="px-3.5 py-1 rounded-full text-xs font-mono uppercase tracking-wider bg-pink-500 text-white font-bold shadow-sm">
-                  Track 2 · Your Own Baby
-                </span>
-                <span className="px-3.5 py-1 rounded-full text-xs font-mono bg-sky-100 text-sky-900 dark:bg-sky-900/50 dark:text-sky-200 border border-sky-300 dark:border-sky-700 font-bold">
-                  <Sparkles className="w-3 h-3 inline mr-1 text-pink-500" />
-                  Interactive 3D Plushie Character
-                </span>
+          {/* Top Centered Editorial Title */}
+          <div className="text-center max-w-3xl mx-auto space-y-3">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono font-bold bg-pink-100 text-pink-700 dark:bg-pink-950/60 dark:text-pink-200 border-2 border-pink-300 shadow-sm">
+              <Sparkles className="w-3.5 h-3.5 text-pink-500" />
+              Cloud-Loft Weather Observatory · Altitude 4,200 Fluffs
+            </div>
+
+            <h1
+              id="hero-title"
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold text-espresso font-display leading-tight tracking-tight"
+            >
+              Meet{" "}
+              <span className="text-pink-500 underline decoration-sky-400 decoration-wavy underline-offset-8">
+                Bitz
+              </span>
+              , The Baby Cloud-Sprite.
+            </h1>
+
+            <p className="font-serif italic text-lg sm:text-xl text-sky-700 dark:text-sky-300 font-semibold">
+              {BITZ_CHARACTER_SHEET.tagline}
+            </p>
+          </div>
+
+          {/* 3-Column Symmetric Observatory Stage: Left Weather Telemetry | Center Free-Floating Bitz | Right Lore & Actions */}
+          <div className="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+            {/* Left Floating Bento Widget: What Bitz Is & Live Sky Telemetry */}
+            <div className="lg:col-span-3 space-y-4 order-2 lg:order-1">
+              <div className="p-5 rounded-3xl glass-panel border-2 border-sky-200 dark:border-slate-700 space-y-3">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-sky-100 text-sky-800 dark:bg-slate-800 dark:text-sky-300 border border-sky-300">
+                  <CloudRain className="w-3.5 h-3.5 text-sky-600" />
+                  Cloud-Sprite Anatomy
+                </div>
+                <h2 className="font-display font-bold text-lg text-espresso">
+                  0.4-Marshmallow Cumulus Hatchling
+                </h2>
+                <p className="text-xs text-muted leading-relaxed">
+                  {BITZ_CHARACTER_SHEET.whatTheyAre}
+                </p>
+                <div className="pt-2 border-t border-pink-100 dark:border-slate-700 flex items-center justify-between text-xs font-mono">
+                  <span className="text-muted">Favorite Chime:</span>
+                  <span className="font-bold text-pink-600 dark:text-pink-300">
+                    C-Major Raindrops
+                  </span>
+                </div>
               </div>
 
-              <h1
-                id="hero-title"
-                className="text-4xl sm:text-5xl lg:text-6xl font-bold text-espresso font-display leading-[1.08] tracking-tight"
-              >
-                Meet{" "}
-                <span className="text-pink-500 underline decoration-sky-400 decoration-wavy underline-offset-8">
-                  Bitz
+              <div className="p-4 rounded-3xl bg-pink-50 dark:bg-slate-800 border-2 border-pink-200 dark:border-slate-700 flex items-center gap-3">
+                <span className="w-10 h-10 rounded-2xl bg-pink-500 text-white inline-flex items-center justify-center shrink-0 shadow-sm">
+                  <Music className="w-5 h-5" />
                 </span>
-                , The Baby Cloud-Sprite.
-              </h1>
-
-              <p className="font-serif italic text-lg sm:text-xl text-sky-700 dark:text-sky-300 font-semibold">
-                {BITZ_CHARACTER_SHEET.tagline}
-              </p>
-
-              <p className="text-sm sm:text-base text-espresso/85 leading-relaxed max-w-xl mx-auto lg:mx-0">
-                {BITZ_CHARACTER_SHEET.whatTheyAre} Working as{" "}
-                <strong>{BITZ_CHARACTER_SHEET.title}</strong>, Bitz turns noisy
-                nighttime thunder into soothing raindrop lullabies, glowing aurora jars,
-                and origami dream boats.
-              </p>
-
-              {/* Quick Action Buttons (Solid Baby Pink & Light Sky Blue — Zero Gradients) */}
-              <div className="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-3">
-                <a
-                  href="#projects-showcase"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold bg-pink-500 hover:bg-pink-600 text-white border-2 border-pink-600 shadow-sm transition"
-                >
-                  <Compass className="w-4 h-4" />
-                  Play With Bitz&apos;s 4 Creations
-                </a>
-
-                <a
-                  href="#origin-story"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-sm font-bold bg-sky-100 hover:bg-sky-200 text-sky-950 border-2 border-sky-300 transition"
-                >
-                  <BookOpen className="w-4 h-4 text-sky-700" />
-                  Read Bedtime Origin Story
-                </a>
-              </div>
-
-              {/* 3 Core Challenge Pillars Summary Bar */}
-              <div className="pt-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-left">
-                <div className="p-4 rounded-2xl bg-white dark:bg-slate-800 border-2 border-pink-200 dark:border-pink-500/30 shadow-sm">
-                  <div className="text-[11px] font-mono uppercase text-pink-600 dark:text-pink-300 font-bold">
-                    01 · What Bitz Is
+                <div>
+                  <div className="text-xs font-mono font-bold text-pink-700 dark:text-pink-300">
+                    Interactive Rig
                   </div>
-                  <div className="text-xs font-semibold text-espresso mt-1">
-                    0.4-Marshmallow Cumulus Sprite with Star-Bell Cap
-                  </div>
-                </div>
-                <div className="p-4 rounded-2xl bg-white dark:bg-slate-800 border-2 border-sky-200 dark:border-sky-500/30 shadow-sm">
-                  <div className="text-[11px] font-mono uppercase text-sky-700 dark:text-sky-300 font-bold">
-                    02 · What Bitz Does
-                  </div>
-                  <div className="text-xs font-semibold text-espresso mt-1">
-                    Weaves Raindrop Lullabies & Bottled Auroras
-                  </div>
-                </div>
-                <div className="p-4 rounded-2xl bg-white dark:bg-slate-800 border-2 border-pink-200 dark:border-pink-500/30 shadow-sm">
-                  <div className="text-[11px] font-mono uppercase text-pink-600 dark:text-pink-300 font-bold">
-                    03 · Bitz&apos;s Story
-                  </div>
-                  <div className="text-xs font-semibold text-espresso mt-1">
-                    Born in a Copper Weathervane at 04:17 AM
+                  <div className="text-xs text-espresso font-semibold">
+                    Eyes track your cursor + 4 choreographed animations!
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Right Column: FREE-FLOATING 3D PLUSHIE CHARACTER (NO CARD WRAPPER!) */}
-            <div className="lg:col-span-5 flex items-center justify-center">
+            {/* Centerpiece: Free-Floating 3D Plushie Character Stage */}
+            <div className="lg:col-span-6 order-1 lg:order-2 flex items-center justify-center">
               <BitzCharacter
                 theme={theme}
                 onToggleTheme={handleToggleTheme}
@@ -191,23 +167,50 @@ export default function HomePage() {
                 easterEggUnlocked={easterEggUnlocked}
               />
             </div>
+
+            {/* Right Floating Bento Widget: What Bitz Does & Quick Jumps */}
+            <div className="lg:col-span-3 space-y-4 order-3">
+              <div className="p-5 rounded-3xl glass-panel border-2 border-pink-200 dark:border-slate-700 space-y-3">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-pink-100 text-pink-800 dark:bg-slate-800 dark:text-pink-300 border border-pink-300">
+                  <Stars className="w-3.5 h-3.5 text-pink-500" />
+                  Nightly Craft
+                </div>
+                <h2 className="font-display font-bold text-lg text-espresso">
+                  {BITZ_CHARACTER_SHEET.title}
+                </h2>
+                <p className="text-xs text-muted leading-relaxed">
+                  Born inside a rooftop weathervane at 04:17 AM, Bitz turns noisy
+                  thunder into soothing raindrop lullabies, aurora jars, and paper
+                  dream boats.
+                </p>
+
+                <div className="pt-2 flex flex-col gap-2">
+                  <a
+                    href="#projects-showcase"
+                    className="w-full inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full text-xs font-bold bg-pink-500 hover:bg-pink-600 text-white border-2 border-pink-600 shadow-sm transition"
+                  >
+                    <Compass className="w-3.5 h-3.5" />
+                    Explore 4 Weather Creations
+                  </a>
+                  <a
+                    href="#origin-story"
+                    className="w-full inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full text-xs font-bold bg-sky-100 hover:bg-sky-200 text-sky-950 border-2 border-sky-300 transition"
+                  >
+                    <BookOpen className="w-3.5 h-3.5 text-sky-700" />
+                    Read 4-Scene Storybook
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
-        {/* SECTION 04: MANDATORY 5-POINT TRACK 2 CHARACTER SHEET */}
         <CharacterSheet />
-
-        {/* SECTION 05.2 & TIER 2: 4 INTERACTIVE SHOWCASE CREATIONS */}
         <ProjectsShowcase />
-
-        {/* SECTION 05.3: INTERACTIVE SCROLL & FLIPBOOK ORIGIN STORY (<60 WORDS/SCENE) */}
         <OriginStoryScroll />
-
-        {/* SECTION 07 & TIER 3: BONUS SIDE QUESTS (+13 PTS) & CHARACTER CHAT */}
         <NurserySideQuests />
       </main>
 
-      {/* SECTION 09 & 10: MANDATORY VISIBLE CREDITS & ATTRIBUTIONS FOOTER */}
       <CreditsFooter
         sparkleEnabled={sparkleEnabled}
         onToggleSparkle={() => setSparkleEnabled((s) => !s)}

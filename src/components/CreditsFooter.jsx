@@ -29,7 +29,7 @@ export default function CreditsFooter({
           <div className="space-y-2">
             <h4 className="text-xs font-mono uppercase tracking-wider text-sky-700 dark:text-sky-300 font-bold flex items-center gap-1.5">
               <Palette className="w-3.5 h-3.5 text-pink-500" />
-              Official Credits & Attributions (Sec 09/10)
+              Credits & Craft Attributions
             </h4>
             <ul className="text-xs text-muted space-y-1.5 leading-relaxed">
               <li>
@@ -51,7 +51,7 @@ export default function CreditsFooter({
           <div className="space-y-3">
             <h4 className="text-xs font-mono uppercase tracking-wider text-sky-700 dark:text-sky-300 font-bold flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5 text-pink-500" />
-              Early-Web Toybox Controls
+              Atmosphere Controls
             </h4>
             <div className="flex flex-wrap gap-2">
               <button
@@ -59,7 +59,7 @@ export default function CreditsFooter({
                 onClick={onToggleSparkle}
                 className="px-3.5 py-1.5 rounded-full text-xs font-mono font-bold border-2 border-pink-300 bg-pink-50 hover:bg-pink-100 text-pink-900 dark:bg-slate-800 dark:text-pink-200 transition"
               >
-                {sparkleEnabled ? "✨ Sparkle Trail: ON (+2 pts)" : "✨ Sparkle Trail: OFF"}
+                {sparkleEnabled ? "✨ Sparkle Cursor Trail: ON" : "✨ Sparkle Cursor Trail: OFF"}
               </button>
             </div>
 

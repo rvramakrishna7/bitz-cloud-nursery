@@ -23,7 +23,7 @@ export default function OriginStoryScroll() {
       <div className="text-center max-w-2xl mx-auto mb-10">
         <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-mono uppercase tracking-wider bg-pink-100 text-pink-700 dark:bg-pink-950/60 dark:text-pink-200 font-bold border border-pink-300">
           <BookOpen className="w-3.5 h-3.5 text-pink-500" />
-          Section 05.3 · Interactive Bedtime Storybook (&lt;60 Words / Scene)
+          Illustrated Bedtime Flipbook · 4 Chapters
         </span>
         <h2
           id="origin-story-heading"

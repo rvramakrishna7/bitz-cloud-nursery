@@ -24,16 +24,16 @@ export default function TopNavBar({
   const isNight = theme === "night";
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 dark:bg-slate-900/95 border-b-2 border-pink-200 dark:border-sky-800 transition-colors">
-      <div className="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
-        {/* Brand Identity + Returning Visitor Memory Pill */}
-        <div className="flex items-center gap-3">
+    <header className="sticky top-3 z-50 px-3 sm:px-6">
+      <div className="max-w-6xl mx-auto rounded-full bg-white/95 dark:bg-slate-900/95 border-2 border-pink-200 dark:border-sky-700 shadow-md px-4 py-2.5 flex items-center justify-between gap-2">
+        {/* Brand Identity + Visitor Badge */}
+        <div className="flex items-center gap-2.5 shrink-0">
           <a
             href="#top"
             onClick={() => soundEngine.playClick(1.1)}
-            className="inline-flex items-center gap-2.5 font-display font-bold text-lg sm:text-xl text-espresso hover:text-pink-500 transition"
+            className="inline-flex items-center gap-2 font-display font-bold text-lg text-espresso hover:text-pink-500 transition"
           >
-            <span className="w-9 h-9 rounded-2xl bg-sky-400 text-white inline-flex items-center justify-center border-2 border-pink-300 shadow-sm">
+            <span className="w-8 h-8 rounded-full bg-sky-400 text-white inline-flex items-center justify-center border-2 border-pink-300 shadow-sm">
               <Cloud className="w-4 h-4 fill-current" />
             </span>
             <span>
@@ -43,47 +43,59 @@ export default function TopNavBar({
 
           <span
             data-testid="visitor-memory-badge"
-            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono bg-pink-100 text-pink-800 dark:bg-pink-950/60 dark:text-pink-200 border border-pink-300 dark:border-pink-700 font-bold"
+            className="hidden xl:inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-mono bg-pink-50 text-pink-700 dark:bg-pink-950/60 dark:text-pink-200 border border-pink-200 font-bold"
           >
             <Sparkles className="w-3 h-3 text-pink-500" />
-            {visitCount > 1
-              ? `Welcome back, Friend! (Visit #${visitCount})`
-              : "First Sanctuary Visit ✨"}
+            {visitCount > 1 ? `Visit #${visitCount}` : "First Visit ✨"}
           </span>
         </div>
 
-        {/* Quick Section Links */}
+        {/* Centered Navigation Links */}
         <nav
           aria-label="Primary Portfolio Navigation"
-          className="hidden md:flex items-center gap-5 text-xs font-bold text-espresso/85"
+          className="hidden lg:flex items-center gap-1 bg-sky-50 dark:bg-slate-800 px-3 py-1 rounded-full border border-sky-200 dark:border-slate-700 text-xs font-bold text-espresso/85"
         >
-          <a href="#character-sheet" className="hover:text-pink-500 transition">
-            1. Identity Passport
+          <a
+            href="#character-sheet"
+            className="px-3 py-1 rounded-full hover:bg-white dark:hover:bg-slate-700 hover:text-pink-500 transition"
+          >
+            Passport
           </a>
-          <a href="#projects-showcase" className="hover:text-pink-500 transition">
-            2. Creations (4)
+          <a
+            href="#projects-showcase"
+            className="px-3 py-1 rounded-full hover:bg-white dark:hover:bg-slate-700 hover:text-pink-500 transition"
+          >
+            Weather Lab
           </a>
-          <a href="#origin-story" className="hover:text-pink-500 transition">
-            3. Storybook
+          <a
+            href="#origin-story"
+            className="px-3 py-1 rounded-full hover:bg-white dark:hover:bg-slate-700 hover:text-pink-500 transition"
+          >
+            Storybook
           </a>
-          <a href="#nursery-chat" className="hover:text-pink-500 transition">
-            Cloud-Phone Chat
+          <a
+            href="#nursery-chat"
+            className="px-3 py-1 rounded-full hover:bg-white dark:hover:bg-slate-700 hover:text-pink-500 transition"
+          >
+            Cloud Chat
           </a>
-          <a href="#guestbook-wall" className="hover:text-pink-500 transition">
+          <a
+            href="#guestbook-wall"
+            className="px-3 py-1 rounded-full hover:bg-white dark:hover:bg-slate-700 hover:text-pink-500 transition"
+          >
             Dream Wall
           </a>
         </nav>
 
-        {/* Interactive Controls: Mute Switch (Mandatory) + Day/Night + Toybox Mode */}
-        <div className="flex items-center gap-2">
-          {/* Mandatory Visible Mute Toggle (+3 pts Side Quest & Section 09 Rule) */}
+        {/* Sleek Single-Row Action Pills */}
+        <div className="flex items-center gap-1.5 shrink-0">
           <button
             type="button"
             onClick={onToggleMute}
             data-testid="global-mute-toggle"
             aria-pressed={muted}
             aria-label={muted ? "Unmute nursery sounds" : "Mute nursery sounds"}
-            className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold border-2 transition ${
+            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono font-bold border-2 transition ${
               muted
                 ? "bg-pink-100 border-pink-400 text-pink-800 dark:bg-pink-950 dark:text-pink-200"
                 : "bg-pink-500 border-pink-600 text-white shadow-sm"
@@ -102,7 +114,6 @@ export default function TopNavBar({
             )}
           </button>
 
-          {/* Day / Night Mood Toggle (Tier 1 Requirement) */}
           <button
             type="button"
             onClick={() => {
@@ -111,9 +122,9 @@ export default function TopNavBar({
             }}
             data-testid="theme-mood-toggle"
             aria-label={
-              isNight ? "Switch to Sunlit Sky mode" : "Switch to Night Sky mode"
+              isNight ? "Switch to Day Sky mode" : "Switch to Night Sky mode"
             }
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold border-2 border-sky-300 bg-sky-100 hover:bg-sky-200 text-sky-950 transition"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono font-bold border-2 border-sky-300 bg-sky-100 hover:bg-sky-200 text-sky-950 transition"
           >
             {isNight ? (
               <>
@@ -128,7 +139,6 @@ export default function TopNavBar({
             )}
           </button>
 
-          {/* Responsive Chaos / 90s Toybox Mode Toggle (+5 pts Side Quest) */}
           <button
             type="button"
             onClick={() => {
@@ -137,23 +147,24 @@ export default function TopNavBar({
             }}
             data-testid="chaos-mode-toggle"
             aria-pressed={chaosMode}
-            className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold border-2 transition ${
+            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono font-bold border-2 transition ${
               chaosMode
                 ? "bg-amber-300 border-slate-900 text-slate-950 shadow-sm"
-                : "border-pink-300 bg-white dark:bg-slate-800 text-espresso hover:bg-pink-50"
+                : "border-pink-200 bg-pink-50 hover:bg-pink-100 text-pink-900 dark:bg-slate-800 dark:text-pink-200"
             }`}
           >
             <Gamepad2 className="w-3.5 h-3.5 text-pink-500" />
-            <span>{chaosMode ? "90s Toybox ON!" : "90s Toybox"}</span>
+            <span className="hidden sm:inline">
+              {chaosMode ? "Toybox ON" : "Toybox"}
+            </span>
           </button>
         </div>
       </div>
 
-      {/* Nostalgic 90s Marquee Ribbon when Toybox Mode is active (Solid Baby Pink Bar) */}
       {chaosMode && (
-        <div className="bg-pink-500 text-white py-1 px-3 text-xs font-mono font-bold overflow-hidden whitespace-nowrap border-t border-pink-300">
+        <div className="max-w-5xl mx-auto mt-1.5 rounded-full bg-pink-500 text-white py-1 px-4 text-xs font-mono font-bold overflow-hidden whitespace-nowrap border-2 border-pink-300 shadow-sm">
           <div className="animate-marquee inline-block">
-            ★ WELCOME TO BITZ&apos;S CELESTIAL CLOUD-LOFT ★ 100% ORIGINAL 3D PLUSHIE CHARACTER PORTFOLIO ★ TICKLE BITZ&apos;S BELLY OR RING THE STAR-BELL 3 TIMES ★
+            ★ WELCOME TO BITZ&apos;S CLOUD-LOFT SANCTUARY ★ MOVE YOUR CURSOR TO TRACK BITZ&apos;S EYES ★ RING THE GOLDEN STAR-BELL 3 TIMES FOR A RAINBOW BRIDGE ★
           </div>
         </div>
       )}
